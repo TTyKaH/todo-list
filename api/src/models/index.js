@@ -19,6 +19,12 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+// models
 db.todos = require("./todo.model.js")(sequelize, Sequelize);
+db.tasks = require("./task.model.js")(sequelize, Sequelize);
+
+// models relations
+db.todos.hasMany(db.tasks);
+
 
 module.exports = db;
