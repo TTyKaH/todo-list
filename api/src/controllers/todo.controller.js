@@ -36,7 +36,7 @@ exports.create = async (req, res) => {
   let tasks = req.body.tasks
   if (tasks.length) {
     for (let task of tasks) {
-      task.todo_id = todoId
+      task.todoId = todoId
       Task.create(task)
         .catch(err => {
           res.status(500).send({
@@ -182,7 +182,7 @@ async function getAllTasksByTodoId(todos) {
   for (todo of todos) {
     await Task.findAll({
       where: {
-        todo_id: todo.id,
+        todoId: todo.id,
       }
     })
       .then((data) => {

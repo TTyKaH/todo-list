@@ -1,9 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Task = sequelize.define("task", {
-    todo_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
+    // базха данных сама создала ключ todoId
     description: {
       type: Sequelize.STRING
     },
