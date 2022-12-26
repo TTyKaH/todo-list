@@ -1,11 +1,11 @@
 const db = require("../models");
 const Todo = db.todos;
+const Task = db.tasks;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Todo
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   // Validate request
-  console.log(req.body)
   if (!req.body.title) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -19,10 +19,11 @@ exports.create = (req, res) => {
     description: req.body.description,
   };
 
+  let todoId = null
   // Save Todo in the database
-  Todo.create(todo)
+  await Todo.create(todo)
     .then(data => {
-      res.send(data);
+      todoId = data.id
     })
     .catch(err => {
       res.status(500).send({
@@ -30,16 +31,34 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while creating the Todo."
       });
     });
+
+  // Save tasks if it exist
+  let tasks = req.body.tasks
+  if (tasks.length) {
+    for (let task of tasks) {
+      task.todo_id = todoId
+      Task.create(task)
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Task."
+          });
+        });
+    }
+  }
+
+  res.send({
+    msg: 'Todo successful created'
+  })
 };
 
 // Retrieve all Todos from the database.
-exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
+exports.findAll = async (req, res) => {
+  let todos = []
 
-  Todo.findAll({ where: condition })
+  await Todo.findAll()
     .then(data => {
-      res.send(data);
+      todos = data
     })
     .catch(err => {
       res.status(500).send({
@@ -47,6 +66,14 @@ exports.findAll = (req, res) => {
           err.message || "Some error occurred while retrieving todos."
       });
     });
+
+  // find all tasks related with one todo and add them to the todo
+  await getAllTasksByTodoId(todos)
+    .then((data) => {
+      console.log('wait')
+    })
+
+  res.send(todos);
 };
 
 // Find a single Todo with an id
@@ -79,9 +106,9 @@ exports.update = (req, res) => {
   })
     .then(num => {
       if (num == 1) {
-        res.send({
-          message: "Todo was updated successfully."
-        });
+        // res.send({
+        //   message: "Todo was updated successfully."
+        // });
       } else {
         res.send({
           message: `Cannot update Todo with id=${id}. Maybe Todo was not found or req.body is empty!`
@@ -93,6 +120,16 @@ exports.update = (req, res) => {
         message: "Error updating Todo with id=" + id
       });
     });
+
+  // same updating for tasks related with todo
+  updateTaskByTodoId(req.body)
+    .then((data) => {
+      console.log(data)
+    })
+
+  res.send({
+    message: "Todo and related data was updated successfully."
+  });
 };
 
 // Delete a Todo with the specified id in the request
@@ -138,3 +175,28 @@ exports.deleteAll = (req, res) => {
 };
 
 // Более сложные методы - это комбинация стандартных sequelize CRUD операций и сложной логики внутри метода с использованием условий sql (sequelize)
+
+// В дальнейшем следует принять решение куда выносить функции используемые внутри контроллеров
+// =========================
+async function getAllTasksByTodoId(todos) {
+  for (todo of todos) {
+    await Task.findAll({
+      where: {
+        todo_id: todo.id,
+      }
+    })
+      .then((data) => {
+        todo.dataValues.tasks = data
+      })
+  }
+}
+
+async function updateTaskByTodoId(todo) {
+  for (task of todo.tasks) {
+    await Task.update(task, {
+      where: {
+        id: task.id
+      }
+    })
+  }
+}
