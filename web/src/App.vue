@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import SidebarView from "@/components/Interface/SideBar/SidebarView.vue";
 import HeaderView from "@/components/Interface/Header/HeaderView.vue";
+import { request } from "@/utils/request";
+// async function test() {
+//   await request({
+//     url: "/todos",
+//     method: "get",
+//   });
+// }
 </script>
 
 <template>
