@@ -1,7 +1,6 @@
 import api from "@/api";
 import { defineStore } from "pinia";
-import { computed } from "vue";
-
+import { computed } from "vue"
 export const useTodosListStore = defineStore("todosList", {
   state: () => {
     return {
@@ -11,10 +10,10 @@ export const useTodosListStore = defineStore("todosList", {
   },
   getters: {
     isLoading: (state) => {
-      return state.loading;
+      return computed(() => state.isLoading);
     },
     getTodos: (state) => {
-      return state.todos;
+      return computed(() => state.todos);
     },
   },
   actions: {

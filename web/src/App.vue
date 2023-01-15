@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import SidebarView from "@/components/Interface/SideBar/SidebarView.vue";
 import HeaderView from "@/components/Interface/Header/HeaderView.vue";
+import SidebarView from "@/components/Interface/SideBar/SidebarView.vue";
 </script>
 
 <template>
-  <HeaderView></HeaderView>
-  <SidebarView></SidebarView>
   <div class="view">
+    <HeaderView></HeaderView>
+    <SidebarView></SidebarView>
     <RouterView />
   </div>
 </template>
