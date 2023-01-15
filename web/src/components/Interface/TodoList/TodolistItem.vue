@@ -15,5 +15,6 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .todo {
+  background: var(--bg-draft);
 }
 </style>
