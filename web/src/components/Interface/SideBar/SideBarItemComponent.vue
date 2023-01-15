@@ -1,7 +1,9 @@
 <template>
   <li class="side-bar__item">
-    <VueFeather :type="item.icon" />
-    {{ item.title }}
+    <router-link :to="item.link">
+      <VueFeather :type="item.icon" />
+      {{ item.title }}
+    </router-link>
   </li>
 </template>
 
@@ -16,10 +18,12 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .side-bar__item {
-  @apply flex gap-2 py-4 px-7 cursor-pointer;
+  a {
+    @apply flex gap-2 py-4 px-7 cursor-pointer;
 
-  &:hover {
-    background: var(--bg-draft-second);
+    &:hover {
+      background: var(--bg-draft-second);
+    }
   }
 }
 </style>

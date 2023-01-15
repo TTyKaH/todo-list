@@ -13,7 +13,7 @@ import SidebarComponent from "@/components/Interface/SideBar/SidebarComponent.vu
 
 <style scoped>
 .view {
-  margin: 70px 0 0 150px;
-  padding: 20px;
+  @apply p-10;
+  margin: 70px 0 0 172px;
 }
 </style>

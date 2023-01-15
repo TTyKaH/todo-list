@@ -12,14 +12,17 @@ const sidebarMenu = [
   {
     title: "Todo list",
     icon: "list",
+    link: "/",
   },
   {
     title: "Create todo",
     icon: "plus-square",
+    link: "/create-todo",
   },
   {
     title: "Settings",
     icon: "settings",
+    link: "/settings",
   },
 ];
 </script>

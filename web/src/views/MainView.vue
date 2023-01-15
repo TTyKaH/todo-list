@@ -12,6 +12,6 @@ import TodoListView from "@/components/Interface/TodoList/TodoListView.vue";
 
 <style lang="scss" scoped>
 .main-view {
-  @apply grid gap-5 w-full p-5;
+  @apply grid gap-10 w-full;
 }
 </style>

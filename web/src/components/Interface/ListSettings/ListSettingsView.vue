@@ -1,12 +1,8 @@
 <template>
-  <div class="list-settings">
-    List settings
-  </div>
+  <div class="list-settings">List settings</div>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
 .list-settings {
