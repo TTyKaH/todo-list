@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todo-form">
     <FormTextarea v-model="formValue.description" />
     <FormInput v-model="formValue.description" />
   </div>
@@ -13,4 +13,10 @@ const formValue = ref({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.todo-form {
+  @apply w-full m-auto;
+  background: var(--bg-draft);
+  max-width: 800px;
+}
+</style>

@@ -1,12 +1,17 @@
 <template>
   <div class="todos-list">
-    <TodolistItem v-for="(todo, idx) in getTodos" :todo="todo" :key="idx" />
+    <TodoListItem
+      v-for="(todo, idx) in getTodos"
+      :todo="todo"
+      :key="idx"
+    />
   </div>
 </template>
 
 <script setup>
 import { useTodosListStore } from "@/stores/todos";
-import TodolistItem from "@/components/Interface/TodoList/TodolistItem.vue";
+import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
+
 const { isLoading, getTodos, loadTodos } = useTodosListStore();
 
 loadTodos();

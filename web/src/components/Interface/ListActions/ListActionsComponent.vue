@@ -1,11 +1,11 @@
 <template>
-  <div class="list-settings">List settings</div>
+  <div class="list-actions">List actions</div>
 </template>
 
 <script setup></script>
 
 <style lang="scss" scoped>
-.list-settings {
+.list-actions {
   background: var(--bg-draft);
 }
 </style>

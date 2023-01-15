@@ -1,13 +1,13 @@
 <template>
   <div class="main-view">
-    <ListSettingsView></ListSettingsView>
-    <TodoListView></TodoListView>
+    <ListActions></ListActions>
+    <TodoList></TodoList>
   </div>
 </template>
 
 <script setup>
-import ListSettingsView from "@/components/Interface/ListSettings/ListSettingsView.vue";
-import TodoListView from "@/components/Interface/TodoList/TodoListView.vue";
+import ListActions from "@/components/Interface/ListActions/ListActionsComponent.vue";
+import TodoList from "@/components/Interface/TodoList/TodoListComponent.vue";
 </script>
 
 <style lang="scss" scoped>

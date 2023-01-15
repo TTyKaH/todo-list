@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import SideBarItem from "@/components/Interface/SideBar/SideBarItemComponent.vue";
+import SideBarItem from "@/components/Interface/Sidebar/SidebarItemComponent.vue";
 const sidebarMenu = [
   {
     title: "Todo list",
