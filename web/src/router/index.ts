@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainView from "../views/MainView.vue";
 import TodoFormView from "../views/TodoForm/TodoFormView.vue";
+import SettingsView from "../views/Settings/SettingsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: "/create-todo",
       name: "TodoFormView",
       component: TodoFormView,
+    },
+    {
+      path: "/settings",
+      name: "SettingsView",
+      component: SettingsView,
     },
     // {
     //   path: '/about',
