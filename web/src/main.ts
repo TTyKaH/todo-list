@@ -7,6 +7,7 @@ import router from "./router";
 import VueFeather from "vue-feather";
 import FormTextareaComponent from "@/components/UI/FormTextareaComponent.vue";
 import FormInputComponent from "@/components/UI/FormInputComponent.vue";
+import ModalWindowComponent from "@/components/UI/modals/ModalWindowComponent.vue";
 
 import "./assets/styles/index.scss";
 
@@ -17,5 +18,6 @@ app.use(router);
 app.component("VueFeather", VueFeather);
 app.component("FormTextarea", FormTextareaComponent);
 app.component("FormInput", FormInputComponent);
+app.component("ModalWindow", ModalWindowComponent);
 
 app.mount("#app");
