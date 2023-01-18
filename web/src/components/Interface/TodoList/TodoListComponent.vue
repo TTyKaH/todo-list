@@ -1,10 +1,6 @@
 <template>
   <div class="todos-list">
-    <TodoListItem
-      v-for="(todo, idx) in getTodos"
-      :todo="todo"
-      :key="idx"
-    />
+    <TodoListItem v-for="(todo, idx) in getTodos" :todo="todo" :key="idx" />
   </div>
 </template>
 

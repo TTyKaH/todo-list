@@ -1,11 +1,11 @@
 <template>
-  <div class="modal">
+  <div class="modal" @click.self="close">
     <div
       class="modal__content"
       :class="props.position"
       :style="{ width: props.width, height: height }"
     >
-      <VueFeather type="x" @click="close()" />
+      <VueFeather type="x" @click="close" />
       <slot>Modal slot content</slot>
     </div>
   </div>
