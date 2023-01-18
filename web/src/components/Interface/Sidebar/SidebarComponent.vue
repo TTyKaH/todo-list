@@ -14,11 +14,11 @@ const sidebarMenu = [
     icon: "list",
     link: "/",
   },
-  {
-    title: "Create todo",
-    icon: "plus-square",
-    link: "/create-todo",
-  },
+  // {
+  //   title: "Create todo",
+  //   icon: "plus-square",
+  //   link: "/create-todo",
+  // },
   {
     title: "Settings",
     icon: "settings",
