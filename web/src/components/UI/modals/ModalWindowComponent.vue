@@ -21,7 +21,7 @@ const props = defineProps({
   },
   width: {
     type: String,
-    default: "400px",
+    default: "500px",
   },
   height: {
     type: String,

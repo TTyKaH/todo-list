@@ -13,7 +13,9 @@
       v-if="activeModalName === 'create-todo'"
       @close="toggleSideModal"
     >
-      sssss
+      <div class="create-todo-form">
+        <CustomInput v-model="todoFormFields.title" label="Title" />
+      </div>
     </ModalWindow>
   </div>
 </template>
@@ -22,7 +24,11 @@
 import { ref } from "vue";
 import ModalWindow from "@/components/UI/modals/ModalWindowComponent.vue";
 
-const activeModalName = ref("");
+const todoFormFields = ref({
+  title: "",
+});
+
+const activeModalName = ref("create-todo");
 
 function toggleSideModal(modalName = "") {
   console.log("toggleSideModal");

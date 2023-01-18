@@ -5,8 +5,8 @@ import App from "./App.vue";
 import router from "./router";
 
 import VueFeather from "vue-feather";
-import FormTextareaComponent from "@/components/UI/FormTextareaComponent.vue";
-import FormInputComponent from "@/components/UI/FormInputComponent.vue";
+import CustomTextareaComponent from "@/components/UI/form/CustomTextareaComponent.vue";
+import CustomInputComponent from "@/components/UI/form/CustomInputComponent.vue";
 import ModalWindowComponent from "@/components/UI/modals/ModalWindowComponent.vue";
 import TooltipWrapperComponent from "@/components/UI/TooltipWrapperComponent.vue";
 
@@ -17,8 +17,8 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.component("VueFeather", VueFeather);
-app.component("FormTextarea", FormTextareaComponent);
-app.component("FormInput", FormInputComponent);
+app.component("CustomTextarea", CustomTextareaComponent);
+app.component("CustomInput", CustomInputComponent);
 app.component("ModalWindow", ModalWindowComponent);
 app.component("TooltipWrapper", TooltipWrapperComponent);
 
