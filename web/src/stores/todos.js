@@ -1,6 +1,6 @@
 import api from "@/api";
 import { defineStore } from "pinia";
-import { computed } from "vue"
+import { computed } from "vue";
 export const useTodosListStore = defineStore("todosList", {
   state: () => {
     return {
@@ -23,9 +23,7 @@ export const useTodosListStore = defineStore("todosList", {
       try {
         this.loading = true;
         const res = await api.todo.getTodos();
-
         console.log(res);
-
         this.todos = res.todos;
       } catch (err) {
         this.products = [];

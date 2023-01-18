@@ -38,7 +38,7 @@ export const request = async (config) => {
     const res = await service.request(config);
 
     return Promise.resolve({
-      todos: [...res.data],
+      ...res.data,
       success: true,
     });
   } catch (error) {

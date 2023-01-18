@@ -6,6 +6,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Todo
 exports.create = async (req, res) => {
   // Validate request
+  console.log(req)
   if (!req.body.title) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -73,7 +74,9 @@ exports.findAll = async (req, res) => {
       console.log('wait')
     })
 
-  res.send(todos);
+  res.send({
+    todos: todos
+  });
 };
 
 // Find a single Todo with an id
