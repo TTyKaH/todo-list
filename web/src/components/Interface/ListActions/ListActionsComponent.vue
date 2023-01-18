@@ -13,9 +13,7 @@
       v-if="activeModalName === 'create-todo'"
       @close="toggleSideModal"
     >
-      <div class="create-todo-form">
-        <CustomInput v-model="todoFormFields.title" label="Title" />
-      </div>
+      <CreateTodoForm />
     </ModalWindow>
   </div>
 </template>
@@ -23,10 +21,7 @@
 <script setup>
 import { ref } from "vue";
 import ModalWindow from "@/components/UI/modals/ModalWindowComponent.vue";
-
-const todoFormFields = ref({
-  title: "",
-});
+import CreateTodoForm from "@/components/Interface/Forms/CreateTodoFormComponent.vue";
 
 const activeModalName = ref("create-todo");
 
