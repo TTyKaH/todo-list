@@ -23,7 +23,7 @@ import { ref } from "vue";
 import ModalWindow from "@/components/UI/modals/ModalWindowComponent.vue";
 import CreateTodoForm from "@/components/Interface/Forms/CreateTodoFormComponent.vue";
 
-const activeModalName = ref("create-todo");
+const activeModalName = ref("");
 
 function toggleSideModal(modalName = "") {
   console.log("toggleSideModal");

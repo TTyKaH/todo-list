@@ -1,29 +1,38 @@
 <template>
   <div class="create-todo-form">
     <h3>Create todo</h3>
-    <CustomInput v-model="todoFormFields.title" label="Title" />
-    <CustomTextarea v-model="todoFormFields.description" label="Description" />
-    <div class="tasks">
-      <CustomInput
-        v-for="(task, idx) in todoFormFields.tasks"
-        :key="idx"
-        v-model="todoFormFields.tasks[idx].description"
-        label="Task"
+    <form class="form">
+      <CustomInput v-model="todoFormFields.title" label="Title" />
+      <CustomTextarea
+        v-model="todoFormFields.description"
+        label="Description"
       />
-      <div class="task-action">
-        <TooltipWrapper tooltip="add task">
-          <VueFeather type="plus-square" @click="addTask" />
-        </TooltipWrapper>
-        <TooltipWrapper tooltip="remove last task">
-          <VueFeather type="minus-square" @click="removeLastTask" />
-        </TooltipWrapper>
+      <div class="tasks">
+        <CustomInput
+          v-for="(task, idx) in todoFormFields.tasks"
+          :key="idx"
+          v-model="todoFormFields.tasks[idx].description"
+          label="Task"
+        />
+        <div class="task-action">
+          <TooltipWrapper tooltip="add task">
+            <VueFeather type="plus-square" @click="addTask" />
+          </TooltipWrapper>
+          <TooltipWrapper tooltip="remove last task">
+            <VueFeather type="minus-square" @click="removeLastTask" />
+          </TooltipWrapper>
+        </div>
       </div>
+    </form>
+    <div class="form-actions">
+      <CustomButton @click="saveTodo">Save</CustomButton>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import api from "@/api";
 
 const todoFormFields = ref({
   title: "",
@@ -31,6 +40,7 @@ const todoFormFields = ref({
   tasks: [
     {
       description: "",
+      status: false,
     },
   ],
 });
@@ -38,24 +48,40 @@ const todoFormFields = ref({
 function addTask() {
   todoFormFields.value.tasks.push({
     description: "",
+    status: false,
   });
 }
+
 function removeLastTask() {
   const tasksCount = todoFormFields.value.tasks.length;
   if (tasksCount === 1) return;
   todoFormFields.value.tasks.splice(todoFormFields.value.tasks.length - 1, 1);
 }
+
+async function saveTodo() {
+  try {
+    const res = await api.todo.createTodo(todoFormFields.value);
+
+    console.log(res);
+  } catch (err) {
+    console.error(err);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .create-todo-form {
-  @apply grid gap-5;
+  @apply grid gap-7;
 
-  .tasks {
-    @apply relative grid gap-3;
+  .form {
+    @apply grid gap-5;
 
-    .task-action {
-      @apply flex absolute right-0 -bottom-8;
+    .tasks {
+      @apply relative grid gap-3;
+
+      .task-action {
+        @apply flex absolute right-0 -bottom-8;
+      }
     }
   }
 }
