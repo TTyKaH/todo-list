@@ -2,17 +2,11 @@
   <div class="list-actions">
     <div class="actions">
       <TooltipWrapper tooltip="add todo">
-        <VueFeather
-          type="plus-square"
-          @click="toggleSideModal('create-todo')"
-        />
+        <VueFeather type="plus-square" @click="toggleModal('create-todo')" />
       </TooltipWrapper>
     </div>
     <div>Table settings</div>
-    <ModalWindow
-      v-if="activeModalName === 'create-todo'"
-      @close="toggleSideModal"
-    >
+    <ModalWindow v-if="activeModalName === 'create-todo'" @close="toggleModal">
       <CreateTodoForm />
     </ModalWindow>
   </div>
@@ -25,8 +19,7 @@ import CreateTodoForm from "@/components/Interface/Forms/CreateTodoFormComponent
 
 const activeModalName = ref("");
 
-function toggleSideModal(modalName = "") {
-  console.log("toggleSideModal");
+function toggleModal(modalName = "") {
   activeModalName.value = modalName;
 }
 </script>

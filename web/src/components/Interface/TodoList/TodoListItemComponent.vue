@@ -11,6 +11,7 @@
           :type="action.icon"
           :key="idx"
           class="action"
+          @click="action.function('remove-todo')"
         />
       </div>
     </div>
@@ -22,11 +23,31 @@
         </div>
       </div>
     </div>
+    <!-- TODO: Модальное окно будет отрисовываться несколько раз - плохо -->
+    <!-- TODO: Метод переключения модалки тоже вынести -->
+    <ModalWindow
+      v-if="activeModalName === 'remove-todo'"
+      @close="toggleModal"
+      position="center"
+      height="auto"
+      width="350px"
+    >
+      <div class="dialog">
+        <h3>Remove todo?</h3>
+        <div class="actions">
+          <CustomButton @click="toggleModal">Cancel</CustomButton>
+          <!-- TODO: Методы связанные с сущностью todo необходимо вынести в общий файл -->
+          <CustomButton @click="removeTodo(todo.id)">Remove</CustomButton>
+        </div>
+      </div>
+    </ModalWindow>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import api from "@/api";
+
 const props = defineProps({
   todo: {
     type: Object,
@@ -34,20 +55,36 @@ const props = defineProps({
   },
 });
 
-const actions = ref([
+const actions = [
   {
     icon: "eye",
-    actionName: "review",
+    function: "review",
   },
   {
     icon: "edit",
-    actionName: "edit",
+    function: "edit",
   },
   {
     icon: "trash",
-    actionName: "remove",
+    function: toggleModal,
   },
-]);
+];
+
+const activeModalName = ref("");
+
+function toggleModal(modalName = "") {
+  activeModalName.value = modalName;
+}
+
+async function removeTodo(id) {
+  try {
+    const res = await api.todo.removeTodo({
+      id: id,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -81,6 +118,14 @@ const actions = ref([
     h4 {
       @apply mb-2;
     }
+  }
+}
+
+.dialog {
+  @apply grid gap-5;
+
+  .actions {
+    @apply flex gap-5;
   }
 }
 </style>

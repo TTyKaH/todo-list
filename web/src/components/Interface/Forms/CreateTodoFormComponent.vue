@@ -61,8 +61,6 @@ function removeLastTask() {
 async function saveTodo() {
   try {
     const res = await api.todo.createTodo(todoFormFields.value);
-
-    console.log(res);
   } catch (err) {
     console.error(err);
   }

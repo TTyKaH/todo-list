@@ -3,28 +3,36 @@ import { request } from "@/utils/request";
 /**
  * Получение списка todo
  */
-async function getTodos(params = {}) {
+async function getTodos() {
   return await request({
     url: "todos",
     method: "get",
-    params,
   });
 }
 
 /**
  * Создание todo
  */
-async function createTodo(body = {}, params = {}) {
-  console.log(params);
+async function createTodo(params = {}) {
   return await request({
     url: "todos",
     method: "post",
-    data: body,
-    params: params,
+    data: params,
+  });
+}
+
+/**
+ * Удаление todo
+ */
+async function removeTodo(params = {}) {
+  return await request({
+    url: `todos/${params.id}`,
+    method: "delete",
   });
 }
 
 export default {
   getTodos,
   createTodo,
+  removeTodo,
 };
