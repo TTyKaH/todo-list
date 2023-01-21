@@ -71,4 +71,12 @@ async function removeTodo() {
 .todos-list {
   @apply grid gap-5 md:grid-cols-2 xl:grid-cols-3;
 }
+
+.dialog {
+  @apply grid gap-5;
+
+  .actions {
+    @apply flex gap-5;
+  }
+}
 </style>

@@ -88,12 +88,4 @@ const actions = [
     }
   }
 }
-
-.dialog {
-  @apply grid gap-5;
-
-  .actions {
-    @apply flex gap-5;
-  }
-}
 </style>
