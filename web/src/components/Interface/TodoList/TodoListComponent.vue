@@ -32,7 +32,6 @@ import api from "@/api";
 import { useTodosListStore } from "@/stores/todos";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
-
 import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
 
 const { isLoading, getTodos, loadTodos } = useTodosListStore();
