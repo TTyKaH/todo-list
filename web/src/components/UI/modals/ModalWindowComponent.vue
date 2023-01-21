@@ -43,7 +43,7 @@ function close() {
 
 <style lang="scss" scoped>
 .modal {
-  @apply fixed inset-0 z-50 flex;
+  @apply fixed inset-0 z-40 flex;
   background: var(--bg-draft-modal);
 
   &__content {

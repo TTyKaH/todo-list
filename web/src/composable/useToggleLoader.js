@@ -1,11 +1,11 @@
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useLoaderStore } from "@/stores/loader";
 
 export const useToggleLoader = () => {
-  const isLoading = ref(false);
+  const store = useLoaderStore();
 
-  const toggleLoader = (isRotate = false) => {
-    isLoading.value = isRotate;
-  };
+  const { isLoading } = storeToRefs(store);
+  const { toggleLoader } = store;
 
   return { isLoading, toggleLoader };
 };

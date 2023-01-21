@@ -33,6 +33,9 @@
 <script setup>
 import { ref } from "vue";
 import api from "@/api";
+import { useToggleLoader } from "@/composable/useToggleLoader.js";
+
+const { toggleLoader, isLoading } = useToggleLoader();
 
 const todoFormFields = ref({
   title: "",
@@ -59,10 +62,13 @@ function removeLastTask() {
 }
 
 async function saveTodo() {
+  toggleLoader(true);
   try {
     const res = await api.todo.createTodo(todoFormFields.value);
   } catch (err) {
     console.error(err);
+  } finally {
+    toggleLoader();
   }
 }
 </script>
