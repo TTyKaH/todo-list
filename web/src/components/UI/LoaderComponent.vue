@@ -38,7 +38,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .loader {
-  @apply fixed inset-0 flex justify-center items-center z-50;
+  @apply fixed inset-0 flex justify-center items-center z-40;
   background-color: var(--bg-draft-modal);
 
   &__icon {

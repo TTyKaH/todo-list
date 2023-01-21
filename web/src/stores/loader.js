@@ -3,6 +3,7 @@ export const useLoaderStore = defineStore("loader", {
   state: () => {
     return {
       isLoading: false,
+      minimalLoaderLivingTime: 1000, // ms
     };
   },
   actions: {
@@ -11,7 +12,7 @@ export const useLoaderStore = defineStore("loader", {
         ? (this.isLoading = isShowLoader)
         : setTimeout(() => {
             this.isLoading = isShowLoader;
-          }, 500);
+          }, this.minimalLoaderLivingTime);
     },
   },
 });

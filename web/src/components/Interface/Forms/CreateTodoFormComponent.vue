@@ -34,8 +34,10 @@
 import { ref } from "vue";
 import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
+import { useNotify } from "@/composable/useNotify.js";
 
 const { toggleLoader } = useToggleLoader();
+const { showNotify } = useNotify();
 
 const todoFormFields = ref({
   title: "",
@@ -65,6 +67,7 @@ async function saveTodo() {
   toggleLoader(true);
   try {
     const res = await api.todo.createTodo(todoFormFields.value);
+    showNotify("success", "succes");
   } catch (err) {
     console.error(err);
   } finally {

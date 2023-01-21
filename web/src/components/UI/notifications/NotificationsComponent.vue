@@ -19,6 +19,6 @@ const { getNotifications: notifications } = store;
 
 <style lang="scss" scoped>
 .notifications {
-  @apply fixed right-4 bottom-4 grid gap-2;
+  @apply fixed right-4 bottom-4 grid gap-2 z-50;
 }
 </style>
