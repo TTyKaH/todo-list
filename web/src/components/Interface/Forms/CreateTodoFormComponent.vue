@@ -74,7 +74,7 @@ async function saveTodo() {
     const response = await api.todo.createTodo(todoFormFields.value);
 
     await loadTodos();
-    showNotify("success", "succes");
+    showNotify("success", response.message);
     emit("close-modal");
   } catch (err) {
     showNotify("error", "error");

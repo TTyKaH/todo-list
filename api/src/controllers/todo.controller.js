@@ -49,7 +49,7 @@ exports.create = async (req, res) => {
   }
 
   res.send({
-    msg: 'Todo successful created'
+    message: 'Todo successful created'
   })
 };
 

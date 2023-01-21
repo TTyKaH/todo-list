@@ -57,7 +57,7 @@ async function removeTodo() {
     });
 
     await loadTodos();
-    showNotify("success", "succes");
+    showNotify("success", response.message);
     toggleModal();
   } catch (err) {
     showNotify("error", "error");
