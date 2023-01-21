@@ -4,6 +4,7 @@
     <Sidebar />
     <RouterView />
     <Loader v-if="isLoading" />
+    <Notifications />
   </div>
 </template>
 
@@ -11,6 +12,8 @@
 import Header from "@/components/Interface/Header/HeaderComponent.vue";
 import Sidebar from "@/components/Interface/Sidebar/SidebarComponent.vue";
 import Loader from "@/components/UI/LoaderComponent.vue";
+import Notifications from "@/components/UI/notifications/NotificationsComponent.vue";
+
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 
 const { isLoading } = useToggleLoader();
