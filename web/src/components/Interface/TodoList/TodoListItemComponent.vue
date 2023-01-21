@@ -48,8 +48,10 @@
 import { ref } from "vue";
 import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
+import { useNotify } from "@/composable/useNotify.js";
 
 const { toggleLoader } = useToggleLoader();
+const { showNotify } = useNotify();
 
 const props = defineProps({
   todo: {
@@ -86,9 +88,10 @@ async function removeTodo(id) {
     const res = await api.todo.removeTodo({
       id: id,
     });
+    showNotify("success", "succes");
     toggleModal();
   } catch (err) {
-    console.error(err);
+    showNotify("error", "error");
   } finally {
     toggleLoader();
   }

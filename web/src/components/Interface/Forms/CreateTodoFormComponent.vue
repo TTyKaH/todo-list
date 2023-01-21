@@ -39,6 +39,8 @@ import { useNotify } from "@/composable/useNotify.js";
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 
+const emit = defineEmits(["close-modal"]);
+
 const todoFormFields = ref({
   title: "",
   description: "",
@@ -68,8 +70,9 @@ async function saveTodo() {
   try {
     const res = await api.todo.createTodo(todoFormFields.value);
     showNotify("success", "succes");
+    emit("close-modal");
   } catch (err) {
-    console.error(err);
+    showNotify("error", "error");
   } finally {
     toggleLoader();
   }

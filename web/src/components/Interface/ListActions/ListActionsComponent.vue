@@ -7,7 +7,7 @@
     </div>
     <div>Table settings</div>
     <ModalWindow v-if="activeModalName === 'create-todo'" @close="toggleModal">
-      <CreateTodoForm />
+      <CreateTodoForm @close-modal="toggleModal" />
     </ModalWindow>
   </div>
 </template>
