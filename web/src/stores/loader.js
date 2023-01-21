@@ -6,8 +6,12 @@ export const useLoaderStore = defineStore("loader", {
     };
   },
   actions: {
-    toggleLoader(isRotate = false) {
-      this.isLoading = isRotate;
+    toggleLoader(isShowLoader = false) {
+      isShowLoader
+        ? (this.isLoading = isShowLoader)
+        : setTimeout(() => {
+            this.isLoading = isShowLoader;
+          }, 500);
     },
   },
 });
