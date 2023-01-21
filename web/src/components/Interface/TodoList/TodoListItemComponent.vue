@@ -47,6 +47,9 @@
 <script setup>
 import { ref } from "vue";
 import api from "@/api";
+import { useToggleLoader } from "@/composable/useToggleLoader.js";
+
+const { toggleLoader } = useToggleLoader();
 
 const props = defineProps({
   todo: {
@@ -72,17 +75,22 @@ const actions = [
 
 const activeModalName = ref("");
 
+// TODO: сделать метод глобальным
 function toggleModal(modalName = "") {
   activeModalName.value = modalName;
 }
 
 async function removeTodo(id) {
+  toggleLoader(true);
   try {
     const res = await api.todo.removeTodo({
       id: id,
     });
+    toggleModal();
   } catch (err) {
     console.error(err);
+  } finally {
+    toggleLoader();
   }
 }
 </script>

@@ -35,7 +35,7 @@ import { ref } from "vue";
 import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 
-const { toggleLoader, isLoading } = useToggleLoader();
+const { toggleLoader } = useToggleLoader();
 
 const todoFormFields = ref({
   title: "",
