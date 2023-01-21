@@ -33,8 +33,11 @@
 <script setup>
 import { ref } from "vue";
 import api from "@/api";
+import { useTodosListStore } from "@/stores/todos";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
+
+const { loadTodos } = useTodosListStore();
 
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
@@ -68,7 +71,9 @@ function removeLastTask() {
 async function saveTodo() {
   toggleLoader(true);
   try {
-    const res = await api.todo.createTodo(todoFormFields.value);
+    const response = await api.todo.createTodo(todoFormFields.value);
+
+    await loadTodos();
     showNotify("success", "succes");
     emit("close-modal");
   } catch (err) {

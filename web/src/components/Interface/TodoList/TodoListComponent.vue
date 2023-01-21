@@ -53,12 +53,12 @@ function toggleModal(data = {}) {
 async function removeTodo() {
   toggleLoader(true);
   try {
-    const res = await api.todo.removeTodo({
+    const response = await api.todo.removeTodo({
       id: activeTodoId.value,
     });
 
-    showNotify("success", "succes");
     await loadTodos();
+    showNotify("success", "succes");
     toggleModal();
   } catch (err) {
     showNotify("error", "error");
