@@ -1,15 +1,20 @@
-<script setup lang="ts">
-import Header from "@/components/Interface/Header/HeaderComponent.vue";
-import Sidebar from "@/components/Interface/Sidebar/SidebarComponent.vue";
-</script>
-
 <template>
   <div class="view">
     <Header />
     <Sidebar />
     <RouterView />
+    <Loader v-if="isLoading" />
   </div>
 </template>
+
+<script setup lang="ts">
+import Header from "@/components/Interface/Header/HeaderComponent.vue";
+import Sidebar from "@/components/Interface/Sidebar/SidebarComponent.vue";
+import Loader from "@/components/UI/LoaderComponent.vue";
+import { useToggleLoader } from "@/composable/useToggleLoader.js";
+
+const { isLoading } = useToggleLoader();
+</script>
 
 <style scoped>
 .view {
