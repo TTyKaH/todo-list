@@ -4,7 +4,12 @@
       {{ props.label }}
       <span v-if="required" class="required">*</span>
     </div>
-    <select v-if="options.length > 0" v-model="innerValue" class="field">
+    <select
+      v-if="options.length > 0"
+      v-model="innerValue"
+      :disabled="disabled"
+      class="field"
+    >
       <option
         v-for="(option, idx) in options"
         :key="`option_${idx}`"
@@ -29,6 +34,10 @@ const props = defineProps({
   modelValue: {
     type: [Object, String],
   },
+  options: {
+    type: Array,
+    required: true,
+  },
   label: {
     type: String,
     default: "",
@@ -37,9 +46,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  options: {
-    type: Array,
-    required: true,
+  disabled: {
+    type: Boolean,
+    default: false,
   },
   hasError: {
     type: Boolean,
@@ -48,10 +57,6 @@ const props = defineProps({
   error: {
     type: Object,
     default: () => ({}),
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
   },
   optionTextKey: {
     type: String,

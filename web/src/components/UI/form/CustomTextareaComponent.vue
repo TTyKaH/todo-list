@@ -6,6 +6,7 @@
     </div>
     <textarea
       :value="props.modelValue"
+      :disabled="disabled"
       @input="$emit('update:modelValue', $event.target.value)"
       class="field"
       :class="{ error: props.hasError }"
@@ -28,6 +29,10 @@ const props = defineProps({
     default: "",
   },
   required: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
     type: Boolean,
     default: false,
   },
