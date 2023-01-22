@@ -1,6 +1,7 @@
 <template>
-  <div class="custom-select">
-    <select v-if="options.length > 0" v-model="innerValue">
+  <div class="custom-field select">
+    <div class="label">{{ props.label }}</div>
+    <select v-if="options.length > 0" v-model="innerValue" class="field">
       <option
         v-for="(option, idx) in options"
         :key="`option_${idx}`"
@@ -15,9 +16,11 @@
 <script setup>
 import { toRefs, watch, ref } from "vue";
 
+const emit = defineEmits(["update:modalValue"]);
+
 const props = defineProps({
   modelValue: {
-    type: Object,
+    type: [Object, String],
   },
   options: {
     type: Array,
@@ -52,11 +55,9 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modalValue"]);
-
 const { options, modelValue, isSelectFirstItemIfNull } = toRefs(props);
 
-const innerValue = ref("");
+const innerValue = ref();
 if (
   (modelValue.value === null || typeof modelValue.value === "undefined") &&
   isSelectFirstItemIfNull.value
@@ -68,10 +69,12 @@ if (
 }
 
 watch(innerValue, (newValue) => {
-  if (innerValue.value !== newValue) {
-    console.log("inner value обновился");
-    emit("update:modelValue", newValue);
-  }
+  console.log("inner value обновился");
+  console.log("innerValue.value", innerValue.value);
+  console.log("newValue", newValue);
+  // if (innerValue.value !== newValue) {
+  emit("update:modelValue", newValue);
+  // }
 });
 
 watch(modelValue, (newValue, oldValue) => {

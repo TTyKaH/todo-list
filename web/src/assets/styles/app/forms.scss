@@ -1,0 +1,29 @@
+.custom-field {
+  @apply flex relative;
+
+  .label {
+    @apply absolute left-4 text-gray-400;
+
+    &.active {
+    }
+  }
+
+  .field {
+    @apply pt-5 pb-2 px-4 w-full border rounded;
+
+    // box-shadow: 0 0 3px 2px transparent;
+
+    &:focus {
+      @apply outline-none;
+      box-shadow: 0 0 3px 2px #eeeeee;
+
+      &.error {
+        box-shadow: 0 0 3px 2px rgb(248, 113, 113);
+      }
+    }
+
+    &.error {
+      @apply border-red-400;
+    }
+  }
+}
