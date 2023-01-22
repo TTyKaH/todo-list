@@ -2,7 +2,10 @@
   <div class="create-todo-form">
     <h3>Create todo</h3>
     <form class="form">
-      <CustomInput v-model="todoFormFields.title" label="Title" />
+      <div>
+        <CustomInput v-model="todoFormFields.title" label="Title" />
+        <CustomSelect :options="items" v-model="todoFormFields.priority" />
+      </div>
       <CustomTextarea
         v-model="todoFormFields.description"
         label="Description"
@@ -46,6 +49,7 @@ const emit = defineEmits(["close-modal"]);
 
 const todoFormFields = ref({
   title: "",
+  priority: "",
   description: "",
   tasks: [
     {
@@ -54,6 +58,21 @@ const todoFormFields = ref({
     },
   ],
 });
+
+const items = ref([
+  {
+    id: 1,
+    text: "low",
+  },
+  {
+    id: 2,
+    text: "middle",
+  },
+  {
+    id: 3,
+    text: "hight",
+  },
+]);
 
 function addTask() {
   todoFormFields.value.tasks.push({

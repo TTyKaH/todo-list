@@ -5,8 +5,7 @@ const db = require("./models");
 
 const app = express();
 
-
-db.sequelize.sync()
+db.sequelize.sync();
 // sync with tables dropping
 // db.sequelize.sync({ force: true })
 //   .then(() => {
@@ -14,8 +13,7 @@ db.sequelize.sync()
 //   });
 
 var corsOptions = {
-  origin: "http://localhost:5173",
-  // origin: "http://localhost:8081"
+  origin: ["http://localhost:5173", "http://localhost:8081"],
 };
 
 app.use(cors(corsOptions));
