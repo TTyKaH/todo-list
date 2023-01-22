@@ -4,8 +4,10 @@ import { computed } from "vue";
 export const useTodosListStore = defineStore("todosList", {
   state: () => {
     return {
+      // TODO: надо ли это?
       loading: false,
       todos: [],
+      activeTodoId: null,
     };
   },
   getters: {
@@ -14,6 +16,11 @@ export const useTodosListStore = defineStore("todosList", {
     },
     getTodos: (state) => {
       return computed(() => state.todos);
+    },
+    getActiveTodo: (state) => {
+      return computed(() =>
+        state.todos.find((todo) => todo.id === state.activeTodoId)
+      );
     },
   },
   actions: {
@@ -31,6 +38,9 @@ export const useTodosListStore = defineStore("todosList", {
       } finally {
         this.loading = false;
       }
+    },
+    setActiveTodoId(id = null) {
+      this.activeTodoId = id;
     },
   },
 });

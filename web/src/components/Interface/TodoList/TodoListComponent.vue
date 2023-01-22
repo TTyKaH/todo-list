@@ -5,6 +5,7 @@
       :todo="todo"
       :key="idx"
       @need-remove-todo="toggleModal"
+      @need-edit-todo="toggleModal"
     />
     <!-- TODO: Метод переключения модалки тоже вынести как глобальный -->
     <ModalWindow
@@ -23,6 +24,9 @@
         </div>
       </div>
     </ModalWindow>
+    <ModalWindow v-if="activeModalName === 'edit-todo'" @close="toggleModal">
+      <TodoForm @close-modal="toggleModal" />
+    </ModalWindow>
   </div>
 </template>
 
@@ -33,8 +37,9 @@ import { useTodosListStore } from "@/stores/todos";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
+import TodoForm from "@/components/Interface/Forms/TodoFormComponent.vue";
 
-const { isLoading, getTodos, loadTodos } = useTodosListStore();
+const { isLoading, getTodos, loadTodos, setActiveTodoId } = useTodosListStore();
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 
@@ -44,9 +49,9 @@ const activeTodoId = ref(null);
 loadTodos();
 
 // TODO: сделать метод глобальным
-function toggleModal(data = {}) {
-  activeModalName.value = data.modalName;
-  activeTodoId.value = data.id;
+function toggleModal(modalName) {
+  activeModalName.value = modalName;
+  setActiveTodoId();
 }
 
 async function removeTodo() {
@@ -70,13 +75,5 @@ async function removeTodo() {
 <style lang="scss" scoped>
 .todos-list {
   @apply grid gap-5 md:grid-cols-2 xl:grid-cols-3;
-}
-
-.dialog {
-  @apply grid gap-5;
-
-  .actions {
-    @apply flex gap-5;
-  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="create-todo-form">
-    <h3>Create todo</h3>
+    <h3>{{ formTitle }}</h3>
     <form class="form">
       <div class="group">
         <CustomInput v-model="todoFormFields.title" label="Title" required />
@@ -38,13 +38,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import api from "@/api";
 import { useTodosListStore } from "@/stores/todos";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 
-const { loadTodos } = useTodosListStore();
+const { loadTodos, setActiveTodoId, getActiveTodo } = useTodosListStore();
 
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
@@ -61,6 +61,17 @@ const todoFormFields = ref({
       status: false,
     },
   ],
+});
+
+// Для случая, если редактируется todo
+if (getActiveTodo.value) {
+  todoFormFields.value = getActiveTodo.value;
+}
+
+const isEditing = computed(() => !!getActiveTodo.value);
+
+const formTitle = computed(() => {
+  return isEditing.value ? "Edit todo" : "Create todo";
 });
 
 // TODO: это должно быть вынесено в константы, либо на бек

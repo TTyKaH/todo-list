@@ -12,3 +12,11 @@
 .vue-feather {
   @apply cursor-pointer;
 }
+
+.dialog {
+  @apply grid gap-5 text-center;
+
+  .actions {
+    @apply flex gap-5 justify-center;
+  }
+}

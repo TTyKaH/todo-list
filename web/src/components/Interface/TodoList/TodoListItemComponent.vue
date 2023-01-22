@@ -11,12 +11,7 @@
           :type="action.icon"
           :key="idx"
           class="action"
-          @click="
-            $emit(action.emit, {
-              modalName: 'remove-todo',
-              id: props.todo.id,
-            })
-          "
+          @click="emitAction(action)"
         />
       </div>
     </div>
@@ -32,6 +27,10 @@
 </template>
 
 <script setup>
+import { useTodosListStore } from "@/stores/todos";
+
+const { setActiveTodoId } = useTodosListStore();
+
 const props = defineProps({
   todo: {
     type: Object,
@@ -39,20 +38,30 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["review", "need-edit-todo", "need-remove-todo"]);
+
 const actions = [
   {
     icon: "eye",
     emit: "review",
+    modalName: "remove-todo",
   },
   {
     icon: "edit",
-    emit: "edit",
+    emit: "need-edit-todo",
+    modalName: "edit-todo",
   },
   {
     icon: "trash",
     emit: "need-remove-todo",
+    modalName: "remove-todo",
   },
 ];
+
+const emitAction = (action) => {
+  emit(action.emit, action.modalName);
+  setActiveTodoId(props.todo.id);
+};
 </script>
 
 <style lang="scss" scoped>
