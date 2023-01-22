@@ -2,9 +2,13 @@
   <div class="create-todo-form">
     <h3>Create todo</h3>
     <form class="form">
-      <div>
+      <div class="group">
         <CustomInput v-model="todoFormFields.title" label="Title" />
-        <CustomSelect :options="items" v-model="todoFormFields.priority" />
+        <CustomSelect
+          v-model="todoFormFields.priority"
+          :options="items"
+          label="Priority"
+        />
       </div>
       <CustomTextarea
         v-model="todoFormFields.description"
@@ -59,6 +63,7 @@ const todoFormFields = ref({
   ],
 });
 
+// TODO: это должно быть вынесено в константы, либо на бек
 const items = ref([
   {
     id: 1,
@@ -109,6 +114,10 @@ async function saveTodo() {
 
   .form {
     @apply grid gap-5;
+
+    .group {
+      @apply grid grid-cols-2 gap-5;
+    }
 
     .tasks {
       @apply relative grid gap-3;
