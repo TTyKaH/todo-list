@@ -60,7 +60,7 @@ async function removeTodo() {
     showNotify("success", response.message);
     toggleModal();
   } catch (err) {
-    showNotify("error", "error");
+    showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();
   }

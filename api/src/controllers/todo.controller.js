@@ -5,11 +5,11 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Todo
 exports.create = async (req, res) => {
+  // TODO: Придумать как валедировать запросы
   // Validate request
-  console.log(req)
   if (!req.body.title) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Title is required!"
     });
     return;
   }

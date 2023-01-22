@@ -67,15 +67,15 @@ const todoFormFields = ref({
 const items = ref([
   {
     id: 1,
-    text: "low",
+    text: "Low",
   },
   {
     id: 2,
-    text: "middle",
+    text: "Middle",
   },
   {
     id: 3,
-    text: "hight",
+    text: "Hight",
   },
 ]);
 
@@ -101,7 +101,7 @@ async function saveTodo() {
     showNotify("success", response.message);
     emit("close-modal");
   } catch (err) {
-    showNotify("error", "error");
+    showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();
   }
