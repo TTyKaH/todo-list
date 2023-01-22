@@ -3,7 +3,7 @@
     <h3>Create todo</h3>
     <form class="form">
       <div class="group">
-        <CustomInput v-model="todoFormFields.title" label="Title" />
+        <CustomInput v-model="todoFormFields.title" label="Title" required />
         <CustomSelect
           v-model="todoFormFields.priority"
           :options="items"

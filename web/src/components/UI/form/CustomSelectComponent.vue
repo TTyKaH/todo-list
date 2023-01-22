@@ -1,6 +1,9 @@
 <template>
   <div class="custom-field select">
-    <div class="label">{{ props.label }}</div>
+    <div class="label">
+      {{ props.label }}
+      <span v-if="required" class="required">*</span>
+    </div>
     <select v-if="options.length > 0" v-model="innerValue" class="field">
       <option
         v-for="(option, idx) in options"
@@ -10,6 +13,10 @@
         {{ option[optionTextKey] }}
       </option>
     </select>
+    <div class="bottom-text">
+      <slot name="tip"></slot>
+      <div v-if="error.length" class="error-text">{{ error }}</div>
+    </div>
   </div>
 </template>
 
@@ -22,13 +29,17 @@ const props = defineProps({
   modelValue: {
     type: [Object, String],
   },
-  options: {
-    type: Array,
-    required: true,
-  },
   label: {
     type: String,
     default: "",
+  },
+  required: {
+    type: Boolean,
+    default: false,
+  },
+  options: {
+    type: Array,
+    required: true,
   },
   hasError: {
     type: Boolean,

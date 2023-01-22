@@ -1,12 +1,19 @@
 <template>
   <div class="custom-field input">
-    <div class="label">{{ props.label }}</div>
+    <div class="label">
+      {{ props.label }}
+      <span v-if="required" class="required">*</span>
+    </div>
     <input
       :value="props.modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       class="field"
       :class="{ error: props.hasError }"
     />
+    <div class="bottom-text">
+      <slot name="tip"></slot>
+      <div v-if="error.length" class="error-text">{{ error }}</div>
+    </div>
   </div>
 </template>
 
@@ -19,6 +26,10 @@ const props = defineProps({
   label: {
     type: String,
     default: "",
+  },
+  required: {
+    type: Boolean,
+    default: false,
   },
   hasError: {
     type: Boolean,

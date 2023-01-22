@@ -1,8 +1,12 @@
 .custom-field {
-  @apply flex relative;
+  @apply flex flex-col relative;
 
   .label {
-    @apply absolute left-4 text-gray-400;
+    @apply absolute left-4 top-1 text-gray-400 text-sm;
+
+    .required {
+      color: var(--draft-danger)
+    }
 
     &.active {
     }
@@ -29,6 +33,14 @@
   &.select {
     .field {
       @apply pl-3;
+    }
+  }
+
+  .bottom-text {
+    @apply text-gray-400 text-sm;
+
+    .error-text {
+      color: var(--draft-danger);
     }
   }
 }
