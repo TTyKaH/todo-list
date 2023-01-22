@@ -19,6 +19,8 @@
 </template>
 
 <script setup>
+defineEmits(["update:modelValue"]);
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -45,7 +47,6 @@ const props = defineProps({
     default: () => ({}),
   },
 });
-defineEmits(["update:modelValue"]);
 </script>
 
 <style lang="scss" scoped></style>
