@@ -38,18 +38,20 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
+import { storeToRefs } from "pinia";
 import api from "@/api";
-import { useTodosListStore } from "@/stores/todos";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
+import { useTodosListStore } from "@/stores/todos";
 
-const { loadTodos, setActiveTodoId, getActiveTodo } = useTodosListStore();
+const emit = defineEmits(["close-modal"]);
 
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 
-const emit = defineEmits(["close-modal"]);
+const store = useTodosListStore();
+const { loadTodos, setActiveTodoId, getActiveTodo } = storeToRefs(store);
 
 const todoFormFields = ref({
   title: "",

@@ -2,6 +2,7 @@
   <div class="list-actions">
     <div class="actions">
       <TooltipWrapper tooltip="add todo">
+        <!-- TODO: необходимо сбрасывать id активного todo -->
         <VueFeather type="plus-square" @click="toggleModal('create-todo')" />
       </TooltipWrapper>
     </div>

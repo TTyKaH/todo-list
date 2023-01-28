@@ -59,8 +59,8 @@ const actions = [
 ];
 
 const emitAction = (action) => {
-  emit(action.emit, action.modalName);
   setActiveTodoId(props.todo.id);
+  emit(action.emit, action.modalName);
 };
 </script>
 

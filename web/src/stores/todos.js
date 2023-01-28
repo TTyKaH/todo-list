@@ -18,9 +18,7 @@ export const useTodosListStore = defineStore("todosList", {
       return computed(() => state.todos);
     },
     getActiveTodo: (state) => {
-      return computed(() =>
-        state.todos.find((todo) => todo.id === state.activeTodoId)
-      );
+      return state.todos.find((todo) => todo.id === state.activeTodoId);
     },
   },
   actions: {
@@ -40,7 +38,6 @@ export const useTodosListStore = defineStore("todosList", {
       }
     },
     setActiveTodoId(id = null) {
-      console.log("setActiveTodoId");
       this.activeTodoId = id;
     },
   },
