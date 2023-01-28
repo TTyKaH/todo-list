@@ -28,7 +28,7 @@
 <script setup>
 import { toRefs, watch, ref } from "vue";
 
-const emit = defineEmits(["update:modalValue"]);
+const emit = defineEmits(["onUpdate:modelValue"]);
 
 const props = defineProps({
   modelValue: {
@@ -79,7 +79,7 @@ if (
   isSelectFirstItemIfNull.value
 ) {
   innerValue.value = options.value[0];
-  emit("update:modelValue", innerValue.value);
+  emit("onUpdate:modelValue", innerValue.value);
 } else {
   innerValue.value = modelValue.value;
 }
@@ -89,13 +89,12 @@ watch(innerValue, (newValue) => {
   console.log("innerValue.value", innerValue.value);
   console.log("newValue", newValue);
   // if (innerValue.value !== newValue) {
-  emit("update:modelValue", newValue);
+  emit("onUpdate:modelValue", newValue);
   // }
 });
 
 watch(modelValue, (newValue, oldValue) => {
   if (newValue !== oldValue) {
-    console.log("modelValue обновился");
     innerValue.value = newValue;
   }
 });
