@@ -12,8 +12,6 @@
       v-if="activeModalName === 'remove-todo'"
       @close="toggleModal"
       position="center"
-      height="auto"
-      width="350px"
     >
       <div class="dialog">
         <h3>Remove todo?</h3>

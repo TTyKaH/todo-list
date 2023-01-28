@@ -5,7 +5,11 @@
       :class="props.position"
       :style="{ width: props.width, height: height }"
     >
-      <VueFeather type="x" @click="close" />
+      <VueFeather
+        type="x"
+        @click="close"
+        :class="{ 'if-sidebar': props.position === 'left' }"
+      />
       <slot>Modal slot content</slot>
     </div>
   </div>
@@ -21,11 +25,11 @@ const props = defineProps({
   },
   width: {
     type: String,
-    default: "500px",
+    default: "auto",
   },
   height: {
     type: String,
-    default: "400px",
+    default: "auto",
   },
 });
 
@@ -47,13 +51,17 @@ function close() {
   background: var(--bg-draft-modal);
 
   &__content {
-    @apply p-5 relative;
+    @apply py-5 px-7 relative;
     background: var(--bg-draft);
 
     i {
-      @apply absolute left-full p-2 cursor-pointer;
-      background: var(--draft-danger);
-      color: var(--draft-text-white);
+      @apply absolute right-2 top-2;
+
+      &.if-sidebar {
+        @apply left-full p-2 cursor-pointer right-auto top-auto;
+        background: var(--draft-danger);
+        color: var(--draft-text-white);
+      }
     }
 
     &.center {
