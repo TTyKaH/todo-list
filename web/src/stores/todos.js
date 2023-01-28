@@ -30,7 +30,7 @@ export const useTodosListStore = defineStore("todosList", {
       try {
         this.loading = true;
         const res = await api.todo.getTodos();
-        console.log(res);
+
         this.todos = res.todos;
       } catch (err) {
         this.products = [];
@@ -40,6 +40,7 @@ export const useTodosListStore = defineStore("todosList", {
       }
     },
     setActiveTodoId(id = null) {
+      console.log("setActiveTodoId");
       this.activeTodoId = id;
     },
   },

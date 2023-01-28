@@ -49,7 +49,6 @@ loadTodos();
 // TODO: сделать метод глобальным
 function toggleModal(modalName) {
   activeModalName.value = modalName;
-  setActiveTodoId();
 }
 
 async function removeTodo() {
