@@ -22,6 +22,8 @@
           - {{ task.description }}
         </div>
       </div>
+      <VueFeather type="chevron-down" size="48" stroke="#f8f8f8" />
+      <div class="hider" />
     </div>
   </div>
 </template>
@@ -66,7 +68,9 @@ const emitAction = (action) => {
 
 <style lang="scss" scoped>
 .todo {
+  @apply relative overflow-hidden;
   border: 2px solid var(--bg-draft);
+  max-height: 250px;
 
   &__header {
     @apply flex justify-between p-5;
@@ -90,10 +94,44 @@ const emitAction = (action) => {
   }
 
   &__body {
-    @apply p-5;
+    @apply p-5 h-full;
 
     h4 {
       @apply mb-2;
+    }
+
+    .vue-feather {
+      @apply absolute;
+      bottom: 4px;
+      left: calc(50% - 24px);
+    }
+
+    .hider {
+      @apply absolute left-0 right-0 bottom-0 h-3;
+
+      background-color: var(--bg-draft);
+
+      &::before,
+      &::after {
+        content: "";
+        width: 50%;
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        top: -20px;
+        border: 20px solid transparent;
+        border-top-width: 0;
+      }
+      &::before {
+        left: 0;
+        border-bottom-color: var(--bg-draft);
+        border-left-width: 0;
+      }
+      &::after {
+        right: 0;
+        border-bottom-color: var(--bg-draft);
+        border-right-width: 0;
+      }
     }
   }
 }
