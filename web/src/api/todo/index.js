@@ -31,8 +31,17 @@ async function removeTodo(params = {}) {
   });
 }
 
+async function updateTodo(params = {}) {
+  return await request({
+    url: `todos/${params.id}`,
+    method: "put",
+    data: params,
+  });
+}
+
 export default {
   getTodos,
   createTodo,
   removeTodo,
+  updateTodo,
 };

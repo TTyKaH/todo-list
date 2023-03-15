@@ -37,12 +37,13 @@ import { useNotify } from "@/composable/useNotify.js";
 import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
 import TodoForm from "@/components/Interface/Forms/TodoFormComponent.vue";
 
-const { isLoading, getTodos, loadTodos, setActiveTodoId } = useTodosListStore();
+const { isLoading, getTodos, getActiveTodo, loadTodos, setActiveTodoId } =
+  useTodosListStore();
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 
 const activeModalName = ref("");
-const activeTodoId = ref(null);
+const activeTodo = ref(getActiveTodo);
 
 loadTodos();
 
@@ -55,7 +56,7 @@ async function removeTodo() {
   toggleLoader(true);
   try {
     const response = await api.todo.removeTodo({
-      id: activeTodoId.value,
+      id: activeTodo.value.id,
     });
 
     await loadTodos();

@@ -57,7 +57,12 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
   let todos = []
 
-  await Todo.findAll()
+  await Todo.findAll({
+    order: [
+      ['id', 'DESC'],
+      // ['name', 'ASC'],
+    ],
+  })
     .then(data => {
       todos = data
     })
@@ -101,7 +106,7 @@ exports.findOne = (req, res) => {
 };
 
 // Update a Todo by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id;
 
   Todo.update(req.body, {
@@ -125,13 +130,13 @@ exports.update = (req, res) => {
     });
 
   // same updating for tasks related with todo
-  updateTaskByTodoId(req.body)
+  await updateTaskByTodoId(req.body)
     .then((data) => {
       console.log(data)
     })
 
   res.send({
-    message: "Todo and related data was updated successfully."
+    message: "Todo was updated successfully."
   });
 };
 
@@ -196,10 +201,26 @@ async function getAllTasksByTodoId(todos) {
 
 async function updateTaskByTodoId(todo) {
   for (task of todo.tasks) {
-    await Task.update(task, {
-      where: {
-        id: task.id
-      }
-    })
+    const taskFromDB = Task.findByPk(task.id)
+    console.log('=========== task', taskFromDB)
+
+    if (task?.id) {
+      console.log('================== update')
+      await Task.update(task, {
+        where: {
+          id: task.id
+        }
+      })
+    } else {
+      console.log('================== create')
+      task.todoId = todo.id
+      await Task.create(task)
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Task."
+          });
+        });
+    }
   }
 }

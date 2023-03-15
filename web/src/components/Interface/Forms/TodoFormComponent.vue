@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, onBeforeUnmount } from "vue";
 import { storeToRefs } from "pinia";
 import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
@@ -50,10 +50,9 @@ const emit = defineEmits(["close-modal"]);
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 
-const store = useTodosListStore();
-const { loadTodos, setActiveTodoId, getActiveTodo } = storeToRefs(store);
+const { loadTodos, setActiveTodoId, getActiveTodo } = useTodosListStore();
 
-const todoFormFields = ref({
+const DEFAULT_FORM_VALUE = {
   title: "",
   priority: "",
   description: "",
@@ -63,7 +62,9 @@ const todoFormFields = ref({
       status: false,
     },
   ],
-});
+};
+
+const todoFormFields = ref({ ...DEFAULT_FORM_VALUE });
 
 // Для случая, если редактируется todo
 if (getActiveTodo.value) {
@@ -107,8 +108,14 @@ function removeLastTask() {
 
 async function saveTodo() {
   toggleLoader(true);
+  console.log(todoFormFields.value);
   try {
-    const response = await api.todo.createTodo(todoFormFields.value);
+    let response;
+    if (!isEditing.value) {
+      response = await api.todo.createTodo(todoFormFields.value);
+    } else {
+      response = await api.todo.updateTodo(todoFormFields.value);
+    }
 
     await loadTodos();
     showNotify("success", response.message);
@@ -119,6 +126,10 @@ async function saveTodo() {
     toggleLoader();
   }
 }
+
+onBeforeUnmount(() => {
+  setActiveTodoId();
+});
 </script>
 
 <style lang="scss" scoped>
