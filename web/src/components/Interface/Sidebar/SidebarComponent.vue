@@ -8,7 +8,9 @@
 
 <script setup lang="ts">
 import SideBarItem from "@/components/Interface/Sidebar/SidebarItemComponent.vue";
-const sidebarMenu = [
+import type { SidebarItem } from "@/types/ui/SidebarItem";
+
+const sidebarMenu: SidebarItem[] = [
   {
     title: "Todo list",
     icon: "list",

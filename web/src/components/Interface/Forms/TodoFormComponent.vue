@@ -39,13 +39,14 @@
 
 <script setup lang="ts">
 import { ref, computed, onBeforeUnmount } from "vue";
-import { storeToRefs } from "pinia";
 import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 import { useTodosListStore } from "@/stores/todos";
 
-const emit = defineEmits(["close-modal"]);
+const emit = defineEmits<{
+  (e: "close-modal"): void;
+}>();
 
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
@@ -120,7 +121,9 @@ async function saveTodo() {
     await loadTodos();
     showNotify("success", response.message);
     emit("close-modal");
-  } catch (err) {
+    // TODO: я так и не смог найти решения, как протипизировать ответ с бека
+    // хотя ошибка может быть нетолько с бека
+  } catch (err: any) {
     showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();

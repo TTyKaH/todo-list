@@ -14,12 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, Ref } from "vue";
 import TodoForm from "@/components/Interface/Forms/TodoFormComponent.vue";
 
-const activeModalName = ref("");
+type ModalNames = "" | "create-todo";
+const activeModalName: Ref<ModalNames> = ref("");
 
-function toggleModal(modalName = "") {
+function toggleModal(modalName: ModalNames = "") {
   activeModalName.value = modalName;
 }
 </script>
