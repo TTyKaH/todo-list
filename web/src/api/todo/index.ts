@@ -1,4 +1,5 @@
 import { request } from "@/utils/request";
+import type { Todo } from "@/types/todo/todo";
 
 /**
  * Получение списка todo
@@ -13,7 +14,7 @@ async function getTodos() {
 /**
  * Создание todo
  */
-async function createTodo(params = {}) {
+async function createTodo(params: Todo) {
   return await request({
     url: "todos",
     method: "post",
@@ -24,14 +25,14 @@ async function createTodo(params = {}) {
 /**
  * Удаление todo
  */
-async function removeTodo(params = {}) {
+async function removeTodo(params: Todo) {
   return await request({
     url: `todos/${params.id}`,
     method: "delete",
   });
 }
 
-async function updateTodo(params = {}) {
+async function updateTodo(params: Todo) {
   return await request({
     url: `todos/${params.id}`,
     method: "put",

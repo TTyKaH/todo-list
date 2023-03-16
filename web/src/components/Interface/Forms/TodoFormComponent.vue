@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onBeforeUnmount } from "vue";
 import { storeToRefs } from "pinia";
 import api from "@/api";

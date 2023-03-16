@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ListActions from "@/components/Interface/ListActions/ListActionsComponent.vue";
 import TodoList from "@/components/Interface/TodoList/TodoListComponent.vue";
 </script>

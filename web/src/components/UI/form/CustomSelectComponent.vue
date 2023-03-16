@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { toRefs, watch, ref } from "vue";
 
 const emit = defineEmits(["onUpdate:modelValue"]);

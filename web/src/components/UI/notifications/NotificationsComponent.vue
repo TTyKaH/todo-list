@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Notify from "@/components/UI/notifications/NotifyComponent.vue";
 import { useNotificationsStore } from "@/stores/notifications";
 

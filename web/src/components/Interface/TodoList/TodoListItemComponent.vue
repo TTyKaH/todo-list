@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useTodosListStore } from "@/stores/todos";
 
 const { setActiveTodoId } = useTodosListStore();

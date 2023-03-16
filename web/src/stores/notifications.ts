@@ -1,7 +1,24 @@
 import { defineStore } from "pinia";
 import { computed } from "vue";
+
+interface State {
+  notifications: Notification[];
+  lastAddedId: LastId;
+  notifyLivingTime: NotificationLivingTime;
+}
+
+interface Notification {
+  message: string;
+  type: string;
+  id: number;
+}
+
+type LastId = null | number;
+
+type NotificationLivingTime = number;
+
 export const useNotificationsStore = defineStore("notifications", {
-  state: () => {
+  state: (): State => {
     return {
       notifications: [
         // {
@@ -30,7 +47,7 @@ export const useNotificationsStore = defineStore("notifications", {
     },
   },
   actions: {
-    addNotify(type, message) {
+    addNotify(type: string, message: string) {
       // чистим значение последнего индекса, если в очереди нет уведомлений
       if (!this.notifications.length) {
         this.lastAddedId = null;
@@ -52,9 +69,11 @@ export const useNotificationsStore = defineStore("notifications", {
 
       this.setDelayedDeletion(this.lastAddedId);
     },
-    setDelayedDeletion(id) {
+    setDelayedDeletion(id: number) {
       setTimeout(() => {
-        const elementIdx = this.notifications.indexOf((el) => el.id === id);
+        const elementIdx = this.notifications.findIndex(
+          (notification) => notification.id === id
+        );
         this.notifications.splice(elementIdx, 1);
       }, this.notifyLivingTime);
     },

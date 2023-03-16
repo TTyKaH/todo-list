@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import SideBarItem from "@/components/Interface/Sidebar/SidebarItemComponent.vue";
 const sidebarMenu = [
   {
