@@ -1,5 +1,7 @@
 # todo list
 
+<!-- Написать гайд для первого разворачивания проекта и гайд - для последующих запусков -->
+
 <!-- Project has web and api parts with DB on postgresql. -->
 
 <!-- Before starting - install dependencies for web and api parts. -->
@@ -27,4 +29,7 @@ node server
 <!-- DB part -->
 <!-- DB starting -->
 
-service postgresql start
+sudo service postgresql start
+
+<!-- versioning -->
+<!-- Node v 19.4 -->
