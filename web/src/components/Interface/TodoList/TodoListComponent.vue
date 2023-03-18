@@ -8,67 +8,47 @@
       @need-remove-todo="toggleModal"
       @need-edit-todo="toggleModal"
     />
-    <!-- TODO: Метод переключения модалки тоже вынести как глобальный -->
     <ModalWindow
-      v-if="activeModalName === 'remove-todo'"
+      v-if="activeModalName.length"
+      :position="position"
       @close="toggleModal"
-      position="center"
     >
-      <!-- TODO: вынести в компонент, так как при онмаунтинге необходимо убирать активный элемент -->
-      <div class="dialog">
-        <h3>Remove todo?</h3>
-        <div class="actions">
-          <CustomButton @click="toggleModal">Cancel</CustomButton>
-          <!-- TODO: Методы связанные с сущностью todo необходимо вынести в общий файл -->
-          <CustomButton @click="removeTodo()">Remove</CustomButton>
-        </div>
-      </div>
-    </ModalWindow>
-    <ModalWindow v-if="activeModalName === 'edit-todo'" @close="toggleModal">
-      <TodoForm @close-modal="toggleModal" />
+      <TodoForm
+        v-if="activeModalName === 'edit-todo'"
+        @close-modal="toggleModal"
+      />
+      <TodoReview
+        v-if="activeModalName === 'review-todo'"
+        @close-modal="toggleModal"
+      />
+      <TodoRemove
+        v-if="activeModalName === 'remove-todo'"
+        @close-modal="toggleModal"
+      />
     </ModalWindow>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import api from "@/api";
+import { ref, computed } from "vue";
 import { useTodosListStore } from "@/stores/todos";
-import { useToggleLoader } from "@/composable/useToggleLoader.js";
-import { useNotify } from "@/composable/useNotify.js";
 import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
+import TodoReview from "@/components/Interface/TodoList/TodoReview.vue";
+import TodoRemove from "@/components/Interface/TodoList/TodoRemove.vue";
 import TodoForm from "@/components/Interface/Forms/TodoFormComponent.vue";
 
-const { getTodos, getActiveTodo, loadTodos } = useTodosListStore();
-const { toggleLoader } = useToggleLoader();
-const { showNotify } = useNotify();
+const { getTodos, loadTodos } = useTodosListStore();
 
 const activeModalName = ref("");
+const position = computed<string>(() =>
+  activeModalName.value === "remove-todo" ? "center" : "left"
+);
 
-const activeTodo = ref(getActiveTodo);
+const toggleModal = (modalName: string = "") => {
+  activeModalName.value = modalName;
+};
 
 loadTodos();
-
-// TODO: сделать метод глобальным
-function toggleModal(modalName: string = "") {
-  activeModalName.value = modalName;
-}
-
-async function removeTodo() {
-  toggleLoader(true);
-  try {
-    const response = await api.todo.removeTodo(activeTodo.value);
-
-    await loadTodos();
-    showNotify("success", response.message);
-    toggleModal();
-    // TODO: what to do with this?
-  } catch (err: any) {
-    showNotify("error", err.response.data.message);
-  } finally {
-    toggleLoader();
-  }
-}
 </script>
 
 <style lang="scss" scoped>

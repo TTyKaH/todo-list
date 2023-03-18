@@ -53,7 +53,6 @@ const emit = defineEmits<{
 
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
-
 const { loadTodos, setActiveTodoId, getActiveTodo } = useTodosListStore();
 
 const DEFAULT_FORM_VALUE: Todo = {
@@ -97,22 +96,22 @@ const items: Ref<SelectOption[]> = ref([
   },
 ]);
 
-function addTask() {
+const addTask = () => {
   todoFormFields.value.tasks.push({
     description: "",
     status: false,
   });
-}
+};
 
-function removeLastTask() {
+const removeLastTask = () => {
   const tasksCount = todoFormFields.value.tasks.length;
   if (tasksCount === 1) return;
   todoFormFields.value.tasks.splice(todoFormFields.value.tasks.length - 1, 1);
-}
+};
 
-async function saveTodo() {
+const saveTodo = async () => {
   toggleLoader(true);
-  console.log(todoFormFields.value);
+
   try {
     let response;
     if (!isEditing.value) {
@@ -131,7 +130,7 @@ async function saveTodo() {
   } finally {
     toggleLoader();
   }
-}
+};
 
 onBeforeUnmount(() => {
   setActiveTodoId();
