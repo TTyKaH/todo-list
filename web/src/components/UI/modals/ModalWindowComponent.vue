@@ -3,7 +3,7 @@
     <div
       class="modal__content"
       :class="props.position"
-      :style="{ width: props.width, height: height }"
+      :style="{ 'max-width': props.maxWidth, width: width, height: height }"
     >
       <VueFeather
         type="x"
@@ -24,11 +24,13 @@ type Size = "auto" | string;
 const props = withDefaults(
   defineProps<{
     position?: Position;
+    maxWidth?: Size;
     width?: Size;
     height?: Size;
   }>(),
   {
     position: "left",
+    maxWidth: "auto",
     width: "auto",
     height: "auto",
   }
@@ -54,7 +56,7 @@ function close() {
   background: var(--bg-draft-modal);
 
   &__content {
-    @apply py-5 px-7 relative;
+    @apply py-5 px-7 relative w-full;
     background: var(--bg-draft);
 
     i {

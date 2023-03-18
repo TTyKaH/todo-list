@@ -10,7 +10,9 @@
     />
     <ModalWindow
       v-if="activeModalName.length"
-      :position="position"
+      :position="modalSettings.position"
+      :max-width="modalSettings.maxWidth"
+      :width="modalSettings.width"
       @close="toggleModal"
     >
       <TodoForm
@@ -31,6 +33,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import type { Ref } from "vue";
 import { useTodosListStore } from "@/stores/todos";
 import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
 import TodoReview from "@/components/Interface/TodoList/TodoReview.vue";
@@ -40,8 +43,30 @@ import TodoForm from "@/components/Interface/Forms/TodoFormComponent.vue";
 const { getTodos, loadTodos } = useTodosListStore();
 
 const activeModalName = ref("");
-const position = computed<string>(() =>
-  activeModalName.value === "remove-todo" ? "center" : "left"
+
+type ModalSettings = {
+  width: string;
+  maxWidth: string;
+  position: string;
+};
+
+const widthOptions: Ref<ModalSettings[]> = ref([
+  {
+    width: "100%",
+    maxWidth: "500px",
+    position: "left",
+  },
+  {
+    width: "auto",
+    maxWidth: "auto",
+    position: "center",
+  },
+]);
+
+const modalSettings = computed<ModalSettings>(() =>
+  activeModalName.value === "remove-todo"
+    ? widthOptions.value[1]
+    : widthOptions.value[0]
 );
 
 const toggleModal = (modalName: string = "") => {

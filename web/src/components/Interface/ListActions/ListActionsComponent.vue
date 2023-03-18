@@ -7,7 +7,11 @@
       </TooltipWrapper>
     </div>
     <div>Table settings</div>
-    <ModalWindow v-if="activeModalName === 'create-todo'" @close="toggleModal">
+    <ModalWindow
+      v-if="activeModalName === 'create-todo'"
+      width="500px"
+      @close="toggleModal"
+    >
       <TodoForm @close-modal="toggleModal" />
     </ModalWindow>
   </div>

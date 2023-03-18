@@ -69,6 +69,7 @@ const DEFAULT_FORM_VALUE: Todo = {
 
 const todoFormFields: Ref<Todo> = ref({ ...DEFAULT_FORM_VALUE });
 
+// TODO: нет клонирования, сохранятеся ссылка
 // Для случая, если редактируется todo
 if (getActiveTodo.value) {
   todoFormFields.value = getActiveTodo.value;
