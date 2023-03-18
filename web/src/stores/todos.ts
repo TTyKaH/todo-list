@@ -1,46 +1,42 @@
 import api from "@/api";
 import { defineStore } from "pinia";
 import { computed } from "vue";
+import type { Todo } from "@/types/todo/todo";
+
+interface State {
+  todos: Todo[];
+  activeTodoId: number | null;
+}
+
 export const useTodosListStore = defineStore("todosList", {
-  state: () => {
+  state: (): State => {
     return {
-      // TODO: надо ли это?
-      loading: false,
       todos: [],
       activeTodoId: null,
     };
   },
   getters: {
-    isLoading: (state) => {
-      return computed(() => state.isLoading);
-    },
     getTodos: (state) => {
       return computed(() => state.todos);
     },
     getActiveTodo: (state) => {
-      return computed(() => {
-        console.log(state.activeTodoId);
-        return state.todos.find((todo) => todo.id === state.activeTodoId);
+      return computed((): Todo | undefined => {
+        return state.todos.find((todo: Todo) => todo.id === state.activeTodoId);
       });
     },
   },
   actions: {
+    // TODO: use loader and notify
     async loadTodos() {
-      if (this.loading) return;
-
       try {
-        this.loading = true;
         const res = await api.todo.getTodos();
 
         this.todos = res.todos;
       } catch (err) {
-        this.products = [];
         console.error(err);
-      } finally {
-        this.loading = false;
       }
     },
-    setActiveTodoId(id = null) {
+    setActiveTodoId(id: number | null = null) {
       this.activeTodoId = id;
     },
   },

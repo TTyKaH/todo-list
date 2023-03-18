@@ -1,16 +1,11 @@
 import { defineStore } from "pinia";
 import { computed } from "vue";
+import type { Notification } from "@/types/ui/notification";
 
 interface State {
   notifications: Notification[];
   lastAddedId: LastId;
   notifyLivingTime: NotificationLivingTime;
-}
-
-interface Notification {
-  message: string;
-  type: string;
-  id: number;
 }
 
 type LastId = null | number;

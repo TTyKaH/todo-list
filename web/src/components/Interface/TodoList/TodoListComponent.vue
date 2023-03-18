@@ -4,6 +4,7 @@
       v-for="(todo, idx) in getTodos"
       :todo="todo"
       :key="idx"
+      @need-review-todo="toggleModal"
       @need-remove-todo="toggleModal"
       @need-edit-todo="toggleModal"
     />
@@ -13,6 +14,7 @@
       @close="toggleModal"
       position="center"
     >
+      <!-- TODO: вынести в компонент, так как при онмаунтинге необходимо убирать активный элемент -->
       <div class="dialog">
         <h3>Remove todo?</h3>
         <div class="actions">
@@ -37,32 +39,31 @@ import { useNotify } from "@/composable/useNotify.js";
 import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
 import TodoForm from "@/components/Interface/Forms/TodoFormComponent.vue";
 
-const { isLoading, getTodos, getActiveTodo, loadTodos, setActiveTodoId } =
-  useTodosListStore();
+const { getTodos, getActiveTodo, loadTodos } = useTodosListStore();
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 
 const activeModalName = ref("");
+
 const activeTodo = ref(getActiveTodo);
 
 loadTodos();
 
 // TODO: сделать метод глобальным
-function toggleModal(modalName) {
+function toggleModal(modalName: string = "") {
   activeModalName.value = modalName;
 }
 
 async function removeTodo() {
   toggleLoader(true);
   try {
-    const response = await api.todo.removeTodo({
-      id: activeTodo.value.id,
-    });
+    const response = await api.todo.removeTodo(activeTodo.value);
 
     await loadTodos();
     showNotify("success", response.message);
     toggleModal();
-  } catch (err) {
+    // TODO: what to do with this?
+  } catch (err: any) {
     showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();

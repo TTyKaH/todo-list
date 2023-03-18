@@ -18,22 +18,25 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-const props = defineProps({
-  position: {
-    type: String,
-    default: "left", // 'center', 'left'
-  },
-  width: {
-    type: String,
-    default: "auto",
-  },
-  height: {
-    type: String,
-    default: "auto",
-  },
-});
+type Position = "left" | "center";
+type Size = "auto" | string;
 
-const emit = defineEmits(["close"]);
+const props = withDefaults(
+  defineProps<{
+    position: Position;
+    width: Size;
+    height: Size;
+  }>(),
+  {
+    position: "left",
+    width: "auto",
+    height: "auto",
+  }
+);
+
+const emit = defineEmits<{
+  (e: "close"): void;
+}>();
 
 // если модальное окно не по центру, то пропс height не будет иметь эффекта
 const height = computed(() => {

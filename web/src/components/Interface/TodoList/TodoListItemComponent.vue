@@ -30,23 +30,26 @@
 
 <script setup lang="ts">
 import { useTodosListStore } from "@/stores/todos";
+import type { Todo } from "@/types/todo/todo";
+import type { todoAction } from "@/types/ui/todoAction";
 
 const { setActiveTodoId } = useTodosListStore();
 
-const props = defineProps({
-  todo: {
-    type: Object,
-    default: () => ({}),
-  },
-});
+const props = defineProps<{
+  todo: Todo;
+}>();
 
-const emit = defineEmits(["review", "need-edit-todo", "need-remove-todo"]);
+const emit = defineEmits<{
+  (e: "need-review-todo", modalName: string): void;
+  (e: "need-edit-todo", modalName: string): void;
+  (e: "need-remove-todo", modalName: string): void;
+}>();
 
-const actions = [
+const actions: todoAction[] = [
   {
     icon: "eye",
-    emit: "review",
-    modalName: "remove-todo",
+    emit: "need-review-todo",
+    modalName: "review-todo",
   },
   {
     icon: "edit",
@@ -60,9 +63,21 @@ const actions = [
   },
 ];
 
-const emitAction = (action) => {
+const emitAction = (action: todoAction) => {
   setActiveTodoId(props.todo.id);
-  emit(action.emit, action.modalName);
+
+  // TODO: есть ли вариант писать без switch case, а написать один вызов emit?
+  switch (action.emit) {
+    case "need-review-todo":
+      emit("need-review-todo", action.modalName);
+      break;
+    case "need-edit-todo":
+      emit("need-edit-todo", action.modalName);
+      break;
+    case "need-remove-todo":
+      emit("need-remove-todo", action.modalName);
+      break;
+  }
 };
 </script>
 

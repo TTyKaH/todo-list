@@ -39,10 +39,13 @@
 
 <script setup lang="ts">
 import { ref, computed, onBeforeUnmount } from "vue";
+import type { Ref } from "vue";
 import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 import { useTodosListStore } from "@/stores/todos";
+import type { Todo } from "@/types/todo/todo";
+import type { SelectOption } from "@/types/ui/selectOption";
 
 const emit = defineEmits<{
   (e: "close-modal"): void;
@@ -53,7 +56,7 @@ const { showNotify } = useNotify();
 
 const { loadTodos, setActiveTodoId, getActiveTodo } = useTodosListStore();
 
-const DEFAULT_FORM_VALUE = {
+const DEFAULT_FORM_VALUE: Todo = {
   title: "",
   priority: "",
   description: "",
@@ -65,7 +68,7 @@ const DEFAULT_FORM_VALUE = {
   ],
 };
 
-const todoFormFields = ref({ ...DEFAULT_FORM_VALUE });
+const todoFormFields: Ref<Todo> = ref({ ...DEFAULT_FORM_VALUE });
 
 // Для случая, если редактируется todo
 if (getActiveTodo.value) {
@@ -79,18 +82,18 @@ const formTitle = computed(() => {
 });
 
 // TODO: это должно быть вынесено в константы, либо на бек
-const items = ref([
+const items: Ref<SelectOption[]> = ref([
   {
-    id: 1,
     text: "Low",
+    value: "1",
   },
   {
-    id: 2,
     text: "Middle",
+    value: "2",
   },
   {
-    id: 3,
     text: "Hight",
+    value: "3",
   },
 ]);
 

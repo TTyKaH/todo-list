@@ -11,23 +11,31 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
+import type { Loader } from "@/types/ui/loader";
+
 // loader settings
-const loader = {
+const loader: Loader = {
   element: null,
   frameRate: 60, // f/s
   rotationalSpeed: 0.8, // r/s
   angleBuffer: 0,
+  timerID: null,
 };
 
 const rotateLoader = () => {
-  loader.element.style.transform = "rotate(0deg)";
+  if (loader.element !== null) {
+    loader.element.style.transform = "rotate(0deg)";
 
-  const timeToRerender = Math.floor((1 / loader.frameRate) * 1000);
-  const angleIncrement = (360 * loader.rotationalSpeed) / loader.frameRate;
-  loader.timerID = setInterval(() => {
-    loader.angleBuffer = loader.angleBuffer + angleIncrement;
-    loader.element.style.transform = `rotate(${-loader.angleBuffer}deg)`;
-  }, timeToRerender);
+    const timeToRerender = Math.floor((1 / loader.frameRate) * 1000);
+    const angleIncrement = (360 * loader.rotationalSpeed) / loader.frameRate;
+
+    loader.timerID = setInterval(() => {
+      if (loader.element !== null) {
+        loader.angleBuffer = loader.angleBuffer + angleIncrement;
+        loader.element.style.transform = `rotate(${-loader.angleBuffer}deg)`;
+      }
+    }, timeToRerender);
+  }
 };
 
 onMounted(() => {

@@ -6,12 +6,11 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  notify: {
-    type: Object,
-    required: true,
-  },
-});
+import type { Notification } from "@/types/ui/notification";
+
+const props = defineProps<{
+  notify: Notification;
+}>();
 </script>
 
 <style lang="scss" scoped>

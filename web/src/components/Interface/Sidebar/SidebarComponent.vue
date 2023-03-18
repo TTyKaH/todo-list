@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import SideBarItem from "@/components/Interface/Sidebar/SidebarItemComponent.vue";
-import type { SidebarItem } from "@/types/ui/SidebarItem";
+import type { SidebarItem } from "@/types/ui/sidebarItem";
 
 const sidebarMenu: SidebarItem[] = [
   {

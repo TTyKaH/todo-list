@@ -9,23 +9,21 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import type { Ref } from "vue";
 
-const props = defineProps({
-  tooltip: {
-    type: String,
-    default: "Tooltip message",
-  },
-});
+const props = defineProps<{
+  tooltip: string;
+}>();
 
-const isShowTooltip = ref(false);
+const isShowTooltip: Ref<boolean> = ref(false);
 
-function show() {
+const show = () => {
   isShowTooltip.value = true;
-}
+};
 
-function hide() {
+const hide = () => {
   isShowTooltip.value = false;
-}
+};
 </script>
 
 <style lang="scss" scoped>

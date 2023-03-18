@@ -4,48 +4,50 @@
       {{ props.label }}
       <span v-if="required" class="required">*</span>
     </div>
+
     <input
-      :value="props.modelValue"
+      v-model="value"
       :disabled="disabled"
-      @input="$emit('update:modelValue', $event.target.value)"
       class="field"
+      type="text"
       :class="{ error: props.hasError }"
     />
     <div class="bottom-text">
       <slot name="tip"></slot>
-      <div v-if="error.length" class="error-text">{{ error }}</div>
+      <div v-if="Object.keys(error).length" class="error-text">{{ error }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineEmits(["update:modelValue"]);
+import { computed } from "vue";
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: "",
-  },
-  label: {
-    type: String,
-    default: "",
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  hasError: {
-    type: Boolean,
-    default: false,
-  },
-  error: {
-    type: Object,
-    default: () => ({}),
-  },
+const props = withDefaults(
+  defineProps<{
+    modelValue: string;
+    label: string;
+    required: boolean;
+    disabled: boolean;
+    hasError: boolean;
+    error: object;
+  }>(),
+  {
+    modelValue: "",
+    label: "",
+    required: false,
+    disabled: false,
+    hasError: false,
+    error: () => ({}),
+  }
+);
+
+const emit = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+}>();
+
+const value = computed({
+  get: () => props.modelValue,
+  set: (value: string) => emit("update:modelValue", value),
 });
 </script>
 

@@ -1,4 +1,4 @@
-import todo from "./todo/index";
+import todo from "@/api/todo/index";
 
 /**
  * Методы API

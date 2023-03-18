@@ -20,60 +20,50 @@
     </select>
     <div class="bottom-text">
       <slot name="tip"></slot>
-      <div v-if="error.length" class="error-text">{{ error }}</div>
+      <div v-if="Object.keys(error).length" class="error-text">{{ error }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs, watch, ref } from "vue";
+import type { SelectOption } from "@/types/ui/selectOption";
 
-const emit = defineEmits(["onUpdate:modelValue"]);
-
-const props = defineProps({
-  modelValue: {
-    type: [Object, String],
-  },
-  options: {
-    type: Array,
-    required: true,
-  },
-  label: {
-    type: String,
-    default: "",
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  hasError: {
-    type: Boolean,
-    default: false,
-  },
-  error: {
-    type: Object,
-    default: () => ({}),
-  },
-  optionTextKey: {
-    type: String,
-    default: "text",
-  },
-  isSelectFirstItemIfNull: {
+const props = withDefaults(
+  defineProps<{
+    modelValue: SelectOption | string;
+    options: SelectOption[];
+    label?: string;
+    required?: boolean;
+    disabled?: boolean;
+    hasError?: boolean;
+    error?: object;
+    // TODO: Как описать этот пропс, что он может быть любой строкой?
+    optionTextKey: "text";
     // При инициализации делать активным первое значение,
     // если в качестве modelValue получен null
-    type: Boolean,
+    isSelectFirstItemIfNull: boolean;
+  }>(),
+  {
+    options: () => [],
+    label: "",
     required: false,
-    default: true,
-  },
-});
+    disabled: false,
+    hasError: false,
+    error: () => ({}),
+    optionTextKey: "text",
+    isSelectFirstItemIfNull: true,
+  }
+);
+
+const emit = defineEmits<{
+  (e: "onUpdate:modelValue", value: object): void;
+}>();
 
 const { options, modelValue, isSelectFirstItemIfNull } = toRefs(props);
 
 const innerValue = ref();
+
 if (
   (modelValue.value === null || typeof modelValue.value === "undefined") &&
   isSelectFirstItemIfNull.value
@@ -84,10 +74,8 @@ if (
   innerValue.value = modelValue.value;
 }
 
+// TODO: переписать на computed кастомный v-model
 watch(innerValue, (newValue) => {
-  console.log("inner value обновился");
-  console.log("innerValue.value", innerValue.value);
-  console.log("newValue", newValue);
   // if (innerValue.value !== newValue) {
   emit("onUpdate:modelValue", newValue);
   // }

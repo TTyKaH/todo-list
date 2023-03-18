@@ -8,12 +8,11 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  item: {
-    type: Object,
-    required: true,
-  },
-});
+import type { SidebarItem } from "@/types/ui/sidebarItem";
+
+const props = defineProps<{
+  item: SidebarItem;
+}>();
 </script>
 
 <style lang="scss" scoped>

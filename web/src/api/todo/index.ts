@@ -25,9 +25,10 @@ async function createTodo(params: Todo) {
 /**
  * Удаление todo
  */
-async function removeTodo(params: Todo) {
+// TODO: Не кастыль ли это, что я сделал "Todo | undefined"? Написал так, так как геттер getActiveTodo в сторе может вернуть indefined
+async function removeTodo(params: Todo | undefined) {
   return await request({
-    url: `todos/${params.id}`,
+    url: `todos/${params?.id}`,
     method: "delete",
   });
 }
