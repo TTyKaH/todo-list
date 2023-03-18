@@ -25,11 +25,11 @@ import { computed } from "vue";
 const props = withDefaults(
   defineProps<{
     modelValue: string;
-    label: string;
-    required: boolean;
-    disabled: boolean;
-    hasError: boolean;
-    error: object;
+    label?: string;
+    required?: boolean;
+    disabled?: boolean;
+    hasError?: boolean;
+    error?: object;
   }>(),
   {
     modelValue: "",

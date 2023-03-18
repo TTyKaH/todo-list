@@ -39,10 +39,10 @@ const props = withDefaults(
     hasError?: boolean;
     error?: object;
     // TODO: Как описать этот пропс, что он может быть любой строкой?
-    optionTextKey: "text";
+    optionTextKey?: "text";
     // При инициализации делать активным первое значение,
     // если в качестве modelValue получен null
-    isSelectFirstItemIfNull: boolean;
+    isSelectFirstItemIfNull?: boolean;
   }>(),
   {
     options: () => [],

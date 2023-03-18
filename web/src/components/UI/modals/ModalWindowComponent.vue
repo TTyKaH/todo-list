@@ -23,9 +23,9 @@ type Size = "auto" | string;
 
 const props = withDefaults(
   defineProps<{
-    position: Position;
-    width: Size;
-    height: Size;
+    position?: Position;
+    width?: Size;
+    height?: Size;
   }>(),
   {
     position: "left",
