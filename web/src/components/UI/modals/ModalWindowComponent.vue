@@ -39,7 +39,7 @@ const emit = defineEmits<{
 }>();
 
 // если модальное окно не по центру, то пропс height не будет иметь эффекта
-const height = computed(() => {
+const height = computed<string>(() => {
   return props.position === "center" ? props.height : "";
 });
 

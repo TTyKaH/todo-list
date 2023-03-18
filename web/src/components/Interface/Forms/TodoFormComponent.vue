@@ -75,9 +75,9 @@ if (getActiveTodo.value) {
   todoFormFields.value = getActiveTodo.value;
 }
 
-const isEditing = computed(() => !!getActiveTodo.value);
+const isEditing = computed<boolean>(() => !!getActiveTodo.value);
 
-const formTitle = computed(() => {
+const formTitle = computed<string>(() => {
   return isEditing.value ? "Edit todo" : "Create todo";
 });
 

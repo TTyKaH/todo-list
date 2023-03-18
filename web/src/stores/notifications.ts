@@ -38,7 +38,7 @@ export const useNotificationsStore = defineStore("notifications", {
   },
   getters: {
     getNotifications: (state) => {
-      return computed(() => state.notifications);
+      return computed<Notification[]>(() => state.notifications);
     },
   },
   actions: {

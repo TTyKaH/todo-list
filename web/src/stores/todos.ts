@@ -17,10 +17,10 @@ export const useTodosListStore = defineStore("todosList", {
   },
   getters: {
     getTodos: (state) => {
-      return computed(() => state.todos);
+      return computed<Todo[]>(() => state.todos);
     },
     getActiveTodo: (state) => {
-      return computed((): Todo | undefined => {
+      return computed<Todo | undefined>(() => {
         return state.todos.find((todo: Todo) => todo.id === state.activeTodoId);
       });
     },
