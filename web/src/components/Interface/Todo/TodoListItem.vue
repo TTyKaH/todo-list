@@ -6,13 +6,17 @@
         <h3>{{ todo.title }}</h3>
       </div>
       <div class="actions">
-        <VueFeather
-          v-for="(action, idx) in actions"
-          :type="action.icon"
-          :key="idx"
-          class="action"
-          @click="emitAction(action)"
-        />
+        <TooltipWrapper 
+          v-for="(action, idx) in actions" 
+          :key="idx" 
+          :tooltip="action.tooltip"
+        >
+          <VueFeather
+            :type="action.icon"
+            class="action"
+            @click="emitAction(action)"
+          />
+        </TooltipWrapper>
       </div>
     </div>
     <div class="todo__body">
@@ -50,16 +54,19 @@ const actions: todoAction[] = [
     icon: "eye",
     emit: "need-review-todo",
     modalName: "review-todo",
+    tooltip: 'review',
   },
   {
     icon: "edit",
     emit: "need-edit-todo",
     modalName: "edit-todo",
+    tooltip: 'edit',
   },
   {
     icon: "trash",
     emit: "need-remove-todo",
     modalName: "remove-todo",
+    tooltip: 'remove',
   },
 ];
 

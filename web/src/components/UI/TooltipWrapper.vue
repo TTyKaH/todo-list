@@ -1,19 +1,26 @@
 <template>
-  <div class="tooltip" @mouseenter="show" @mouseleave="hide">
+  <div class="tooltip" @mouseenter="show" @mouseleave="hide" ref="tooltipWrap">
     <transition>
-      <div class="tooltip__message" v-show="isShowTooltip">{{ tooltip }}</div>
+      <div class="tooltip__message" v-show="isShowTooltip" ref="tooltipElement" :style="tooltipStylePosition">{{ tooltip }}</div>
     </transition>
     <slot>Tooltip content</slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import type { Ref } from "vue";
 
 const props = defineProps<{
   tooltip: string;
 }>();
+
+const tooltipWrap: Ref<HTMLElement | undefined> = ref()
+const tooltipElement: Ref<HTMLElement | undefined> = ref()
+const tooltipStylePosition = ref({
+  top: '',
+  left: ''
+})
 
 const isShowTooltip: Ref<boolean> = ref(false);
 
@@ -24,16 +31,29 @@ const show = () => {
 const hide = () => {
   isShowTooltip.value = false;
 };
+
+const calcPosition = () => {
+  const wrapperPosition = tooltipWrap.value?.getBoundingClientRect()
+  if (wrapperPosition) {
+    tooltipStylePosition.value.left = `${wrapperPosition?.left + wrapperPosition?.width}px`
+    tooltipStylePosition.value.top = `${wrapperPosition?.top + wrapperPosition?.height + 10}px`
+  }
+}
+
+onMounted(() => {
+  console.log(tooltipWrap.value?.getBoundingClientRect())
+  calcPosition()
+})
 </script>
 
 <style lang="scss" scoped>
 .tooltip {
-  @apply relative grid align-middle;
+  @apply grid align-middle z-10;
 
   &__message {
-    @apply absolute border rounded-md py-1 px-3 whitespace-nowrap;
-
-    top: calc(100% + 10px);
+    @apply fixed border rounded-md py-1 px-3 whitespace-nowrap z-50;
+    
+    // top: calc(100% + 10px);
     background: var(--bg-draft);
   }
 }
