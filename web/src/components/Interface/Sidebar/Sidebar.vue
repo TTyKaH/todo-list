@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import SideBarItem from "@/components/Interface/Sidebar/SidebarItemComponent.vue";
+import SideBarItem from "@/components/Interface/Sidebar/SidebarItem.vue";
 import type { SidebarItem } from "@/types/ui/sidebarItem";
 
 const sidebarMenu: SidebarItem[] = [

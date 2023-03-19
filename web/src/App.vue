@@ -9,10 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import Header from "@/components/Interface/Header/HeaderComponent.vue";
-import Sidebar from "@/components/Interface/Sidebar/SidebarComponent.vue";
-import Loader from "@/components/UI/LoaderComponent.vue";
-import Notifications from "@/components/UI/notifications/NotificationsComponent.vue";
+import Header from "@/components/Interface/Header/Header.vue";
+import Sidebar from "@/components/Interface/Sidebar/Sidebar.vue";
+import Loader from "@/components/UI/Loader.vue";
+import Notifications from "@/components/UI/notifications/NotificationList.vue";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 
 const { isLoading } = useToggleLoader();

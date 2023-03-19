@@ -1,17 +1,17 @@
 <template>
   <div class="notifications">
     <TransitionGroup name="notifications">
-      <Notify
-        v-for="(notify, idx) in notifications"
+      <Notification
+        v-for="(notification, idx) in notifications"
         :key="idx"
-        :notify="notify"
+        :notify="notification"
       />
     </TransitionGroup>
   </div>
 </template>
 
 <script setup lang="ts">
-import Notify from "@/components/UI/notifications/NotifyComponent.vue";
+import Notification from "@/components/UI/notifications/NotificationListItem.vue";
 import { useNotificationsStore } from "@/stores/notifications";
 
 const store = useNotificationsStore();

@@ -4,9 +4,7 @@
   </button>
 </template>
 
-<script setup lang="ts">
-const props = defineProps({});
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .custom-button {

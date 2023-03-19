@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 // TODO: возможно стоит декомпозировать на два компонента по типу
-import { ref, computed, watch, onBeforeUnmount } from "vue";
+import { ref, computed, watch } from "vue";
 import type { Ref } from "vue";
 
 type modalType = "left" | "center";

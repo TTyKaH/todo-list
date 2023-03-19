@@ -5,12 +5,12 @@ import App from "./App.vue";
 import router from "./router";
 
 import VueFeather from "vue-feather";
-import CustomTextareaComponent from "@/components/UI/form/CustomTextareaComponent.vue";
-import CustomSelectComponent from "@/components/UI/form/CustomSelectComponent.vue";
-import CustomInputComponent from "@/components/UI/form/CustomInputComponent.vue";
-import ModalWindowComponent from "@/components/UI/modals/ModalWindowComponent.vue";
-import TooltipWrapperComponent from "@/components/UI/TooltipWrapperComponent.vue";
-import CustomButtonComponent from "@/components/UI/CustomButtonComponent.vue";
+import CustomTextarea from "@/components/UI/form/CustomTextarea.vue";
+import CustomSelect from "@/components/UI/form/CustomSelect.vue";
+import CustomInput from "@/components/UI/form/CustomInput.vue";
+import ModalWindow from "@/components/UI/modals/ModalWindow.vue";
+import TooltipWrapper from "@/components/UI/TooltipWrapper.vue";
+import CustomButton from "@/components/UI/CustomButton.vue";
 
 import "./assets/styles/index.scss";
 
@@ -20,11 +20,11 @@ app.use(createPinia());
 app.use(router);
 app.component("VueFeather", VueFeather);
 // UI
-app.component("CustomTextarea", CustomTextareaComponent);
-app.component("CustomSelect", CustomSelectComponent);
-app.component("CustomInput", CustomInputComponent);
-app.component("ModalWindow", ModalWindowComponent);
-app.component("TooltipWrapper", TooltipWrapperComponent);
-app.component("CustomButton", CustomButtonComponent);
+app.component("CustomTextarea", CustomTextarea);
+app.component("CustomSelect", CustomSelect);
+app.component("CustomInput", CustomInput);
+app.component("ModalWindow", ModalWindow);
+app.component("TooltipWrapper", TooltipWrapper);
+app.component("CustomButton", CustomButton);
 
 app.mount("#app");

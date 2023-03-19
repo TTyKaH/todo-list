@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import ListActions from "@/components/Interface/ListActions/ListActionsComponent.vue";
+import ListActions from "@/components/Interface/ListActions/ListActions.vue";
 import TodoList from "@/components/Interface/Todo/TodoList.vue";
 </script>
 
