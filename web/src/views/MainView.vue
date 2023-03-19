@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import ListActions from "@/components/Interface/ListActions/ListActionsComponent.vue";
-import TodoList from "@/components/Interface/Todo/TodoListComponent.vue";
+import TodoList from "@/components/Interface/Todo/TodoList.vue";
 </script>
 
 <style lang="scss" scoped>

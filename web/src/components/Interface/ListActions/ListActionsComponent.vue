@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { ref, Ref } from "vue";
-import TodoForm from "@/components/Interface/Todo/TodoFormComponent.vue";
+import TodoForm from "@/components/Interface/Todo/TodoForm.vue";
 
 type ModalNames = "" | "create-todo";
 const activeModalName: Ref<ModalNames> = ref("");
