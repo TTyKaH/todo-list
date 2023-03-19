@@ -36,10 +36,10 @@
 import { ref, computed } from "vue";
 import type { Ref } from "vue";
 import { useTodosListStore } from "@/stores/todos";
-import TodoListItem from "@/components/Interface/TodoList/TodoListItemComponent.vue";
-import TodoReview from "@/components/Interface/TodoList/TodoReview.vue";
-import TodoRemove from "@/components/Interface/TodoList/TodoRemove.vue";
-import TodoForm from "@/components/Interface/Forms/TodoFormComponent.vue";
+import TodoListItem from "@/components/Interface/Todo/TodoListItemComponent.vue";
+import TodoReview from "@/components/Interface/Todo/TodoReview.vue";
+import TodoRemove from "@/components/Interface/Todo/TodoRemove.vue";
+import TodoForm from "@/components/Interface/Todo/TodoFormComponent.vue";
 
 const { getTodos, loadTodos } = useTodosListStore();
 
