@@ -85,7 +85,8 @@ const emitAction = (action: todoAction) => {
 .todo {
   @apply relative overflow-hidden;
   border: 2px solid var(--bg-draft);
-  max-height: 250px;
+  max-height: 200px;
+  min-height: 200px;
 
   &__header {
     @apply flex justify-between p-5;
@@ -109,7 +110,7 @@ const emitAction = (action: todoAction) => {
   }
 
   &__body {
-    @apply p-5 h-full;
+    @apply p-5;
 
     h4 {
       @apply mb-2;
