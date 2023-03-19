@@ -8,8 +8,10 @@
     </div>
     <div>Table settings</div>
     <ModalWindow
-      v-if="activeModalName === 'create-todo'"
-      width="500px"
+      :isShow="activeModalName === 'create-todo'"
+      modalType="left"
+      maxWidth="500px"
+      width="100%"
       @close="toggleModal"
     >
       <TodoForm @close-modal="toggleModal" />

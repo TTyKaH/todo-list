@@ -9,12 +9,13 @@
       @need-edit-todo="toggleModal"
     />
     <ModalWindow
-      v-if="activeModalName.length"
-      :position="modalSettings.position"
+      :isShow="!!activeModalName.length"
+      :modalType="modalSettings.position"
       :max-width="modalSettings.maxWidth"
       :width="modalSettings.width"
       @close="toggleModal"
     >
+      <!-- TODO: use component tag -->
       <TodoForm
         v-if="activeModalName === 'edit-todo'"
         @close-modal="toggleModal"
