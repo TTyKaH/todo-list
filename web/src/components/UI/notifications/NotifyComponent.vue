@@ -17,7 +17,7 @@ const props = defineProps<{
 .notify {
   @apply flex;
   background: var(--bg-draft);
-  width: 200px;
+  width: 250px;
 
   .type {
     @apply w-1.5;

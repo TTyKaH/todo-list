@@ -1,10 +1,12 @@
 <template>
   <div class="notifications">
-    <Notify
-      v-for="(notify, idx) in notifications"
-      :key="idx"
-      :notify="notify"
-    />
+    <TransitionGroup name="notifications">
+      <Notify
+        v-for="(notify, idx) in notifications"
+        :key="idx"
+        :notify="notify"
+      />
+    </TransitionGroup>
   </div>
 </template>
 
