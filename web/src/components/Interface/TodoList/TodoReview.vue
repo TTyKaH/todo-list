@@ -18,27 +18,16 @@
 import { ref, onBeforeUnmount } from "vue";
 import type { Ref } from "vue";
 import { useTodosListStore } from "@/stores/todos";
+import { TODO_DEFAULT_FORM_VALUE } from "@/constants/index";
 import type { Todo } from "@/types/todo/todo";
 
 const { setActiveTodoId, getActiveTodo } = useTodosListStore();
 
-const DEFAULT_FORM_VALUE: Todo = {
-  title: "",
-  priority: "",
-  description: "",
-  tasks: [
-    {
-      description: "",
-      status: false,
-    },
-  ],
-};
-
-const todo: Ref<Todo> = ref({ ...DEFAULT_FORM_VALUE });
+const todo: Ref<Todo> = ref({ ...TODO_DEFAULT_FORM_VALUE });
 
 // TODO: нет клонирования, сохранятеся ссылка
-if (getActiveTodo.value) {
-  todo.value = getActiveTodo.value;
+if (getActiveTodo) {
+  todo.value = getActiveTodo;
 }
 
 onBeforeUnmount(() => {

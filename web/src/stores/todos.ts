@@ -20,10 +20,14 @@ export const useTodosListStore = defineStore("todosList", {
       return computed<Todo[]>(() => state.todos);
     },
     getActiveTodo: (state) => {
-      return computed<Todo | undefined>(() => {
-        return state.todos.find((todo: Todo) => todo.id === state.activeTodoId);
-      });
+      return state.todos.find((todo: Todo) => todo.id === state.activeTodoId);
     },
+    // getActiveTodo: (state) => {
+    //   return computed<Todo | undefined>(() => {
+    //     console.log("getter computed");
+    //     return state.todos.find((todo: Todo) => todo.id === state.activeTodoId);
+    //   });
+    // },
   },
   actions: {
     // TODO: use loader and notify

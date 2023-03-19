@@ -6,7 +6,7 @@
         <CustomInput v-model="todoFormFields.title" label="Title" required />
         <CustomSelect
           v-model="todoFormFields.priority"
-          :options="items"
+          :options="priorities"
           label="Priority"
         />
       </div>
@@ -44,8 +44,9 @@ import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 import { useTodosListStore } from "@/stores/todos";
+import { TODO_DEFAULT_FORM_VALUE } from "@/constants/index";
 import type { Todo } from "@/types/todo/todo";
-import type { SelectOption } from "@/types/ui/selectOption";
+import { priorities } from "@/constants/index";
 
 const emit = defineEmits<{
   (e: "close-modal"): void;
@@ -55,47 +56,20 @@ const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 const { loadTodos, setActiveTodoId, getActiveTodo } = useTodosListStore();
 
-const DEFAULT_FORM_VALUE: Todo = {
-  title: "",
-  priority: "",
-  description: "",
-  tasks: [
-    {
-      description: "",
-      status: false,
-    },
-  ],
-};
-
-const todoFormFields: Ref<Todo> = ref({ ...DEFAULT_FORM_VALUE });
+const todoFormFields: Ref<Todo> = ref({ ...TODO_DEFAULT_FORM_VALUE });
+const activeTodo: Ref<Todo | undefined> = ref(getActiveTodo);
 
 // TODO: нет клонирования, сохранятеся ссылка
 // Для случая, если редактируется todo
-if (getActiveTodo.value) {
-  todoFormFields.value = getActiveTodo.value;
+if (activeTodo.value) {
+  todoFormFields.value = activeTodo.value;
 }
 
-const isEditing = computed<boolean>(() => !!getActiveTodo.value);
+const isEditing = computed<boolean>(() => !!activeTodo.value);
 
 const formTitle = computed<string>(() => {
   return isEditing.value ? "Edit todo" : "Create todo";
 });
-
-// TODO: это должно быть вынесено в константы, либо на бек
-const items: Ref<SelectOption[]> = ref([
-  {
-    text: "Low",
-    value: "1",
-  },
-  {
-    text: "Middle",
-    value: "2",
-  },
-  {
-    text: "Hight",
-    value: "3",
-  },
-]);
 
 const addTask = () => {
   todoFormFields.value.tasks.push({
