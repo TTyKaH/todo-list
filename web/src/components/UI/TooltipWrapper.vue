@@ -1,7 +1,17 @@
 <template>
-  <div class="tooltip" @mouseenter="show" @mouseleave="hide" ref="tooltipWrap">
+  <div
+    class="tooltip"
+    @mouseenter="show"
+    @mouseleave="hide"
+    ref="tooltipWrap"
+  >
     <transition>
-      <div class="tooltip__message" v-show="isShowTooltip" ref="tooltipElement" :style="tooltipStylePosition">{{ tooltip }}</div>
+      <div
+        class="tooltip__message"
+        v-show="isShowTooltip"
+        ref="tooltipElement"
+        :style="tooltipStylePosition"
+      >{{ tooltip }}</div>
     </transition>
     <slot>Tooltip content</slot>
   </div>
@@ -10,6 +20,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import type { Ref } from "vue";
+import { useOnResize } from "@/composable/useOnResize"
 
 const props = defineProps<{
   tooltip: string;
@@ -40,8 +51,9 @@ const calcPosition = () => {
   }
 }
 
+useOnResize(calcPosition)
+
 onMounted(() => {
-  console.log(tooltipWrap.value?.getBoundingClientRect())
   calcPosition()
 })
 </script>
@@ -52,7 +64,7 @@ onMounted(() => {
 
   &__message {
     @apply fixed border rounded-md py-1 px-3 whitespace-nowrap z-50;
-    
+
     // top: calc(100% + 10px);
     background: var(--bg-draft);
   }
