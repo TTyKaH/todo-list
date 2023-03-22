@@ -1,19 +1,38 @@
 import { createRouter, createWebHistory } from "vue-router";
-import MainView from "@/views/MainView.vue";
-import SettingsView from "@/views/Settings/SettingsView.vue";
+import SignUp from "@/views/Auth/SignUp.vue";
+import SignIn from "@/views/Auth/SignIn.vue";
+import Main from "@/views/Main.vue";
+import TodoList from "@/views/TodoList/TodoList.vue";
+import Settings from "@/views/Settings/Settings.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "MainView",
-      component: MainView,
+      path: "/auth/sign-up",
+      name: "sign-up",
+      component: SignUp,
     },
     {
-      path: "/settings",
-      name: "SettingsView",
-      component: SettingsView,
+      path: "/auth/sign-in",
+      name: "sign-in",
+      component: SignIn,
+    },
+    {
+      path: "/",
+      name: "main",
+      component: Main,
+      children: [
+        {
+          path: "/todo-list",
+          name: "todo-list",
+          component: TodoList,
+        },
+        {
+          path: "/settings",
+          component: Settings,
+        },
+      ],
     },
     // {
     //   path: '/about',

@@ -1,4 +1,5 @@
 import { request } from "@/utils/request";
+// import authHeader from "@/api/auth/auth-header";
 import type { Todo } from "@/types/todo/todo";
 
 /**
@@ -19,6 +20,7 @@ async function createTodo(params: Todo) {
     url: "todos",
     method: "post",
     data: params,
+    // headers: authHeader(),
   });
 }
 

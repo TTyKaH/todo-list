@@ -1,7 +1,11 @@
 <template>
   <div class="sidebar">
     <ul>
-      <SideBarItem v-for="(item, idx) in sidebarMenu" :item="item" :key="idx" />
+      <SideBarItem
+        v-for="(item, idx) in sidebarMenu"
+        :item="item"
+        :key="idx"
+      />
     </ul>
   </div>
 </template>
@@ -14,7 +18,7 @@ const sidebarMenu: SidebarItem[] = [
   {
     title: "Todo list",
     icon: "list",
-    link: "/",
+    link: "/todo-list",
   },
   // {
   //   title: "Create todo",
@@ -36,5 +40,4 @@ const sidebarMenu: SidebarItem[] = [
   left: 0;
   bottom: 0;
   background-color: #f8f8f8;
-}
-</style>
+}</style>
