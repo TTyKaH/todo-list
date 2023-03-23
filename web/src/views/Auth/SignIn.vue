@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount  } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth.js'
 
@@ -40,11 +40,11 @@ const formValue = ref({
 })
 
 const signIn = async () => {
-  auth.login(formValue.value)
+  await auth.login(formValue.value)
   // TODO: move to utilities?
   if (auth.status.loggedIn) {
     // TODO: uncomment in future or change logic
-    // router.push({name: 'todo-list'})
+    router.push({ name: 'todo-list' })
   }
 }
 </script>

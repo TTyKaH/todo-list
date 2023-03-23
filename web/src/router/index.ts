@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/stores/auth.js";
 import SignUp from "@/views/Auth/SignUp.vue";
 import SignIn from "@/views/Auth/SignIn.vue";
 import Main from "@/views/Main.vue";
@@ -22,27 +23,35 @@ const router = createRouter({
       path: "/",
       name: "main",
       component: Main,
+      redirect: "/todo-list",
+      meta: { requiresAuth: true },
       children: [
         {
           path: "/todo-list",
           name: "todo-list",
           component: TodoList,
+          meta: { requiresAuth: true },
         },
         {
           path: "/settings",
+          name: "settings",
           component: Settings,
+          meta: { requiresAuth: true },
         },
       ],
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
   ],
+});
+
+router.beforeEach((to, from) => {
+  const auth = useAuthStore();
+  auth.checkLoggedInStatus();
+
+  if (to.meta.requiresAuth && !auth.status.loggedIn) {
+    return {
+      path: "/auth/sign-in",
+    };
+  }
 });
 
 export default router;

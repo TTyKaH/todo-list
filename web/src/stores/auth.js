@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import authService from '@/api/auth/auth.service';
 
+// TODO: оставить первичную проверку тут? 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
   ? { status: { loggedIn: true }, user }
@@ -57,6 +58,18 @@ export const useAuthStore = defineStore('auth', {
     },
     registerFailure() {
       this.status.loggedIn = false;
+    },
+    // =====
+    checkLoggedInStatus() {
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (user) {
+        this.status.loggedIn = true
+        this.user = user
+        return
+      }
+      this.status.loggedIn = false
+      this.user = null
     }
   },
 })
