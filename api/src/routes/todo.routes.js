@@ -1,3 +1,4 @@
+const authJwt = require("../middleware/auth/authJwt");
 module.exports = app => {
   const todos = require("../controllers/todo.controller.js");
 
@@ -21,5 +22,5 @@ module.exports = app => {
   // Delete all Todos
   router.delete("/", todos.deleteAll);
 
-  app.use('/api/todos', router);
+  app.use('/api/todos', authJwt.verifyToken, router);
 };

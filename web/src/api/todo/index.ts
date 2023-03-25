@@ -1,5 +1,5 @@
 import { request } from "@/utils/request";
-// import authHeader from "@/api/auth/auth-header";
+import authHeader from "../auth/auth-header.js";
 import type { Todo } from "@/types/todo/todo";
 
 /**
@@ -9,6 +9,7 @@ async function getTodos() {
   return await request({
     url: "todos",
     method: "get",
+    headers: authHeader(),
   });
 }
 
@@ -20,7 +21,7 @@ async function createTodo(params: Todo) {
     url: "todos",
     method: "post",
     data: params,
-    // headers: authHeader(),
+    headers: authHeader(),
   });
 }
 
@@ -32,6 +33,7 @@ async function removeTodo(params: Todo | undefined) {
   return await request({
     url: `todos/${params?.id}`,
     method: "delete",
+    headers: authHeader(),
   });
 }
 
@@ -40,6 +42,7 @@ async function updateTodo(params: Todo) {
     url: `todos/${params.id}`,
     method: "put",
     data: params,
+    headers: authHeader(),
   });
 }
 
