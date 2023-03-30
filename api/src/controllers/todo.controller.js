@@ -55,29 +55,20 @@ exports.create = async (req, res) => {
 
 // Retrieve all Todos from the database.
 exports.findAll = async (req, res) => {
-  let todos = []
-
-  await Todo.findAll({
+  const todos = await Todo.findAll({
+    include: {
+      model: Task
+    },
     order: [
       ['id', 'DESC'],
-      // ['name', 'ASC'],
     ],
   })
-    .then(data => {
-      todos = data
-    })
     .catch(err => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving todos."
       });
     });
-
-  // find all tasks related with one todo and add them to the todo
-  await getAllTasksByTodoId(todos)
-    .then((data) => {
-      console.log('wait')
-    })
 
   res.send({
     todos: todos
@@ -130,10 +121,10 @@ exports.update = async (req, res) => {
     });
 
   // same updating for tasks related with todo
-  await updateTaskByTodoId(req.body)
-    .then((data) => {
-      console.log(data)
-    })
+  // await updateTaskByTodoId(req.body)
+  //   .then((data) => {
+  //     console.log(data)
+  //   })
 
   res.send({
     message: "Todo was updated successfully."
@@ -186,18 +177,18 @@ exports.deleteAll = (req, res) => {
 
 // В дальнейшем следует принять решение куда выносить функции используемые внутри контроллеров
 // =========================
-async function getAllTasksByTodoId(todos) {
-  for (todo of todos) {
-    await Task.findAll({
-      where: {
-        todoId: todo.id,
-      }
-    })
-      .then((data) => {
-        todo.dataValues.tasks = data
-      })
-  }
-}
+// async function getAllTasksByTodoId(todos) {
+//   for (todo of todos) {
+//     await Task.findAll({
+//       where: {
+//         todoId: todo.id,
+//       }
+//     })
+//       .then((data) => {
+//         todo.dataValues.tasks = data
+//       })
+//   }
+// }
 
 async function updateTaskByTodoId(todo) {
   for (task of todo.tasks) {
