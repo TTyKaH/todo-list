@@ -100,31 +100,52 @@ exports.findOne = (req, res) => {
 exports.update = async (req, res) => {
   const id = req.params.id;
 
-  Todo.update(req.body, {
+  // обновляем Todo при помощи встроенной в sequilize функции update
+  await Todo.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
-        // res.send({
-        //   message: "Todo was updated successfully."
-        // });
       } else {
         res.send({
           message: `Cannot update Todo with id=${id}. Maybe Todo was not found or req.body is empty!`
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message: "Error updating Todo with id=" + id
       });
     });
 
-  // same updating for tasks related with todo
-  // await updateTaskByTodoId(req.body)
-  //   .then((data) => {
-  //     console.log(data)
-  //   })
+  // обновляем / создаем связанные с Todo Tasks
+  req.body.tasks.forEach(async (task) => {
+    if (task?.id) {
+      // обновляем существующий task
+      Task.update(task, {
+        where: { id: task.id }
+      })
+        .catch((err) => {
+          res.status(500).send({
+            message: "Error updating Task with id=" + task.id
+          });
+        });
+    } else {
+      // создаем новый Task
+      await Task.create({
+        description: task.description,
+        status: task.status,
+        todoId: id
+      })
+        .catch((err) => {
+          res.status(500).send({
+            message: "Error via create Task"
+          });
+        });
+    }
+  })
+
+  // удаляем Tasks, если есть такие на удаление
 
   res.send({
     message: "Todo was updated successfully."
