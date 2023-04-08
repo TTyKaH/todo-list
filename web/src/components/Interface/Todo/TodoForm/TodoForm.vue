@@ -3,7 +3,11 @@
     <h3>{{ formTitle }}</h3>
     <form class="form">
       <div class="group">
-        <CustomInput v-model="todoFormFields.title" label="Title" required />
+        <CustomInput
+          v-model="todoFormFields.title"
+          label="Title"
+          required
+        />
         <CustomSelect
           v-model="todoFormFields.priority"
           :options="priorities"
@@ -23,10 +27,16 @@
         />
         <div class="task-action">
           <TooltipWrapper tooltip="add task">
-            <VueFeather type="plus-square" @click="addTask" />
+            <VueFeather
+              type="plus-square"
+              @click="addTask"
+            />
           </TooltipWrapper>
           <TooltipWrapper tooltip="remove last task">
-            <VueFeather type="minus-square" @click="removeLastTask" />
+            <VueFeather
+              type="minus-square"
+              @click="removeLastTask"
+            />
           </TooltipWrapper>
         </div>
       </div>

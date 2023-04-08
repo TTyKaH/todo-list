@@ -39,7 +39,7 @@ import { useTodosListStore } from "@/stores/todos";
 import TodoListItem from "@/components/Interface/Todo/TodoListItem.vue";
 import TodoReview from "@/components/Interface/Todo/TodoReview.vue";
 import TodoRemove from "@/components/Interface/Todo/TodoRemove.vue";
-import TodoForm from "@/components/Interface/Todo/TodoForm.vue";
+import TodoForm from "@/components/Interface/Todo/TodoForm/TodoForm.vue";
 
 const { getTodos, loadTodos } = useTodosListStore();
 
