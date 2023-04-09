@@ -146,6 +146,11 @@ exports.update = async (req, res) => {
   })
 
   // удаляем Tasks, если есть такие на удаление
+  if (req.body?.taskIdsForDeleting?.length) {
+    req.body.taskIdsForDeleting.forEach(async (taskId) => {
+      await Task.destroy({ where: { id: taskId } })
+    })
+  }
 
   res.send({
     message: "Todo was updated successfully."

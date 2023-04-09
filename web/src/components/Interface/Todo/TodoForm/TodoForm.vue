@@ -19,11 +19,14 @@
         label="Description"
       />
       <div class="tasks">
-        <CustomInput
+        <TaskInput
           v-for="(task, idx) in todoFormFields.tasks"
           :key="idx"
           v-model="todoFormFields.tasks[idx].description"
+          :taskId="task?.id"
+          :taskIdx="idx"
           label="Task"
+          @delete="removeTask"
         />
         <div class="task-action">
           <TooltipWrapper tooltip="add task">
@@ -56,7 +59,9 @@ import { useNotify } from "@/composable/useNotify.js";
 import { useTodosListStore } from "@/stores/todos";
 import { TODO_DEFAULT_FORM_VALUE } from "@/constants/index";
 import type { Todo } from "@/types/todo/todo";
+import type { taskForDeleting } from '@/types/todo/task'
 import { priorities } from "@/constants/index";
+import TaskInput from '@/components/Interface/Todo/TodoForm/TaskInput.vue'
 
 const emit = defineEmits<{
   (e: "close-modal"): void;
@@ -67,6 +72,7 @@ const { showNotify } = useNotify();
 const { loadTodos, setActiveTodoId, getActiveTodo } = useTodosListStore();
 
 const todoFormFields: Ref<Todo> = ref({ ...TODO_DEFAULT_FORM_VALUE });
+const taskIdsForDeleting: Ref<number[]> = ref([])
 const activeTodo: Ref<Todo | undefined> = ref(getActiveTodo);
 
 // TODO: нет клонирования, сохранятеся ссылка
@@ -94,8 +100,22 @@ const removeLastTask = () => {
   todoFormFields.value.tasks.splice(todoFormFields.value.tasks.length - 1, 1);
 };
 
+const removeTask = (taskForDeleting: taskForDeleting) => {
+  console.log(2)
+  if (taskForDeleting.id) {
+    taskIdsForDeleting.value.push(taskForDeleting.id)
+    todoFormFields.value.tasks = todoFormFields.value.tasks.filter((task) => task?.id !== taskForDeleting.id)
+    return
+  }
+  todoFormFields.value.tasks.splice(taskForDeleting.idx, 1)
+}
+
 const saveTodo = async () => {
   toggleLoader(true);
+
+  if (taskIdsForDeleting.value.length) {
+    todoFormFields.value.taskIdsForDeleting = [...taskIdsForDeleting.value]
+  }
 
   try {
     let response;

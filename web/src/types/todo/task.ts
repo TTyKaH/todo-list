@@ -6,3 +6,8 @@ export interface Task {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface taskForDeleting {
+  id: number | null;
+  idx: number;
+}

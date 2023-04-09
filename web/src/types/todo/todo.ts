@@ -6,6 +6,7 @@ export interface Todo {
   priority: string;
   description: string;
   tasks: Task[];
+  taskIdsForDeleting: number[];
   createdAt?: string;
   updatedAt?: string;
 }
