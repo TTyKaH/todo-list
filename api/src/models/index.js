@@ -30,6 +30,7 @@ db.role = require("./auth/role.model.js")(sequelize, Sequelize);
 
 db.todos = require("./todo.model.js")(sequelize, Sequelize);
 db.tasks = require("./task.model.js")(sequelize, Sequelize);
+db.statuses = require("./status.model.js")(sequelize, Sequelize);
 
 // models relations
 db.role.belongsToMany(db.user, {
@@ -46,6 +47,6 @@ db.user.belongsToMany(db.role, {
 db.ROLES = ["user", "admin", "moderator"];
 
 db.todos.hasMany(db.tasks);
-
+// db.statuses.hasMany(db.todos)
 
 module.exports = db;

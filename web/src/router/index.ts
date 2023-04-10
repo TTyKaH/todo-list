@@ -44,7 +44,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from) => {
-  console.log(4);
   const auth = useAuthStore();
   auth.checkLoggedInStatus();
 

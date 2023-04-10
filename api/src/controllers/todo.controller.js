@@ -1,6 +1,7 @@
 const db = require("../models");
 const Todo = db.todos;
 const Task = db.tasks;
+const Status = db.status;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Todo

@@ -101,7 +101,6 @@ const removeLastTask = () => {
 };
 
 const removeTask = (taskForDeleting: taskForDeleting) => {
-  console.log(2)
   if (taskForDeleting.id) {
     taskIdsForDeleting.value.push(taskForDeleting.id)
     todoFormFields.value.tasks = todoFormFields.value.tasks.filter((task) => task?.id !== taskForDeleting.id)

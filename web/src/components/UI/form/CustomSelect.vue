@@ -2,7 +2,10 @@
   <div class="custom-field select">
     <div class="label">
       {{ props.label }}
-      <span v-if="required" class="required">*</span>
+      <span
+        v-if="required"
+        class="required"
+      >*</span>
     </div>
     <select
       v-if="options.length > 0"
@@ -20,14 +23,21 @@
     </select>
     <div class="bottom-text">
       <slot name="tip"></slot>
-      <div v-if="Object.keys(error).length" class="error-text">{{ error }}</div>
+      <div
+        v-if="Object.keys(error).length"
+        class="error-text"
+      >{{ error }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs, watch, ref } from "vue";
+import { toRefs, computed, watch, ref } from "vue";
 import type { SelectOption } from "@/types/ui/selectOption";
+
+const emit = defineEmits<{
+  (e: "modelValue:update", value: object): void;
+}>();
 
 const props = withDefaults(
   defineProps<{
@@ -56,10 +66,6 @@ const props = withDefaults(
   }
 );
 
-const emit = defineEmits<{
-  (e: "onUpdate:modelValue", value: object): void;
-}>();
-
 const { options, modelValue, isSelectFirstItemIfNull } = toRefs(props);
 
 const innerValue = ref();
@@ -69,23 +75,23 @@ if (
   isSelectFirstItemIfNull.value
 ) {
   innerValue.value = options.value[0];
-  emit("onUpdate:modelValue", innerValue.value);
+  emit("modelValue:update", innerValue.value);
 } else {
   innerValue.value = modelValue.value;
 }
 
 // TODO: переписать на computed кастомный v-model
-watch(innerValue, (newValue) => {
-  // if (innerValue.value !== newValue) {
-  emit("onUpdate:modelValue", newValue);
-  // }
-});
+// watch(innerValue, (newValue) => {
+//   // if (innerValue.value !== newValue) {
+//   emit("modelValue:update", newValue);
+//   // }
+// });
 
-watch(modelValue, (newValue, oldValue) => {
-  if (newValue !== oldValue) {
-    innerValue.value = newValue;
-  }
-});
+// watch(modelValue, (newValue, oldValue) => {
+//   if (newValue !== oldValue) {
+//     innerValue.value = newValue;
+//   }
+// });
 </script>
 
 <style lang="scss" scoped></style>
