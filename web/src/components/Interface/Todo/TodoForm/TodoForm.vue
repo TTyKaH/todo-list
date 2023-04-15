@@ -121,6 +121,10 @@ const removeTask = (TaskForDeleting: TaskForDeleting) => {
   todoFormFields.value.tasks.splice(TaskForDeleting.idx, 1)
 }
 
+const prepareTasks = (tasks: Task[]) => {
+  return tasks.filter((task: Task) => task.description.length)
+}
+
 // save todo in db
 const saveTodo = async () => {
   toggleLoader(true);
@@ -129,12 +133,16 @@ const saveTodo = async () => {
     todoFormFields.value.taskIdsForDeleting = [...taskIdsForDeleting.value]
   }
 
+  // remove tasks which don't have description
+  const todoValues = lodash.cloneDeep(todoFormFields.value)
+  todoValues.tasks = prepareTasks(todoValues.tasks)
+
   try {
     let response;
     if (!isEditing.value) {
-      response = await api.todo.createTodo(todoFormFields.value);
+      response = await api.todo.createTodo(todoValues);
     } else {
-      response = await api.todo.updateTodo(todoFormFields.value);
+      response = await api.todo.updateTodo(todoValues);
     }
 
     await loadTodos();

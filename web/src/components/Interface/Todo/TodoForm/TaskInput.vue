@@ -14,6 +14,7 @@
         :disabled="disabled"
         class="field"
         type="text"
+        placeholder="Empty task will be removed"
         :class="{ error: props.hasError }"
       />
       <!-- TODO: что-то не то с поднятием, происходит редирект -->
