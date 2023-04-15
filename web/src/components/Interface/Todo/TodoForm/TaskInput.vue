@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import type { taskForDeleting } from '@/types/todo/task'
+import type { TaskForDeleting } from '@/types/todo/task'
 
 const props = withDefaults(
   defineProps<{
@@ -62,7 +62,7 @@ const props = withDefaults(
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
-  (e: "delete", value: taskForDeleting): void;
+  (e: "delete", value: TaskForDeleting): void;
 }>();
 
 const value = computed<string>({

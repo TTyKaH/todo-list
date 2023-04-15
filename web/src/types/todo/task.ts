@@ -7,7 +7,12 @@ export interface Task {
   updatedAt?: string;
 }
 
-export interface taskForDeleting {
+export interface TaskForDeleting {
   id: number | null;
   idx: number;
+}
+
+export interface DataForAddingTaskWithPosition {
+  type: "id" | "idx";
+  value: number | null;
 }

@@ -1,4 +1,5 @@
 import type { Todo } from "@/types/todo/todo";
+import type { Task } from "@/types/todo/task";
 import type { SelectOption } from "@/types/ui/selectOption";
 
 export const TODO_DEFAULT_FORM_VALUE: Todo = {
@@ -11,6 +12,12 @@ export const TODO_DEFAULT_FORM_VALUE: Todo = {
       status: false,
     },
   ],
+  taskIdsForDeleting: [],
+};
+
+export const TASK_FIELDS: Task = {
+  status: false,
+  description: "",
 };
 
 export const priorities: SelectOption[] = [

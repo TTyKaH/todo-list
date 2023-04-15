@@ -19,28 +19,29 @@
         label="Description"
       />
       <div class="tasks">
-        <TaskInput
-          v-for="(task, idx) in todoFormFields.tasks"
-          :key="idx"
-          v-model="todoFormFields.tasks[idx].description"
-          :taskId="task?.id"
-          :taskIdx="idx"
-          label="Task"
-          @delete="removeTask"
-        />
-        <div class="task-action">
-          <TooltipWrapper tooltip="add task">
-            <VueFeather
-              type="plus-square"
-              @click="addTask"
+        <div class="task-group">
+          <TaskActionsLine
+            :prevTaskId="null"
+            :prevTaskIdx="null"
+            @add-task="handleAddTask"
+          />
+          <template
+            v-for="(task, idx) in todoFormFields.tasks"
+            :key="idx"
+          >
+            <TaskInput
+              v-model="todoFormFields.tasks[idx].description"
+              :taskId="task?.id"
+              :taskIdx="idx"
+              label="Task"
+              @delete="removeTask"
             />
-          </TooltipWrapper>
-          <TooltipWrapper tooltip="remove last task">
-            <VueFeather
-              type="minus-square"
-              @click="removeLastTask"
+            <TaskActionsLine
+              :prevTaskId="task?.id ? task.id : null"
+              :prevTaskIdx="idx"
+              @add-task="handleAddTask"
             />
-          </TooltipWrapper>
+          </template>
         </div>
       </div>
     </form>
@@ -52,16 +53,18 @@
 
 <script setup lang="ts">
 import { ref, computed, onBeforeUnmount } from "vue";
+import lodash from "lodash";
 import type { Ref } from "vue";
+import type { Todo } from "@/types/todo/todo";
+import type { Task, TaskForDeleting, DataForAddingTaskWithPosition } from '@/types/todo/task'
 import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 import { useTodosListStore } from "@/stores/todos";
-import { TODO_DEFAULT_FORM_VALUE } from "@/constants/index";
-import type { Todo } from "@/types/todo/todo";
-import type { taskForDeleting } from '@/types/todo/task'
+import { TODO_DEFAULT_FORM_VALUE, TASK_FIELDS } from "@/constants/index";
 import { priorities } from "@/constants/index";
 import TaskInput from '@/components/Interface/Todo/TodoForm/TaskInput.vue'
+import TaskActionsLine from '@/components/Interface/Todo/TodoForm/TaskActionsLine.vue'
 
 const emit = defineEmits<{
   (e: "close-modal"): void;
@@ -75,10 +78,10 @@ const todoFormFields: Ref<Todo> = ref({ ...TODO_DEFAULT_FORM_VALUE });
 const taskIdsForDeleting: Ref<number[]> = ref([])
 const activeTodo: Ref<Todo | undefined> = ref(getActiveTodo);
 
-// TODO: нет клонирования, сохранятеся ссылка
-// Для случая, если редактируется todo
+const taskFields: Task = { ...TASK_FIELDS };
+
 if (activeTodo.value) {
-  todoFormFields.value = activeTodo.value;
+  todoFormFields.value = lodash.cloneDeep(activeTodo.value);
 }
 
 const isEditing = computed<boolean>(() => !!activeTodo.value);
@@ -87,28 +90,38 @@ const formTitle = computed<string>(() => {
   return isEditing.value ? "Edit todo" : "Create todo";
 });
 
-const addTask = () => {
-  todoFormFields.value.tasks.push({
-    description: "",
-    status: false,
-  });
-};
-
-const removeLastTask = () => {
-  const tasksCount = todoFormFields.value.tasks.length;
-  if (tasksCount === 1) return;
-  todoFormFields.value.tasks.splice(todoFormFields.value.tasks.length - 1, 1);
-};
-
-const removeTask = (taskForDeleting: taskForDeleting) => {
-  if (taskForDeleting.id) {
-    taskIdsForDeleting.value.push(taskForDeleting.id)
-    todoFormFields.value.tasks = todoFormFields.value.tasks.filter((task) => task?.id !== taskForDeleting.id)
+// add task to specific position of tasks list
+const handleAddTask = (data: DataForAddingTaskWithPosition) => {
+  if (data.value === null) {
+    // if prev task is not exist
+    todoFormFields.value.tasks.unshift({ ...taskFields })
     return
   }
-  todoFormFields.value.tasks.splice(taskForDeleting.idx, 1)
+  if (data.type === 'id') {
+    // if prev task has id
+    const prevTaskIdx = todoFormFields.value.tasks.findIndex((task) => data.value === task.id)
+    const cuttedTasks = todoFormFields.value.tasks.splice(prevTaskIdx + 1)
+    const tasksCount = todoFormFields.value.tasks.length
+    todoFormFields.value.tasks.splice(prevTaskIdx + 1, tasksCount, { ...taskFields }, ...cuttedTasks)
+    return
+  }
+  // if prev task has only idx
+  const cuttedTasks = todoFormFields.value.tasks.splice(data.value + 1)
+  const tasksCount = todoFormFields.value.tasks.length
+  todoFormFields.value.tasks.splice(data.value + 1, tasksCount, { ...taskFields }, ...cuttedTasks)
 }
 
+// remove todo from list and save it id if it exist
+const removeTask = (TaskForDeleting: TaskForDeleting) => {
+  if (TaskForDeleting.id) {
+    taskIdsForDeleting.value.push(TaskForDeleting.id)
+    todoFormFields.value.tasks = todoFormFields.value.tasks.filter((task) => task?.id !== TaskForDeleting.id)
+    return
+  }
+  todoFormFields.value.tasks.splice(TaskForDeleting.idx, 1)
+}
+
+// save todo in db
 const saveTodo = async () => {
   toggleLoader(true);
 
@@ -154,10 +167,6 @@ onBeforeUnmount(() => {
 
     .tasks {
       @apply relative grid gap-3;
-
-      .task-action {
-        @apply flex absolute right-0 -bottom-8;
-      }
     }
   }
 }

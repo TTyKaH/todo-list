@@ -6,9 +6,9 @@
         <h3>{{ todo.title }}</h3>
       </div>
       <div class="actions">
-        <TooltipWrapper 
-          v-for="(action, idx) in actions" 
-          :key="idx" 
+        <TooltipWrapper
+          v-for="(action, idx) in actions"
+          :key="idx"
           :tooltip="action.tooltip"
         >
           <VueFeather
@@ -22,11 +22,19 @@
     <div class="todo__body">
       <h4>{{ todo.description }}</h4>
       <div class="tasks">
-        <div class="task" v-for="(task, idx) in todo.tasks" :key="idx">
+        <div
+          class="task"
+          v-for="(task, idx) in todo.tasks"
+          :key="idx"
+        >
           - {{ task.description }}
         </div>
       </div>
-      <VueFeather type="chevron-down" size="48" stroke="#f8f8f8" />
+      <VueFeather
+        type="chevron-down"
+        size="48"
+        stroke="#f8f8f8"
+      />
       <div class="hider" />
     </div>
   </div>
@@ -39,15 +47,16 @@ import type { todoAction } from "@/types/ui/todoAction";
 
 const { setActiveTodoId } = useTodosListStore();
 
-const props = defineProps<{
-  todo: Todo;
-}>();
-
 const emit = defineEmits<{
   (e: "need-review-todo", modalName: string): void;
   (e: "need-edit-todo", modalName: string): void;
   (e: "need-remove-todo", modalName: string): void;
 }>();
+
+const props = defineProps<{
+  todo: Todo;
+}>();
+
 
 const actions: todoAction[] = [
   {
@@ -145,11 +154,13 @@ const emitAction = (action: todoAction) => {
         border: 20px solid transparent;
         border-top-width: 0;
       }
+
       &::before {
         left: 0;
         border-bottom-color: var(--bg-draft);
         border-left-width: 0;
       }
+
       &::after {
         right: 0;
         border-bottom-color: var(--bg-draft);
@@ -157,5 +168,4 @@ const emitAction = (action: todoAction) => {
       }
     }
   }
-}
-</style>
+}</style>
