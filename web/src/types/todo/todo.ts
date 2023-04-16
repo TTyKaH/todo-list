@@ -3,7 +3,7 @@ import type { Task } from "@/types/todo/task";
 export interface Todo {
   id?: number;
   title: string;
-  priority: string;
+  priorityId: number | null;
   description: string;
   tasks: Task[];
   taskIdsForDeleting: number[];

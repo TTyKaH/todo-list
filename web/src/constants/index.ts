@@ -4,7 +4,7 @@ import type { SelectOption } from "@/types/ui/selectOption";
 
 export const TODO_DEFAULT_FORM_VALUE: Todo = {
   title: "",
-  priority: "",
+  priorityId: null,
   description: "",
   tasks: [
     {
@@ -20,17 +20,17 @@ export const TASK_FIELDS: Task = {
   description: "",
 };
 
-export const priorities: SelectOption[] = [
+export const PRIORITIES: SelectOption[] = [
   {
-    text: "Low",
+    id: 1,
     value: "low",
   },
   {
-    text: "Middle",
+    id: 2,
     value: "middle",
   },
   {
-    text: "Hight",
+    id: 3,
     value: "hight",
   },
 ];

@@ -16,8 +16,9 @@
       <option
         v-for="(option, idx) in options"
         :key="`option_${idx}`"
-        :value="option"
+        :value="option[optionValueKey]"
       >
+        <!-- TODO: как решить проблему, если выводимое поле неизвестная строка -->
         {{ option[optionTextKey] }}
       </option>
     </select>
@@ -35,13 +36,15 @@
 import { toRefs, computed, watch, ref } from "vue";
 import type { SelectOption } from "@/types/ui/selectOption";
 
+// TODO: как описать тип передаваемого имитом, который может быть произвольным объектом, строкой или числом? 
 const emit = defineEmits<{
-  (e: "modelValue:update", value: object): void;
+  (e: "update:modelValue", value: number | string): void;
 }>();
 
 const props = withDefaults(
   defineProps<{
-    modelValue: SelectOption | string;
+    modelValue: number | string;
+    // TODO: можно ли как-то сделать стуркутуру иной в будущем, если в SelectOption понадобатся совсем другие ключи?
     options: SelectOption[];
     label?: string;
     required?: boolean;
@@ -49,7 +52,8 @@ const props = withDefaults(
     hasError?: boolean;
     error?: object;
     // TODO: Как описать этот пропс, что он может быть любой строкой?
-    optionTextKey?: "text";
+    optionTextKey?: string;
+    optionValueKey?: string;
     // При инициализации делать активным первое значение,
     // если в качестве modelValue получен null
     isSelectFirstItemIfNull?: boolean;
@@ -62,36 +66,27 @@ const props = withDefaults(
     hasError: false,
     error: () => ({}),
     optionTextKey: "text",
+    optionValueKey: "id",
     isSelectFirstItemIfNull: true,
   }
 );
 
-const { options, modelValue, isSelectFirstItemIfNull } = toRefs(props);
+const { options, modelValue, optionValueKey, isSelectFirstItemIfNull } = toRefs(props);
 
-const innerValue = ref();
+// const innerValue = ref();
+const innerValue = computed({
+  get: () => props.modelValue,
+  set: (value) => emit("update:modelValue", value)
+})
 
 if (
   (modelValue.value === null || typeof modelValue.value === "undefined") &&
   isSelectFirstItemIfNull.value
 ) {
-  innerValue.value = options.value[0];
-  emit("modelValue:update", innerValue.value);
+  innerValue.value = options.value[0].id
 } else {
   innerValue.value = modelValue.value;
 }
-
-// TODO: переписать на computed кастомный v-model
-// watch(innerValue, (newValue) => {
-//   // if (innerValue.value !== newValue) {
-//   emit("modelValue:update", newValue);
-//   // }
-// });
-
-// watch(modelValue, (newValue, oldValue) => {
-//   if (newValue !== oldValue) {
-//     innerValue.value = newValue;
-//   }
-// });
 </script>
 
 <style lang="scss" scoped></style>

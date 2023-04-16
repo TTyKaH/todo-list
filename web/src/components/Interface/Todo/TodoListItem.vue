@@ -2,7 +2,7 @@
   <div class="todo">
     <div class="todo__header">
       <div class="title">
-        <div class="priority">low</div>
+        <div class="priority">{{ todoPriority }}</div>
         <h3>{{ todo.title }}</h3>
       </div>
       <div class="actions">
@@ -41,9 +41,11 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useTodosListStore } from "@/stores/todos";
 import type { Todo } from "@/types/todo/todo";
 import type { todoAction } from "@/types/ui/todoAction";
+import { PRIORITIES } from "@/constants/index";
 
 const { setActiveTodoId } = useTodosListStore();
 
@@ -57,6 +59,10 @@ const props = defineProps<{
   todo: Todo;
 }>();
 
+const todoPriority = computed(() => {
+  const priority = PRIORITIES.find((priority) => priority.id === props.todo.id)
+  return priority ? priority.value : '-'
+})
 
 const actions: todoAction[] = [
   {
@@ -168,4 +174,5 @@ const emitAction = (action: todoAction) => {
       }
     }
   }
-}</style>
+}
+</style>

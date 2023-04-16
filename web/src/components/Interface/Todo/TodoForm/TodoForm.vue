@@ -9,9 +9,10 @@
           required
         />
         <CustomSelect
-          v-model="todoFormFields.priority"
-          :options="priorities"
+          v-model="todoFormFields.priorityId"
+          :options="PRIORITIES"
           label="Priority"
+          optionTextKey="value"
         />
       </div>
       <CustomTextarea
@@ -62,7 +63,7 @@ import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 import { useTodosListStore } from "@/stores/todos";
 import { TODO_DEFAULT_FORM_VALUE, TASK_FIELDS } from "@/constants/index";
-import { priorities } from "@/constants/index";
+import { PRIORITIES } from "@/constants/index";
 import TaskInput from '@/components/Interface/Todo/TodoForm/TaskInput.vue'
 import TaskActionsLine from '@/components/Interface/Todo/TodoForm/TaskActionsLine.vue'
 

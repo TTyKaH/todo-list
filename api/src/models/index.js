@@ -28,9 +28,8 @@ db.sequelize = sequelize;
 db.user = require("./auth/user.model.js")(sequelize, Sequelize);
 db.role = require("./auth/role.model.js")(sequelize, Sequelize);
 
-db.todos = require("./todo.model.js")(sequelize, Sequelize);
-db.tasks = require("./task.model.js")(sequelize, Sequelize);
-db.statuses = require("./status.model.js")(sequelize, Sequelize);
+db.todo = require("./todo.model.js")(sequelize, Sequelize);
+db.task = require("./task.model.js")(sequelize, Sequelize);
 
 // models relations
 db.role.belongsToMany(db.user, {
@@ -46,7 +45,6 @@ db.user.belongsToMany(db.role, {
 // TODO: move to other file?
 db.ROLES = ["user", "admin", "moderator"];
 
-db.todos.hasMany(db.tasks);
-// db.statuses.hasMany(db.todos)
+db.todo.hasMany(db.task);
 
 module.exports = db;
