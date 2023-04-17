@@ -220,17 +220,14 @@ exports.deleteAll = (req, res) => {
 async function updateTaskByTodoId(todo) {
   for (task of todo.tasks) {
     const taskFromDB = Task.findByPk(task.id)
-    console.log('=========== task', taskFromDB)
 
     if (task?.id) {
-      console.log('================== update')
       await Task.update(task, {
         where: {
           id: task.id
         }
       })
     } else {
-      console.log('================== create')
       task.todoId = todo.id
       await Task.create(task)
         .catch(err => {

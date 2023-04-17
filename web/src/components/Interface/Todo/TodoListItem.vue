@@ -61,7 +61,6 @@ const props = defineProps<{
 
 const todoPriorityTitle = computed(() => {
   const priority = PRIORITIES.find((priority) => priority.id === props.todo.priorityId)
-  console.log(priority)
   return priority ? priority.value : '-'
 })
 

@@ -72,7 +72,6 @@ const value = computed<string>({
 });
 
 const removeTask = () => {
-  console.log(1)
   emit('delete', {
     id: props.taskId,
     idx: props.taskIdx

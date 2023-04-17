@@ -44,7 +44,6 @@ export const request = async (config) => {
     });
   } catch (error) {
     if (error.response.status === 401) {
-      console.log(1);
       router.push("/auth/sign-in");
     }
     return Promise.reject(error);

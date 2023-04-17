@@ -24,7 +24,6 @@ export const useTodosListStore = defineStore("todosList", {
     },
     // getActiveTodo: (state) => {
     //   return computed<Todo | undefined>(() => {
-    //     console.log("getter computed");
     //     return state.todos.find((todo: Todo) => todo.id === state.activeTodoId);
     //   });
     // },
