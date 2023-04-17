@@ -18,6 +18,7 @@ exports.create = async (req, res) => {
   const todo = {
     title: req.body.title,
     description: req.body.description,
+    priorityId: req.body.priorityId
   };
 
   let todoId = null

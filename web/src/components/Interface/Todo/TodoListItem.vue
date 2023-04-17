@@ -2,7 +2,7 @@
   <div class="todo">
     <div class="todo__header">
       <div class="title">
-        <div class="priority">{{ todoPriority }}</div>
+        <div class="priority" :class="priorityBgColor">{{ todoPriorityTitle }}</div>
         <h3>{{ todo.title }}</h3>
       </div>
       <div class="actions">
@@ -59,9 +59,21 @@ const props = defineProps<{
   todo: Todo;
 }>();
 
-const todoPriority = computed(() => {
-  const priority = PRIORITIES.find((priority) => priority.id === props.todo.id)
+const todoPriorityTitle = computed(() => {
+  const priority = PRIORITIES.find((priority) => priority.id === props.todo.priorityId)
+  console.log(priority)
   return priority ? priority.value : '-'
+})
+
+const priorityClasses = [
+  'low',
+  'middle',
+  'high'
+]
+
+const priorityBgColor = computed(() => {
+  if (!props.todo.priorityId) return ''
+  return priorityClasses[props.todo.priorityId - 1]
 })
 
 const actions: todoAction[] = [
@@ -119,6 +131,18 @@ const emitAction = (action: todoAction) => {
 
       .priority {
         @apply px-2 bg-green-500;
+
+        border-radius: 5px 0 5px 0;
+
+        &.low {
+          background-color: var(--green)
+        }
+        &.middle {
+          background-color: var(--yellow)
+        }
+        &.high {
+          background-color: var(--red)
+        }
       }
     }
 

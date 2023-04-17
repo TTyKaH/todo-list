@@ -15,6 +15,6 @@ import Sidebar from "@/components/Interface/Sidebar/Sidebar.vue";
 .view-main {
   @apply p-10;
 
-  margin: 70px 0 0 172px;
+  margin: 70px 0 0 147px;
 }
 </style>
