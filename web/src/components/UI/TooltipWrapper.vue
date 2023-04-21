@@ -45,8 +45,8 @@ const hide = () => {
 
 const calcPosition = () => {
   const wrapperPosition = tooltipWrap.value?.getBoundingClientRect()
+
   if (wrapperPosition) {
-    tooltipStylePosition.value.left = `${wrapperPosition?.left + wrapperPosition?.width}px`
     tooltipStylePosition.value.top = `${wrapperPosition?.top + wrapperPosition?.height + 10}px`
   }
 }

@@ -40,4 +40,5 @@ const sidebarMenu: SidebarItem[] = [
   left: 0;
   bottom: 0;
   background-color: #f8f8f8;
-}</style>
+}
+</style>

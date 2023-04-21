@@ -17,7 +17,7 @@
         placeholder="Empty task will be removed"
         :class="{ error: props.hasError }"
       />
-      <!-- TODO: что-то не то с поднятием, происходит редирект -->
+      <!-- TODO: что-то не то с поднятием, происходит редирект (пофикшено в слепую) -->
       <VueFeather
         type="trash"
         size="18px"
