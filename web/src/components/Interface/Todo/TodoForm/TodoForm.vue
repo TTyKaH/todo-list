@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeUnmount } from "vue";
+import { ref, computed, onBeforeUnmount, watch } from "vue";
 import lodash from "lodash";
 import type { Ref } from "vue";
 import type { Todo } from "@/types/todo/todo";
@@ -126,6 +126,10 @@ const prepareTasks = (tasks: Task[]) => {
   return tasks.filter((task: Task) => task.description.length)
 }
 
+const clearForm = () => {
+  todoFormFields.value = { ...TODO_DEFAULT_FORM_VALUE };
+}
+
 // save todo in db
 const saveTodo = async () => {
   toggleLoader(true);
@@ -149,6 +153,11 @@ const saveTodo = async () => {
     await loadTodos();
     showNotify("success", response.message);
     emit("close-modal");
+
+    // TODO: очистка полей формы происходит некорректно
+    if (!isEditing.value) {
+      clearForm()
+    }
     // TODO: я так и не смог найти решения, как протипизировать ответ с бека
     // хотя ошибка может быть нетолько с бека
   } catch (err: any) {

@@ -42,4 +42,5 @@ function toggleModal(modalName: ModalNames = "") {
   .actions {
     @apply flex items-center;
   }
-}</style>
+}
+</style>
