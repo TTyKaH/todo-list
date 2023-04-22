@@ -18,7 +18,8 @@ exports.create = async (req, res) => {
   const todo = {
     title: req.body.title,
     description: req.body.description,
-    priorityId: req.body.priorityId
+    priorityId: req.body.priorityId,
+    userId: req.headers.user_id
   };
 
   let todoId = null
@@ -57,6 +58,9 @@ exports.create = async (req, res) => {
 // Retrieve all Todos from the database.
 exports.findAll = async (req, res) => {
   const todos = await Todo.findAll({
+    where: {
+      userId: req.headers.user_id
+    },
     include: {
       model: Task
     },

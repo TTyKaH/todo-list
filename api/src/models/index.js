@@ -45,6 +45,7 @@ db.user.belongsToMany(db.role, {
 // TODO: move to other file?
 db.ROLES = ["user", "admin", "moderator"];
 
+db.user.hasMany(db.todo);
 db.todo.hasMany(db.task);
 
 module.exports = db;
