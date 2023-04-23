@@ -48,4 +48,8 @@ export const PER_PAGE_OPTIONS: SelectOption[] = [
     id: 3,
     value: 12,
   },
+  {
+    id: 4,
+    value: 15,
+  },
 ];

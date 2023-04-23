@@ -1,6 +1,6 @@
 <template>
   <div class="list-actions">
-    <div class="actions">
+    <div class="list-actions__actions">
       <TooltipWrapper tooltip="add todo">
         <!-- TODO: необходимо сбрасывать id активного todo -->
         <VueFeather
@@ -9,7 +9,21 @@
         />
       </TooltipWrapper>
     </div>
-    <div>Table settings</div>
+    <div class="list-actions__settings">
+      <CustomInput
+        v-model="search"
+        label="Search"
+        placeholder="Search"
+        isSimple
+      >
+        <template v-slot:after>
+          <VueFeather
+            type="x"
+            @click="clearSearch"
+          />
+        </template>
+      </CustomInput>
+    </div>
     <ModalWindow
       :isShow="activeModalName === 'create-todo'"
       modalType="left"
@@ -32,6 +46,12 @@ const activeModalName: Ref<ModalNames> = ref("");
 function toggleModal(modalName: ModalNames = "") {
   activeModalName.value = modalName;
 }
+
+const search = ref('')
+
+const clearSearch = () => {
+  search.value = ''
+}
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +59,7 @@ function toggleModal(modalName: ModalNames = "") {
   @apply flex justify-between items-center p-3;
   background: var(--bg-draft);
 
-  .actions {
+  &__actions {
     @apply flex items-center;
   }
 }

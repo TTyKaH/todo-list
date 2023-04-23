@@ -1,7 +1,10 @@
 <template>
-  <div>Settings</div>
+  <div class="settings">
+
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <style lang="scss" scoped></style>
