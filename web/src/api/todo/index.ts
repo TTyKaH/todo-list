@@ -1,15 +1,16 @@
 import { request } from "@/utils/request";
-import authHeader from "../auth/auth-header.js";
+import authHeader from "@/api/auth/auth-header.js";
 import type { Todo } from "@/types/todo/todo";
 
 /**
  * Получение списка todo
  */
-async function getTodos() {
+async function getTodos(params: any) {
   return await request({
     url: "todos",
     method: "get",
     headers: authHeader(),
+    params: params,
   });
 }
 

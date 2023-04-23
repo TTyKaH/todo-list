@@ -57,6 +57,7 @@ exports.create = async (req, res) => {
 
 // Retrieve all Todos from the database.
 exports.findAll = async (req, res) => {
+  console.log('===============', req.query)
   const todos = await Todo.findAll({
     where: {
       userId: req.headers.user_id
@@ -75,8 +76,17 @@ exports.findAll = async (req, res) => {
       });
     });
 
+  const page = req.query.page
+  const perPage = req.query.perPage
+  const paginatedTodos = todos.splice((page - 1) * perPage, perPage)
+
+  const pagination = {}
+  pagination.listLength = todos.length
+
+
   res.send({
-    todos: todos
+    todos: paginatedTodos,
+    pagination: pagination
   });
 };
 

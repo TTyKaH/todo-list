@@ -1,13 +1,14 @@
-// html,
-// body,
-// #app,
-// #app > div {
-//   height: 100%;
-// }
+html {
+  // overflow: hidden;
+}
 
-// .sidebar-and-view {
-//   height: calc(100% - 70px);
-// }
+html,
+body,
+#app,
+.view,
+.view-main {
+  height: 100%;
+}
 
 .vue-feather {
   @apply cursor-pointer;

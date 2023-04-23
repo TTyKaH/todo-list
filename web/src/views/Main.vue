@@ -1,8 +1,8 @@
 <template>
   <div class="view-main">
-    <Header />
-    <Sidebar />
-    <RouterView />
+    <Header class="header" />
+    <Sidebar class="sidebar" />
+    <RouterView class="router" />
   </div>
 </template>
 
@@ -13,8 +13,25 @@ import Sidebar from "@/components/Interface/Sidebar/Sidebar.vue";
 
 <style lang="scss" scoped>
 .view-main {
-  @apply p-10;
+  display: grid;
+  grid-template-columns: 150px auto;
+  grid-template-rows: 70px auto;
+  // grid-template-rows: 70px calc(100vh);
+  grid-template-areas:
+    "header  header"
+    "sidebar router";
 
-  margin: 70px 0 0 147px;
+  .header {
+    grid-area: header;
+  }
+
+  .sidebar {
+    grid-area: sidebar;
+  }
+
+  .router {
+    @apply p-10;
+    grid-area: router;
+  }
 }
 </style>

@@ -34,3 +34,18 @@ export const PRIORITIES: SelectOption[] = [
     value: "hight",
   },
 ];
+
+export const PER_PAGE_OPTIONS: SelectOption[] = [
+  {
+    id: 1,
+    value: 6,
+  },
+  {
+    id: 2,
+    value: 9,
+  },
+  {
+    id: 3,
+    value: 12,
+  },
+];

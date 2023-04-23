@@ -35,10 +35,6 @@ const sidebarMenu: SidebarItem[] = [
 
 <style lang="scss" scoped>
 .sidebar {
-  position: absolute;
-  top: 71px;
-  left: 0;
-  bottom: 0;
   background-color: #f8f8f8;
 }
 </style>
