@@ -12,7 +12,7 @@
         required
       />
       <div class="actions">
-        <CustomButton>To Sign-Up</CustomButton>
+        <CustomButton link="/auth/sign-up">To Sign-Up</CustomButton>
         <CustomButton @click="signIn">Sign-In</CustomButton>
       </div>
     </div>

@@ -19,14 +19,6 @@
         <div v-else>...</div>
       </template>
     </div>
-    <!-- <CustomSelect
-      v-model="perPage"
-      :options="PER_PAGE_OPTIONS"
-      optionTextKey="value"
-      optionValueKey="value"
-      label="Per page"
-      class="pagination__page-select"
-    /> -->
     <label class="pagination__page-select">
       Per page:
       <select
@@ -141,11 +133,15 @@ const setCurrentPage = (page: number) => {
   }
 
   &__item {
-    padding: 2px 5px !important;
+    :deep(.custom-button) {
+      padding: 2px 5px !important;
+    }
   }
 
   &__active {
-    background-color: var(--bg-draft-second) !important;
+    :deep(.custom-button) {
+      background-color: var(--bg-draft-second) !important;
+    }
   }
 
   &__page-select {

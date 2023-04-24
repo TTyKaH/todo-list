@@ -1,9 +1,17 @@
 <template>
-  <button
-    class="custom-button"
-    :class="{ icon: isIcon }"
-  >
-    <slot></slot>
+  <button :class="{ icon: isIcon }">
+    <template v-if="!link.length">
+      <div class="custom-button">
+        <slot></slot>
+      </div>
+    </template>
+    <RouterLink
+      v-else
+      :to="link"
+      class="custom-button"
+    >
+      <slot></slot>
+    </RouterLink>
   </button>
 </template>
 
@@ -12,6 +20,10 @@ const props = defineProps({
   isIcon: {
     type: Boolean,
     default: false
+  },
+  link: {
+    type: String,
+    default: ''
   }
 })
 </script>
