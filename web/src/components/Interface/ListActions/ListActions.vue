@@ -19,6 +19,7 @@
         <template v-slot:after>
           <VueFeather
             type="x"
+            class="list-actions__clear-icon"
             @click="clearSearch"
           />
         </template>
@@ -37,8 +38,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref, Ref, watch } from "vue";
+import { useTodosListStore } from '@/stores/todos'
 import TodoForm from "@/components/Interface/Todo/TodoForm/TodoForm.vue";
+
+const { setListSetting } = useTodosListStore()
 
 type ModalNames = "" | "create-todo";
 const activeModalName: Ref<ModalNames> = ref("");
@@ -48,6 +52,11 @@ function toggleModal(modalName: ModalNames = "") {
 }
 
 const search = ref('')
+
+watch(
+  () => search.value,
+  () => setListSetting('search', search.value),
+)
 
 const clearSearch = () => {
   search.value = ''
@@ -61,6 +70,19 @@ const clearSearch = () => {
 
   &__actions {
     @apply flex items-center;
+  }
+
+  &__settings {
+    :deep(.custom-field) {
+      .field {
+        @apply pr-7;
+      }
+    }
+  }
+
+  &__clear-icon {
+    @apply absolute right-1;
+    top: calc(50% - 12px);
   }
 }
 </style>

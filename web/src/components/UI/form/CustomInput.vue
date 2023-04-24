@@ -73,7 +73,7 @@ const value = computed<string>({
 <style lang="scss" scoped>
 .simple {
   .field {
-    @apply pt-2;
+    @apply pt-2 overflow-ellipsis;
   }
 }
 </style>

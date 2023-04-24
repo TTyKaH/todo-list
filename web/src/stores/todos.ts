@@ -3,11 +3,13 @@ import { defineStore } from "pinia";
 import { computed } from "vue";
 import type { Todo } from "@/types/todo/todo";
 import type { Pagination } from "@/types/ui/pagination";
+import type { ListSettings } from "@/types/ui/listSettings";
 
 interface State {
   todos: Todo[];
   activeTodoId: number | null;
   pagination: Pagination;
+  listSettings: ListSettings;
 }
 
 export const useTodosListStore = defineStore("todosList", {
@@ -19,6 +21,9 @@ export const useTodosListStore = defineStore("todosList", {
         page: 1,
         perPage: 6,
         listLength: 0,
+      },
+      listSettings: {
+        search: "",
       },
     };
   },
@@ -37,7 +42,10 @@ export const useTodosListStore = defineStore("todosList", {
     // TODO: use loader and notify
     async loadTodos() {
       try {
-        const res = await api.todo.getTodos(this.pagination);
+        const res = await api.todo.getTodos({
+          ...this.pagination,
+          ...this.listSettings,
+        });
 
         this.todos = res.todos;
         this.pagination.listLength = res.pagination.listLength;
@@ -53,6 +61,11 @@ export const useTodosListStore = defineStore("todosList", {
       settingValue: number
     ) {
       this.pagination[settingName] = settingValue;
+      await this.loadTodos();
+    },
+    async setListSetting(settingName: "search", value: string) {
+      this.listSettings[settingName] = value;
+      this.pagination.page = 1;
       await this.loadTodos();
     },
   },
