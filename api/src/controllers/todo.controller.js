@@ -60,7 +60,15 @@ exports.findAll = async (req, res) => {
   console.log('===============', req.query)
   const todos = await Todo.findAll({
     where: {
-      userId: req.headers.user_id
+      userId: req.headers.user_id,
+      [Op.or]: {
+        title: {
+          [Op.like]: `%${req.query.search}%`
+        },
+        description: {
+          [Op.like]: `%${req.query.search}%`
+        }
+      }
     },
     include: {
       model: Task
@@ -76,6 +84,7 @@ exports.findAll = async (req, res) => {
       });
     });
 
+  // pagination part
   const page = req.query.page
   const perPage = req.query.perPage
   const paginatedTodos = todos.splice((page - 1) * perPage, perPage)
