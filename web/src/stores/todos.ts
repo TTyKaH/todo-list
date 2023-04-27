@@ -24,6 +24,7 @@ export const useTodosListStore = defineStore("todosList", {
       },
       listSettings: {
         search: "",
+        priorityId: null,
       },
     };
   },
@@ -63,7 +64,7 @@ export const useTodosListStore = defineStore("todosList", {
       this.pagination[settingName] = settingValue;
       await this.loadTodos();
     },
-    async setListSetting(settingName: "search", value: string) {
+    async setListSetting(settingName: "search" | "priorityId", value: string) {
       this.listSettings[settingName] = value;
       this.pagination.page = 1;
       await this.loadTodos();

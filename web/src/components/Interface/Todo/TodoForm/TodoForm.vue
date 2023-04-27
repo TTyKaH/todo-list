@@ -62,8 +62,7 @@ import api from "@/api";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 import { useTodosListStore } from "@/stores/todos";
-import { TODO_DEFAULT_FORM_VALUE, TASK_FIELDS } from "@/constants/index";
-import { PRIORITIES } from "@/constants/index";
+import { TODO_DEFAULT_FORM_VALUE, TASK_FIELDS, PRIORITIES } from "@/constants/index";
 import TaskInput from '@/components/Interface/Todo/TodoForm/TaskInput.vue'
 import TaskActionsLine from '@/components/Interface/Todo/TodoForm/TaskActionsLine.vue'
 

@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, computed, watch, ref } from "vue";
+import { toRefs, computed } from "vue";
 import type { SelectOption } from "@/types/ui/selectOption";
 
 // TODO: как описать тип передаваемого имитом, который может быть произвольным объектом, строкой или числом? 
