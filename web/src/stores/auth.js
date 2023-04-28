@@ -25,6 +25,7 @@ export const useAuthStore = defineStore('auth', {
       );
     },
     logout() {
+      console.log('test')
       authService.logout();
       this.logout()
     },
