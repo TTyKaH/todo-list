@@ -58,18 +58,25 @@ exports.create = async (req, res) => {
 // Retrieve all Todos from the database.
 exports.findAll = async (req, res) => {
   console.log('===============', req.query)
-  const todos = await Todo.findAll({
-    where: {
-      userId: req.headers.user_id,
-      [Op.or]: {
-        title: {
-          [Op.like]: `%${req.query.search}%`
-        },
-        description: {
-          [Op.like]: `%${req.query.search}%`
-        }
+
+  const whereSettings = {
+    userId: req.headers.user_id,
+    [Op.or]: {
+      title: {
+        [Op.like]: `%${req.query.search}%`
+      },
+      description: {
+        [Op.like]: `%${req.query.search}%`
       }
-    },
+    }
+  }
+
+  if (req.query.priorityId) {
+    whereSettings.priorityId = req.query.priorityId
+  }
+
+  const todos = await Todo.findAll({
+    where: { ...whereSettings },
     include: {
       model: Task
     },
@@ -240,25 +247,30 @@ exports.deleteAll = (req, res) => {
 //   }
 // }
 
-async function updateTaskByTodoId(todo) {
-  for (task of todo.tasks) {
-    const taskFromDB = Task.findByPk(task.id)
+// async function updateTaskByTodoId(todo) {
+//   for (task of todo.tasks) {
+//     const taskFromDB = Task.findByPk(task.id)
 
-    if (task?.id) {
-      await Task.update(task, {
-        where: {
-          id: task.id
-        }
-      })
-    } else {
-      task.todoId = todo.id
-      await Task.create(task)
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || "Some error occurred while creating the Task."
-          });
-        });
-    }
-  }
+//     if (task?.id) {
+//       await Task.update(task, {
+//         where: {
+//           id: task.id
+//         }
+//       })
+//     } else {
+//       task.todoId = todo.id
+//       await Task.create(task)
+//         .catch(err => {
+//           res.status(500).send({
+//             message:
+//               err.message || "Some error occurred while creating the Task."
+//           });
+//         });
+//     }
+//   }
+// }
+
+// check params by null
+const checkQuery = () => {
+
 }

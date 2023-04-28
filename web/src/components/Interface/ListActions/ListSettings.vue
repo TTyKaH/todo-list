@@ -48,6 +48,11 @@ watch(
   () => setListSetting('search', search.value),
 )
 
+watch(
+  () => priorityId.value,
+  () => setListSetting('priorityId', priorityId.value),
+)
+
 const clearSearch = () => {
   search.value = ''
 }

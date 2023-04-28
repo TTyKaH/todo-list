@@ -64,7 +64,10 @@ export const useTodosListStore = defineStore("todosList", {
       this.pagination[settingName] = settingValue;
       await this.loadTodos();
     },
-    async setListSetting(settingName: "search" | "priorityId", value: string) {
+    async setListSetting(
+      settingName: "search" | "priorityId",
+      value: string | number | null
+    ) {
       this.listSettings[settingName] = value;
       this.pagination.page = 1;
       await this.loadTodos();
