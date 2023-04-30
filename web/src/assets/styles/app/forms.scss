@@ -1,5 +1,5 @@
 .custom-field {
-  @apply flex flex-col relative;
+  @apply flex flex-col relative w-full;
 
   .label {
     @apply absolute z-10 left-4 top-1 text-gray-400 text-sm;
@@ -13,7 +13,7 @@
   }
 
   .field {
-    @apply pt-5 pb-2 px-4 w-full border rounded;
+    @apply pt-5 pb-2 px-4 w-full border rounded min-w-full;
 
     &:focus {
       @apply outline-none;

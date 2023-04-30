@@ -60,12 +60,12 @@ const clearSearch = () => {
 
 <style lang="scss" scoped>
 .list-settings {
-  @apply flex gap-2 self-start md:flex-nowrap md:self-auto;
+  @apply flex gap-2 self-start w-full md:flex-nowrap md:self-auto md:w-auto;
 
   :deep(.custom-field) {
     .field {
       @apply pr-7;
-      max-width: 255px;
+      min-width: 255px;
     }
   }
 

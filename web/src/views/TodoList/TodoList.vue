@@ -19,7 +19,7 @@ import Pagination from "@/components/Interface/Pagination/Pagination.vue";
   @apply flex flex-col justify-between gap-10 w-full;
 
   &__actions-and-list {
-    @apply flex flex-col gap-10;
+    @apply flex flex-col gap-8;
   }
 }
 </style>
