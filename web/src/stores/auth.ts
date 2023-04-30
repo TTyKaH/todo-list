@@ -1,56 +1,57 @@
-import { defineStore } from 'pinia'
-import authService from '@/api/auth/auth.service.ts';
-import type { User } from "@/types/user"
+import { defineStore } from "pinia";
+import authService from "@/api/auth/auth.service.ts";
+import type { User } from "@/types/user";
+import { getUserFromLocalStore } from "@/utils";
+import router from "@/router/index";
 
-
-interface State {
+interface AuthState {
   status: {
     loggedIn: boolean;
   };
   user: User | null;
 }
-// TODO: оставить первичную проверку тут? 
-const user: User = JSON.parse(localStorage.getItem("user") || '');
-const initialState: State = user
+
+const user: User | null = getUserFromLocalStore();
+const authState: AuthState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null };
 
-export const useAuthStore = defineStore('auth', {
-  state: () => initialState,
-  getters: {
-  },
+export const useAuthStore = defineStore("auth", {
+  state: () => authState,
+  getters: {},
   actions: {
-    login(user) {
+    login(user: User) {
       return authService.signin(user).then(
-        user => {
-          this.loginSuccess(user)
+        (user) => {
+          this.loginSuccess(user);
           return Promise.resolve(user);
         },
-        error => {
-          this.loginFailure()
+        (error) => {
+          this.loginFailure();
           return Promise.reject(error);
         }
       );
     },
     logout() {
-      console.log('test')
       authService.logout();
-      this.logout()
+      this.logoutFromState();
+      router.replace({ name: "sign-in" });
     },
-    register(user) {
+    register(user: User) {
       return authService.signup(user).then(
-        response => {
-          this.registerSuccess()
-          return Promise.resolve(response.data);
+        (response) => {
+          this.registerSuccess();
+          router.push({ name: "sign-in" });
+          return Promise.resolve(response);
         },
-        error => {
-          this.registerFailure()
+        (error) => {
+          this.registerFailure();
           return Promise.reject(error);
         }
       );
     },
     // =====
-    loginSuccess(user) {
+    loginSuccess(user: User) {
       this.status.loggedIn = true;
       this.user = user;
     },
@@ -58,10 +59,10 @@ export const useAuthStore = defineStore('auth', {
       this.status.loggedIn = false;
       this.user = null;
     },
-    // logout() {
-    //   this.status.loggedIn = false;
-    //   this.user = null;
-    // },
+    logoutFromState() {
+      this.status.loggedIn = false;
+      this.user = null;
+    },
     registerSuccess() {
       this.status.loggedIn = false;
     },
@@ -70,15 +71,15 @@ export const useAuthStore = defineStore('auth', {
     },
     // =====
     checkLoggedInStatus() {
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user: User | null = getUserFromLocalStore();
 
       if (user) {
-        this.status.loggedIn = true
-        this.user = user
-        return
+        this.status.loggedIn = true;
+        this.user = user;
+        return;
       }
-      this.status.loggedIn = false
-      this.user = null
-    }
+      this.status.loggedIn = false;
+      this.user = null;
+    },
   },
-})
+});

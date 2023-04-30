@@ -1,21 +1,18 @@
 <template>
   <div class="header">
     <div class="header__logo">Logo</div>
-    <VueFeather
-      type="log-out"
-      @click="test"
-    />
+    <VueFeather type="log-out" @click="test" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from "@/stores/auth";
 
-const { logout } = useAuthStore()
+const { logout } = useAuthStore();
 
 const test = () => {
-  logout()
-}
+  logout();
+};
 </script>
 
 <style lang="scss" scoped>

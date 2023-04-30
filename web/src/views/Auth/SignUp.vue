@@ -1,21 +1,9 @@
 <template>
   <div class="auth">
     <div class="form">
-      <CustomInput
-        v-model="formValues.username"
-        label="Username"
-        required
-      />
-      <CustomInput
-        v-model="formValues.password"
-        label="Password"
-        required
-      />
-      <CustomInput
-        v-model="formValues.email"
-        label="Email"
-        required
-      />
+      <CustomInput v-model="formValues.username" label="Username" required />
+      <CustomInput v-model="formValues.password" label="Password" required />
+      <CustomInput v-model="formValues.email" label="Email" required />
       <div class="actions">
         <CustomButton link="/auth/sign-in">To Sign-In</CustomButton>
         <CustomButton @click="signUp">Sign-Up</CustomButton>
@@ -25,27 +13,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAuthStore } from '@/stores/auth.js'
+import { ref } from "vue";
+// @ts-ignore
+import { useAuthStore } from "@/stores/auth";
+import { useToggleLoader } from "@/composable/useToggleLoader.js";
+import { useNotify } from "@/composable/useNotify.js";
 
-const auth = useAuthStore()
+const auth = useAuthStore();
+const { toggleLoader } = useToggleLoader();
+const { showNotify } = useNotify();
 
 const formValues = ref({
-  username: '',
-  password: '',
-  email: ''
-})
+  username: "",
+  password: "",
+  email: "",
+});
 
 const signUp = async () => {
-  await auth.register(formValues.value)
-  // TODO: move to utilities?
-  if (auth.status.loggedIn) {
-    // TODO: uncomment in future or change logic
-    // router.push({name: 'todo-list'})
+  toggleLoader(true);
+  try {
+    const response = await auth.register(formValues.value);
+    showNotify("success", response.message);
+  } catch (err) {
+    showNotify("error", err.response.data.message);
+  } finally {
+    toggleLoader();
   }
-}
+};
 </script>
-
-<style lang="scss" scoped>
-.sign-in {}
-</style>
