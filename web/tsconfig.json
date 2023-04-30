@@ -5,6 +5,7 @@
     // TODO: зачем эти опции, особенно вторая опция???
     "isolatedModules": true,
     "preserveValueImports": false,
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

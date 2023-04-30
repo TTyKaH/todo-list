@@ -57,9 +57,7 @@ exports.create = async (req, res) => {
 
 // Retrieve all Todos from the database.
 exports.findAll = async (req, res) => {
-  console.log('===============', req.query)
-
-  const whereSettings = {
+  const findingSettings = {
     userId: req.headers.user_id,
     [Op.or]: {
       title: {
@@ -72,33 +70,28 @@ exports.findAll = async (req, res) => {
   }
 
   if (req.query.priorityId) {
-    whereSettings.priorityId = req.query.priorityId
+    findingSettings.priorityId = req.query.priorityId
   }
 
   const todos = await Todo.findAll({
-    where: { ...whereSettings },
+    where: { ...findingSettings },
     include: {
-      model: Task
+      model: Task,
     },
-    order: [
-      ['id', 'DESC'],
-    ],
-  })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving todos."
-      });
+    order: [["id", "DESC"]],
+  }).catch((err) => {
+    res.status(500).send({
+      message: err.message || "Some error occurred while retrieving todos.",
     });
+  });
 
   // pagination part
-  const page = req.query.page
-  const perPage = req.query.perPage
-  const paginatedTodos = todos.splice((page - 1) * perPage, perPage)
-
   const pagination = {}
   pagination.listLength = todos.length
 
+  const page = req.query.page
+  const perPage = req.query.perPage
+  const paginatedTodos = todos.splice((page - 1) * perPage, perPage)
 
   res.send({
     todos: paginatedTodos,
