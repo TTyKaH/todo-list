@@ -112,7 +112,7 @@ const close = () => {
   background: var(--bg-draft-modal);
 
   &__content {
-    @apply relative w-full py-7 px-2 md:p-4 lg:px-7;
+    @apply relative w-full py-7 px-2 overflow-y-auto md:p-4 lg:px-7;
     background: var(--bg-draft);
     transition: left 0.3s linear;
 
