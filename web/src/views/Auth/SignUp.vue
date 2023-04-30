@@ -16,10 +16,12 @@
 import { ref } from "vue";
 // @ts-ignore
 import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
 
 const auth = useAuthStore();
+const router = useRouter();
 const { toggleLoader } = useToggleLoader();
 const { showNotify } = useNotify();
 
@@ -34,6 +36,7 @@ const signUp = async () => {
   try {
     const response = await auth.register(formValues.value);
     showNotify("success", response.message);
+    router.push({ name: "sign-in" });
   } catch (err) {
     showNotify("error", err.response.data.message);
   } finally {

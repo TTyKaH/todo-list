@@ -1,17 +1,20 @@
 <template>
   <div class="header">
     <div class="header__logo">Logo</div>
-    <VueFeather type="log-out" @click="test" />
+    <VueFeather type="log-out" @click="handleLogout" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+import { useNotify } from "@/composable/useNotify.js";
 
 const { logout } = useAuthStore();
+const { showNotify } = useNotify();
 
-const test = () => {
+const handleLogout = () => {
   logout();
+  showNotify("success", "You have successfully logged out!");
 };
 </script>
 

@@ -41,7 +41,6 @@ export const useAuthStore = defineStore("auth", {
       return authService.signup(user).then(
         (response) => {
           this.registerSuccess();
-          router.push({ name: "sign-in" });
           return Promise.resolve(response);
         },
         (error) => {
