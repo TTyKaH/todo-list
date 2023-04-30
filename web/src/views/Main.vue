@@ -30,8 +30,16 @@ import Sidebar from "@/components/Interface/Sidebar/Sidebar.vue";
   }
 
   .router {
-    @apply p-10;
+    @apply p-5 px-2 md:px-4 lg:p-7 lg:px-7;
     grid-area: router;
+  }
+
+  @media (max-width: 767px) {
+    @apply flex flex-col;
+
+    .sidebar {
+      @apply hidden;
+    }
   }
 }
 </style>

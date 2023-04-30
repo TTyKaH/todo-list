@@ -18,7 +18,7 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .side-bar__item {
   a {
-    @apply flex gap-2 py-4 px-7 cursor-pointer;
+    @apply flex gap-2 cursor-pointer py-4 px-2 md:px-4 lg:px-7;
 
     &:hover {
       background: var(--bg-draft-second);

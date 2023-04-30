@@ -1,27 +1,65 @@
 <template>
   <div class="header">
-    <div class="header__logo">Logo</div>
-    <VueFeather type="log-out" @click="handleLogout" />
+    <div class="header__logo">
+      <VueFeather type="book-open" />
+      <span class="header__app-name">Todos List</span>
+    </div>
+    <div class="header__menu">
+      <template v-if="!isMobile">
+        <VueFeather type="sun" />
+        <VueFeather type="log-out" @click="handleLogout" />
+      </template>
+      <VueFeather v-if="isMobile" type="menu" @click="toggleMenu" />
+    </div>
+    <BurgerMenu v-if="isOpenBurgerMenu" @close="isOpenBurgerMenu = false" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from "vue";
 import { useAuthStore } from "@/stores/auth";
-import { useNotify } from "@/composable/useNotify.js";
+import { useNotify } from "@/composable/useNotify.ts";
+import { useWindowChecker } from "@/composable/useWindowChecker.ts";
+import { useOnResize } from "@/composable/useOnResize.ts";
+import BurgerMenu from "@/components/Interface/Header/BurgerMenu.vue";
 
 const { logout } = useAuthStore();
 const { showNotify } = useNotify();
+const { isMobile } = useWindowChecker();
 
 const handleLogout = () => {
   logout();
   showNotify("success", "You have successfully logged out!");
 };
+
+const isOpenBurgerMenu = ref(false);
+
+const toggleMenu = () => {
+  isOpenBurgerMenu.value = !isOpenBurgerMenu.value;
+};
+
+watch(
+  () => isMobile.value,
+  () => {
+    if (!isMobile.value) {
+      isOpenBurgerMenu.value = false;
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>
 .header {
-  @apply flex justify-between items-center py-4 px-7;
+  @apply flex justify-between items-center py-4 px-2 md:px-4 lg:px-7;
   background-color: #f8f8f8;
   border-bottom: 1px solid #e7e7e7;
+
+  &__logo {
+    @apply flex gap-2 items-center font-semibold;
+  }
+
+  &__menu {
+    @apply flex gap-4;
+  }
 }
 </style>

@@ -79,6 +79,6 @@ loadTodos();
 
 <style lang="scss" scoped>
 .todos-list {
-  @apply grid gap-5 md:grid-cols-2 xl:grid-cols-3;
+  @apply grid gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4;
 }
 </style>

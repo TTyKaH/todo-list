@@ -27,9 +27,9 @@
 <script setup lang="ts">
 import { ref, watch, computed } from "vue";
 import { PRIORITIES } from "@/constants/index";
-import { useTodosListStore } from '@/stores/todos'
+import { useTodosListStore } from "@/stores/todos";
 
-const { setListSetting } = useTodosListStore()
+const { setListSetting } = useTodosListStore();
 
 const priorities = [
   {
@@ -37,41 +37,45 @@ const priorities = [
     value: "-",
   },
   ...PRIORITIES,
-]
+];
 
-const search = ref('')
-const priorityId = ref(null)
+const search = ref("");
+const priorityId = ref(null);
 
-const isShowClearButton = computed(() => !!search.value.length)
+const isShowClearButton = computed(() => !!search.value.length);
 watch(
   () => search.value,
-  () => setListSetting('search', search.value),
-)
+  () => setListSetting("search", search.value)
+);
 
 watch(
   () => priorityId.value,
-  () => setListSetting('priorityId', priorityId.value),
-)
+  () => setListSetting("priorityId", priorityId.value)
+);
 
 const clearSearch = () => {
-  search.value = ''
-}
+  search.value = "";
+};
 </script>
 
 <style lang="scss" scoped>
 .list-settings {
-  @apply flex gap-2;
+  @apply flex gap-2 self-start md:flex-nowrap md:self-auto;
 
   :deep(.custom-field) {
     .field {
       @apply pr-7;
-      width: 255px;
+      max-width: 255px;
     }
   }
 
   &__clear-icon {
     @apply absolute right-1;
     top: calc(50% - 12px);
+  }
+
+  @media (max-width: 767px) {
+    @apply flex-wrap self-start;
   }
 }
 </style>

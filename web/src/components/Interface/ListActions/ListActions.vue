@@ -1,12 +1,9 @@
 <template>
   <div class="list-actions">
-    <div class="list-actions__actions">
+    <div class="list-actions__create">
       <TooltipWrapper tooltip="add todo">
         <!-- TODO: необходимо сбрасывать id активного todo -->
-        <VueFeather
-          type="plus-square"
-          @click="toggleModal('create-todo')"
-        />
+        <VueFeather type="plus-square" @click="toggleModal('create-todo')" />
       </TooltipWrapper>
     </div>
     <ListSettings />
@@ -25,7 +22,7 @@
 <script setup lang="ts">
 import { ref, Ref } from "vue";
 import TodoForm from "@/components/Interface/Todo/TodoForm/TodoForm.vue";
-import ListSettings from '@/components/Interface/ListActions/ListSettings.vue'
+import ListSettings from "@/components/Interface/ListActions/ListSettings.vue";
 
 type ModalNames = "" | "create-todo";
 const activeModalName: Ref<ModalNames> = ref("");
@@ -37,11 +34,18 @@ function toggleModal(modalName: ModalNames = "") {
 
 <style lang="scss" scoped>
 .list-actions {
-  @apply flex justify-between items-center p-3;
+  @apply flex gap-4 justify-between items-center p-3;
   background: var(--bg-draft);
 
-  &__actions {
-    @apply flex items-center;
+  &__create {
+    @apply flex items-center w-6;
+  }
+
+  @media (max-width: 767px) {
+    @apply flex-wrap;
+
+    &__create {
+    }
   }
 }
 </style>
