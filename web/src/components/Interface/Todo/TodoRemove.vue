@@ -53,7 +53,11 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .remove-todo {
-  @apply flex flex-col gap-5;
+  @apply flex flex-col gap-5 px-2;
+
+  h3 {
+    font-weight: 500;
+  }
 
   .actions {
     @apply flex gap-5;

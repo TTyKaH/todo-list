@@ -40,6 +40,10 @@ onBeforeUnmount(() => {
   @apply grid gap-5 w-full;
   max-width: 500px;
 
+  h3 {
+    font-weight: 500;
+  }
+
   .title {
     @apply flex gap-2;
 

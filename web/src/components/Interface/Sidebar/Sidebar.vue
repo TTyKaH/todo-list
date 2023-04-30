@@ -5,6 +5,7 @@
         v-for="(item, idx) in sidebarMenu"
         :item="item"
         :key="idx"
+        @click="emit('sidebar-click')"
       />
     </ul>
   </div>
@@ -13,6 +14,10 @@
 <script setup lang="ts">
 import SideBarItem from "@/components/Interface/Sidebar/SidebarItem.vue";
 import type { SidebarItem } from "@/types/ui/sidebarItem";
+
+const emit = defineEmits<{
+  (e: "sidebar-click"): void;
+}>();
 
 const sidebarMenu: SidebarItem[] = [
   {

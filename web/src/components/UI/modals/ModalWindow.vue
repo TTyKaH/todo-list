@@ -10,7 +10,7 @@
         <VueFeather
           type="x"
           @click="close"
-          :class="{ 'if-sidebar': props.modalType === 'left' }"
+          :class="{ 'side-modal': isShowRedButton }"
         />
         <slot>Modal slot content</slot>
       </div>
@@ -22,6 +22,9 @@
 // TODO: возможно стоит декомпозировать на два компонента по типу
 import { ref, computed, watch } from "vue";
 import type { Ref } from "vue";
+import { useWindowChecker } from "@/composable/useWindowChecker.ts";
+
+const { isMobile } = useWindowChecker();
 
 type modalType = "left" | "center";
 type Size = "auto" | string;
@@ -93,6 +96,10 @@ const modalClasses = computed(() => {
   return classes;
 });
 
+const isShowRedButton = computed(
+  () => !!(props.modalType === "left" && !isMobile.value)
+);
+
 const close = () => {
   content.value?.classList.remove("left-0");
   emit("close");
@@ -105,14 +112,14 @@ const close = () => {
   background: var(--bg-draft-modal);
 
   &__content {
-    @apply py-5 px-7 relative w-full;
+    @apply relative w-full py-7 px-2 md:p-4 lg:px-7;
     background: var(--bg-draft);
     transition: left 0.3s linear;
 
     i {
       @apply absolute right-2 top-2;
 
-      &.if-sidebar {
+      &.side-modal {
         @apply left-full p-2 cursor-pointer right-auto top-auto;
         background: var(--draft-danger);
         color: var(--draft-text-white);

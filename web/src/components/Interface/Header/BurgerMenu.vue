@@ -3,20 +3,30 @@
     <div class="burger-menu__actions">
       <VueFeather type="log-out" @click="handleLogout" />
       <div>
-        <VueFeather type="sun" @click="handleLogout" />
+        <VueFeather type="sun" />
         <VueFeather type="x" @click="emit('close')" />
       </div>
     </div>
-    <Sidebar />
+    <Sidebar @sidebar-click="emit('close')" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
+import { useNotify } from "@/composable/useNotify.ts";
 import Sidebar from "@/components/Interface/Sidebar/Sidebar.vue";
 
 const emit = defineEmits<{
   (e: "close"): void;
 }>();
+
+const { logout } = useAuthStore();
+const { showNotify } = useNotify();
+
+const handleLogout = () => {
+  logout();
+  showNotify("success", "You have successfully logged out!");
+};
 </script>
 
 <style lang="scss">
