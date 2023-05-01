@@ -1,7 +1,24 @@
 * {
-  --bg-draft: #f8f8f8;
+  // v1
+  // --bg-draft: #f8f8f8;
+  // --bg-draft-second: #e4e4e4;
+  // --bg-modal: #00000066;
+  // --bg-draft-field: #fff;
+
+  // --draft-danger: #dd1313;
+  // --draft-text-white: #f0f0f0;
+
+  // --draft-btn: #ffffff;
+  // --draft-btn-hover: #f1f1f1;
+
+  // --transition: all 0.3s linear;
+
+  // V2
+  --bg-first-layer: #f0f0f0;
+  --bg-second-layer: #fbfbfb;
+
   --bg-draft-second: #e4e4e4;
-  --bg-draft-modal: #00000066;
+  --bg-modal: #00000066;
   --bg-draft-field: #fff;
 
   --draft-danger: #dd1313;
@@ -13,10 +30,10 @@
   --transition: all 0.3s linear;
 
   // variables which have not change by theme
-  --green: #00CC00;
-  --yellow: #FFD300;
-  --red: #FF4040;
-  
+  --green: #00cc00;
+  --yellow: #ffd300;
+  --red: #ff4040;
+
   .light-theme {
   }
 

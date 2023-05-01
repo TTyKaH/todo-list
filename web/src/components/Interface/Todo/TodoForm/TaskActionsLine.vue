@@ -45,7 +45,7 @@ const addTask = () => {
     i {
       @apply border-2;
 
-      background-color: var(--bg-draft);
+      background-color: var(--bg-second-layer);
     }
   }
 

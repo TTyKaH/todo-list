@@ -53,7 +53,7 @@ watch(
 <style lang="scss" scoped>
 .header {
   @apply flex justify-between items-center py-4 px-2 md:px-4 lg:px-7;
-  background-color: #f8f8f8;
+  background-color: var(--bg-second-layer);
   border-bottom: 1px solid #e7e7e7;
 
   &__logo {

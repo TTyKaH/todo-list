@@ -7,11 +7,8 @@
         :class="modalClasses"
         :style="{ 'max-width': props.maxWidth, width: width, height: height }"
       >
-        <VueFeather
-          type="x"
-          @click="close"
-          :class="{ 'side-modal': isShowRedButton }"
-        />
+        <VueFeather type="x" @click="close" />
+        <!-- :class="{ 'side-modal': isShowRedButton }" -->
         <slot>Modal slot content</slot>
       </div>
     </div>
@@ -109,11 +106,11 @@ const close = () => {
 <style lang="scss" scoped>
 .modal {
   @apply fixed inset-0 z-30 flex;
-  background: var(--bg-draft-modal);
+  background: var(--bg-modal);
 
   &__content {
     @apply relative w-full py-7 px-2 overflow-y-auto md:p-4 lg:px-7;
-    background: var(--bg-draft);
+    background: var(--bg-second-layer);
     transition: left 0.3s linear;
 
     i {

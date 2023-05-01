@@ -32,7 +32,7 @@ const handleLogout = () => {
 <style lang="scss">
 .burger-menu {
   @apply fixed inset-0 z-30;
-  background: var(--bg-draft);
+  background: var(--bg-second-layer);
 
   &__actions {
     @apply flex justify-between py-4 px-2;

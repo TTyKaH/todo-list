@@ -40,6 +40,6 @@ const sidebarMenu: SidebarItem[] = [
 
 <style lang="scss" scoped>
 .sidebar {
-  background-color: #f8f8f8;
+  background-color: var(--bg-second-layer);
 }
 </style>

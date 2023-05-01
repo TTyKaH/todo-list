@@ -2,7 +2,9 @@
   <div class="todo">
     <div class="todo__header">
       <div class="title">
-        <div class="priority" :class="priorityBgColor">{{ todoPriorityTitle }}</div>
+        <div class="priority" :class="priorityBgColor">
+          {{ todoPriorityTitle }}
+        </div>
         <h3>{{ todo.title }}</h3>
       </div>
       <div class="actions">
@@ -22,26 +24,22 @@
     <div class="todo__body">
       <h4>{{ todo.description }}</h4>
       <div class="tasks">
-        <div
-          class="task"
-          v-for="(task, idx) in todo.tasks"
-          :key="idx"
-        >
+        <div class="task" v-for="(task, idx) in todo.tasks" :key="idx">
           - {{ task.description }}
         </div>
       </div>
-      <VueFeather
+      <!-- <VueFeather
         type="chevron-down"
         size="48"
         stroke="#f8f8f8"
       />
-      <div class="hider" />
+      <div class="hider" /> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from "vue";
 import { useTodosListStore } from "@/stores/todos";
 import type { Todo } from "@/types/todo/todo";
 import type { todoAction } from "@/types/ui/todoAction";
@@ -60,39 +58,37 @@ const props = defineProps<{
 }>();
 
 const todoPriorityTitle = computed(() => {
-  const priority = PRIORITIES.find((priority) => priority.id === props.todo.priorityId)
-  return priority ? priority.value : '-'
-})
+  const priority = PRIORITIES.find(
+    (priority) => priority.id === props.todo.priorityId
+  );
+  return priority ? priority.value : "-";
+});
 
-const priorityClasses = [
-  'low',
-  'middle',
-  'high'
-]
+const priorityClasses = ["low", "middle", "high"];
 
 const priorityBgColor = computed(() => {
-  if (!props.todo.priorityId) return ''
-  return priorityClasses[props.todo.priorityId - 1]
-})
+  if (!props.todo.priorityId) return "";
+  return priorityClasses[props.todo.priorityId - 1];
+});
 
 const actions: todoAction[] = [
   {
     icon: "eye",
     emit: "need-review-todo",
     modalName: "review-todo",
-    tooltip: 'review',
+    tooltip: "review",
   },
   {
     icon: "edit",
     emit: "need-edit-todo",
     modalName: "edit-todo",
-    tooltip: 'edit',
+    tooltip: "edit",
   },
   {
     icon: "trash",
     emit: "need-remove-todo",
     modalName: "remove-todo",
-    tooltip: 'remove',
+    tooltip: "remove",
   },
 ];
 
@@ -117,13 +113,16 @@ const emitAction = (action: todoAction) => {
 <style lang="scss" scoped>
 .todo {
   @apply relative overflow-hidden;
-  border: 2px solid var(--bg-draft);
+  background: var(--bg-second-layer);
+  border: 3px solid var(--bg-second-layer);
+  border-bottom: 10px solid var(--bg-second-layer);
   max-height: 200px;
   min-height: 200px;
 
   &__header {
     @apply flex justify-between p-5;
-    background: var(--bg-draft);
+    background: var(--bg-second-layer);
+    border-bottom: 3px solid var(--bg-first-layer);
 
     .title {
       @apply flex gap-2;
@@ -134,13 +133,13 @@ const emitAction = (action: todoAction) => {
         border-radius: 5px 0 5px 0;
 
         &.low {
-          background-color: var(--green)
+          background-color: var(--green);
         }
         &.middle {
-          background-color: var(--yellow)
+          background-color: var(--yellow);
         }
         &.high {
-          background-color: var(--red)
+          background-color: var(--red);
         }
       }
     }
@@ -170,7 +169,7 @@ const emitAction = (action: todoAction) => {
     .hider {
       @apply absolute left-0 right-0 bottom-0 h-3;
 
-      background-color: var(--bg-draft);
+      background-color: var(--bg-second-layer);
 
       &::before,
       &::after {
@@ -186,13 +185,13 @@ const emitAction = (action: todoAction) => {
 
       &::before {
         left: 0;
-        border-bottom-color: var(--bg-draft);
+        border-bottom-color: var(--bg-second-layer);
         border-left-width: 0;
       }
 
       &::after {
         right: 0;
-        border-bottom-color: var(--bg-draft);
+        border-bottom-color: var(--bg-second-layer);
         border-right-width: 0;
       }
     }

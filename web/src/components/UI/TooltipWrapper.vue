@@ -66,7 +66,7 @@ onMounted(() => {
     @apply fixed border rounded-md py-1 px-3 whitespace-nowrap z-50;
 
     // top: calc(100% + 10px);
-    background: var(--bg-draft);
+    background: var(--bg-second-layer);
   }
 }
 </style>

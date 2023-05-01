@@ -35,7 +35,7 @@ function toggleModal(modalName: ModalNames = "") {
 <style lang="scss" scoped>
 .list-actions {
   @apply flex flex-wrap gap-3 items-center p-3 justify-between md:flex-nowrap;
-  background: var(--bg-draft);
+  background: var(--bg-second-layer);
 
   &__create {
     @apply flex items-center w-6;

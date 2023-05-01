@@ -16,7 +16,7 @@ const props = defineProps<{
 <style lang="scss" scoped>
 .notify {
   @apply flex;
-  background: var(--bg-draft);
+  background: var(--bg-second-layer);
   width: 250px;
 
   .type {
