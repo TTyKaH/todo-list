@@ -1,5 +1,6 @@
 import axios from "axios";
-import router from "@/router/index";
+// import router from "@/router/index";
+import { useAuthStore } from "@/stores/auth";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -44,7 +45,8 @@ export const request = async (config) => {
     });
   } catch (error) {
     if (error.response.status === 401) {
-      router.push("/auth/sign-in");
+      const auth = useAuthStore();
+      auth.logout();
     }
     return Promise.reject(error);
   }
