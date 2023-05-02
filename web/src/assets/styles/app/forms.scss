@@ -5,7 +5,7 @@
     @apply absolute z-10 left-4 top-1 text-gray-400 text-sm;
 
     .required {
-      color: var(--draft-danger);
+      color: var(--danger);
     }
 
     &.active {
@@ -57,7 +57,7 @@
     @apply text-gray-400 text-sm;
 
     .error-text {
-      color: var(--draft-danger);
+      color: var(--danger);
     }
   }
 }

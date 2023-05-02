@@ -131,12 +131,13 @@ const setCurrentPage = (page: number) => {
   &__item {
     :deep(.custom-button) {
       padding: 2px 5px !important;
+      background: var(--bg-second-layer);
     }
   }
 
   &__active {
     :deep(.custom-button) {
-      background-color: var(--bg-draft-second) !important;
+      background-color: var(--btn-bg-active) !important;
     }
   }
 

@@ -4,35 +4,63 @@
   // --bg-draft-second: #e4e4e4;
   // --bg-modal: #00000066;
   // --bg-draft-field: #fff;
-
   // --draft-danger: #dd1313;
-  // --draft-text-white: #f0f0f0;
-
+  // --text-white: #f0f0f0;
   // --draft-btn: #ffffff;
   // --draft-btn-hover: #f1f1f1;
-
   // --transition: all 0.3s linear;
 
   // V2
-  --bg-first-layer: #f0f0f0;
-  --bg-second-layer: #fbfbfb;
+  // --bg-first-layer: #f0f0f0;
+  // --bg-second-layer: #fbfbfb;
 
-  --bg-draft-second: #e4e4e4;
+  // --border: #eaeaea; //
+  // --shadow: #606060; //
+
+  // --bg-modal: #00000066;
+  // --bg-modal-content: #fbfbfb;
+
+  // --danger: #dd1313;
+  // --success: #00cc00;
+
+  // --text-main: #0e0e0e;
+  // --text-white: #f0f0f0;
+
+  // --btn-bg-primary: #ffffff;
+  // --btn-bg-primary-hover: #f1f1f1;
+  // --btn-bg-hover: #e4e4e4;
+  // --btn-bg-active: #bcbcbc;
+
+  // --green: #00cc00;
+  // --yellow: #ffd300;
+  // --red: #ff4040;
+
+  // ===============
+
+  --bg-first-layer: #121212;
+  --bg-second-layer: #1e1e1e;
+
+  --border: #363636;
+  --shadow: #000;
+
   --bg-modal: #00000066;
-  --bg-draft-field: #fff;
+  --bg-modal-content: #1e1e1e;
 
-  --draft-danger: #dd1313;
-  --draft-text-white: #f0f0f0;
+  --danger: #dd1313;
+  --success: #00cc00;
 
-  --draft-btn: #ffffff;
-  --draft-btn-hover: #f1f1f1;
+  --text-main: #e1e1e1;
+  --text-white: #f0f0f0;
 
+  --btn-bg-primary: #2e2e2e;
+  --btn-bg-primary-hover: #363636;
+  --btn-bg-hover: #363636;
+  --btn-bg-active: #363636;
+
+  --green: #00ad00;
+  --yellow: #c3a200;
+  --red: #df2020;
   --transition: all 0.3s linear;
-
-  // variables which have not change by theme
-  --green: #00cc00;
-  --yellow: #ffd300;
-  --red: #ff4040;
 
   .light-theme {
   }

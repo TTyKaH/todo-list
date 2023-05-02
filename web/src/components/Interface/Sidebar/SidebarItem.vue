@@ -21,7 +21,7 @@ const props = defineProps<{
     @apply flex gap-2 cursor-pointer py-4 px-2 md:px-4 lg:px-7;
 
     &:hover {
-      background: var(--bg-draft-second);
+      background: var(--btn-bg-hover);
     }
   }
 }

@@ -110,7 +110,7 @@ const close = () => {
 
   &__content {
     @apply relative w-full py-7 px-2 overflow-y-auto md:p-4 lg:px-7;
-    background: var(--bg-second-layer);
+    background: var(--bg-modal-content);
     transition: left 0.3s linear;
 
     i {
@@ -118,8 +118,8 @@ const close = () => {
 
       &.side-modal {
         @apply left-full p-2 cursor-pointer right-auto top-auto;
-        background: var(--draft-danger);
-        color: var(--draft-text-white);
+        background: var(--danger);
+        color: var(--text-white);
       }
     }
 
@@ -129,6 +129,7 @@ const close = () => {
 
     &.left {
       height: 100%;
+      box-shadow: 5px 5px 20px 5px var(--shadow);
     }
   }
 

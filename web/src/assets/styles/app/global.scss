@@ -1,5 +1,5 @@
 html {
-  // overflow: hidden;
+  color: var(--text-main);
 }
 
 html,
@@ -16,6 +16,7 @@ body {
 
 .vue-feather {
   @apply cursor-pointer;
+  color: var(--text-main);
 }
 
 .dialog {
@@ -39,7 +40,7 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 6px #0000004d;
     background-color: var(--bg-modal);
   }
 }
