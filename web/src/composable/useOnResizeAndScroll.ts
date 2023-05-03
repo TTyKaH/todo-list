@@ -8,5 +8,8 @@ export const useOnResizeAndScroll = (handler: () => any) => {
   window.addEventListener("resize", callback);
   window.addEventListener("scroll", callback);
 
-  onUnmounted(() => window.removeEventListener("resize", callback));
+  onUnmounted(() => {
+    window.removeEventListener("resize", callback);
+    window.removeEventListener("scroll", callback);
+  });
 };
