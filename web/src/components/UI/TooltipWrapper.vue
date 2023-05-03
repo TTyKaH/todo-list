@@ -66,6 +66,7 @@ onMounted(() => {
 
     background: var(--bg-second-layer);
     border: 1px solid var(--border);
+    // box-shadow: 2px 2px 7px var(--shadow);
   }
 }
 </style>

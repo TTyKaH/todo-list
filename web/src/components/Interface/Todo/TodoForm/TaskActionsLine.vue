@@ -1,8 +1,10 @@
 <template>
-  <div class="task-actions-line">
-    <TooltipWrapper class="action" tooltip="add task" @click="addTask">
-      <VueFeather type="plus" size="12" />
-    </TooltipWrapper>
+  <div class="task-actions">
+    <div class="task-actions__line">
+      <TooltipWrapper class="action" tooltip="add task" @click="addTask">
+        <VueFeather type="plus" size="12" />
+      </TooltipWrapper>
+    </div>
   </div>
 </template>
 
@@ -30,28 +32,30 @@ const addTask = () => {
 </script>
 
 <style lang="scss" scoped>
-.task-actions-line {
-  @apply w-full relative my-2 bg-gray-100;
+.task-actions {
+  @apply w-full relative py-2;
 
   height: 3px;
   transition: var(--transition);
 
-  .action {
-    @apply absolute right-0 opacity-100 md:opacity-0;
+  &__line {
+    background: var(--border);
+    height: 2px;
 
-    top: -6.5px;
-    transition: var(--transition);
+    .action {
+      @apply absolute right-0 opacity-100 top-0 md:opacity-0;
 
-    i {
-      @apply border-2;
+      transition: var(--transition);
 
-      background-color: var(--bg-second-layer);
+      i {
+        @apply border-2;
+
+        background-color: var(--bg-second-layer);
+      }
     }
   }
 
   &:hover {
-    @apply bg-gray-200;
-
     .action {
       @apply opacity-100;
     }
