@@ -1,17 +1,8 @@
 <template>
-  <div
-    class="custom-field input"
-    :class="{ 'simple': isSimple }"
-  >
-    <div
-      class="label"
-      v-if="!isSimple"
-    >
+  <div class="custom-field input" :class="{ simple: isSimple }">
+    <div class="label" v-if="!isSimple">
       {{ props.label }}
-      <span
-        v-if="required"
-        class="required"
-      >*</span>
+      <span v-if="required" class="required">*</span>
     </div>
 
     <input
@@ -27,10 +18,7 @@
     </div>
     <div class="bottom-text">
       <slot name="tip"></slot>
-      <div
-        v-if="Object.keys(error).length"
-        class="error-text"
-      >{{ error }}</div>
+      <div v-if="Object.keys(error).length" class="error-text">{{ error }}</div>
     </div>
   </div>
 </template>

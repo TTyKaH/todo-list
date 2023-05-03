@@ -18,7 +18,6 @@ const authState: AuthState = user
 
 export const useAuthStore = defineStore("auth", {
   state: () => authState,
-  getters: {},
   actions: {
     login(user: User) {
       return authService.signin(user).then(

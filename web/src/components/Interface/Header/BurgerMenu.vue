@@ -3,7 +3,7 @@
     <div class="burger-menu__actions">
       <VueFeather type="log-out" @click="handleLogout" />
       <div>
-        <VueFeather type="sun" />
+        <VueFeather type="sun" @click="toggleTheme" />
         <VueFeather type="x" @click="emit('close')" />
       </div>
     </div>
@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+import { useThemeStore } from "@/stores/theme";
 import { useNotify } from "@/composable/useNotify.ts";
 import Sidebar from "@/components/Interface/Sidebar/Sidebar.vue";
 
@@ -21,6 +22,7 @@ const emit = defineEmits<{
 }>();
 
 const { logout } = useAuthStore();
+const { isDarkThemeFromStore, toggleTheme } = useThemeStore();
 const { showNotify } = useNotify();
 
 const handleLogout = () => {

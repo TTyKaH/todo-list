@@ -1,5 +1,5 @@
-html {
-  color: var(--text-main);
+* {
+  // transition: var(--transition);
 }
 
 html,
@@ -8,10 +8,6 @@ body,
 .view,
 .view-main {
   height: 100%;
-}
-
-body {
-  background: var(--bg-first-layer);
 }
 
 .vue-feather {
@@ -41,6 +37,6 @@ body {
 
   &::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px #0000004d;
-    background-color: var(--bg-modal);
+    background-color: #bebebe;
   }
 }
