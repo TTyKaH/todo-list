@@ -5,7 +5,7 @@
     @apply absolute z-10 left-4 top-1 text-gray-400 text-sm;
 
     .required {
-      color: var(--danger);
+      color: var(--error);
     }
 
     &.active {
@@ -60,7 +60,7 @@
     @apply text-gray-400 text-sm;
 
     .error-text {
-      color: var(--danger);
+      color: var(--error);
     }
   }
 }
@@ -82,7 +82,7 @@ select {
 // auth forms
 
 .auth {
-  @apply grid items-center justify-items-center;
+  @apply grid items-center justify-items-center p-2;
   min-height: 100vh;
 
   .form {

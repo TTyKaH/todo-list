@@ -33,7 +33,7 @@ const addTask = () => {
 
 <style lang="scss" scoped>
 .task-actions {
-  @apply w-full relative py-2;
+  @apply w-full relative py-2 my-0.5;
 
   height: 3px;
   transition: var(--transition);

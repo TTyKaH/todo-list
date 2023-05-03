@@ -118,7 +118,7 @@ const close = () => {
 
       &.side-modal {
         @apply left-full p-2 cursor-pointer right-auto top-auto;
-        background: var(--danger);
+        background: var(--error);
         color: var(--text-white);
       }
     }

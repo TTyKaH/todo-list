@@ -1,7 +1,9 @@
 <template>
   <div class="notify">
     <div class="type" :class="props.notify.type" />
-    <div class="message">{{ props.notify.message }}</div>
+    <div class="message" :class="props.notify.type">
+      {{ props.notify.message }}
+    </div>
   </div>
 </template>
 
@@ -23,20 +25,32 @@ const props = defineProps<{
     @apply w-1.5;
 
     &.error {
-      background: red;
+      background: var(--error);
     }
 
     &.success {
-      background: green;
+      background: var(--success);
     }
 
     &.neutral {
-      background: blue;
+      background: var(--neutral);
     }
   }
 
   .message {
-    @apply px-4 py-3 w-full border border-l-0;
+    @apply px-4 py-3 w-full;
+
+    &.error {
+      border: 2px solid var(--error);
+    }
+
+    &.success {
+      border: 2px solid var(--success);
+    }
+
+    &.neutral {
+      border: 2px solid var(--neutral);
+    }
   }
 }
 </style>
