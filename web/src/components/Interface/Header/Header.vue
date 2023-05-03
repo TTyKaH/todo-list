@@ -11,7 +11,7 @@
       </template>
       <VueFeather v-if="isMobile" type="menu" @click="toggleMenu" />
     </div>
-    <ModalWindow :isShow="isOpenBurgerMenu" @close="toggleModal">
+    <ModalWindow :isShow="isOpenBurgerMenu">
       <BurgerMenu @close="isOpenBurgerMenu = false" />
     </ModalWindow>
   </div>
