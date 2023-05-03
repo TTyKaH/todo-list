@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import type { Ref } from "vue";
-import { useOnResize } from "@/composable/useOnResize";
+import { useOnResizeAndScroll } from "@/composable/useOnResizeAndScroll";
 
 const props = defineProps<{
   tooltip: string;
@@ -50,7 +50,7 @@ const calcPosition = () => {
   }
 };
 
-useOnResize(calcPosition);
+useOnResizeAndScroll(calcPosition);
 
 onMounted(() => {
   calcPosition();

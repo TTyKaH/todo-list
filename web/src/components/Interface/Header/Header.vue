@@ -23,7 +23,6 @@ import { useAuthStore } from "@/stores/auth";
 import { useThemeStore } from "@/stores/theme";
 import { useNotify } from "@/composable/useNotify.ts";
 import { useWindowChecker } from "@/composable/useWindowChecker.ts";
-import { useOnResize } from "@/composable/useOnResize.ts";
 import BurgerMenu from "@/components/Interface/Header/BurgerMenu.vue";
 
 const { logout } = useAuthStore();
