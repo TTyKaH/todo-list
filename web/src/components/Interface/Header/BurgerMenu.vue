@@ -3,7 +3,7 @@
     <div class="burger-menu__actions">
       <VueFeather type="log-out" @click="handleLogout" />
       <div>
-        <VueFeather type="sun" @click="toggleTheme" />
+        <ThemeToggler />
         <VueFeather type="x" @click="emit('close')" />
       </div>
     </div>
@@ -15,6 +15,7 @@
 import { useAuthStore } from "@/stores/auth";
 import { useThemeStore } from "@/stores/theme";
 import { useNotify } from "@/composable/useNotify.ts";
+import ThemeToggler from "@/components/Interface/ThemeToggler.vue";
 import Sidebar from "@/components/Interface/Sidebar/Sidebar.vue";
 
 const emit = defineEmits<{

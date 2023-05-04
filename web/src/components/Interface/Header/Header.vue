@@ -6,7 +6,7 @@
     </div>
     <div class="header__menu">
       <template v-if="!isMobile">
-        <VueFeather type="sun" @click="toggleTheme" />
+        <ThemeToggler />
         <VueFeather type="log-out" @click="handleLogout" />
       </template>
       <VueFeather v-if="isMobile" type="menu" @click="toggleMenu" />
@@ -18,15 +18,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { useAuthStore } from "@/stores/auth";
-import { useThemeStore } from "@/stores/theme";
 import { useNotify } from "@/composable/useNotify.ts";
 import { useWindowChecker } from "@/composable/useWindowChecker.ts";
+import ThemeToggler from "@/components/Interface/ThemeToggler.vue";
 import BurgerMenu from "@/components/Interface/Header/BurgerMenu.vue";
 
 const { logout } = useAuthStore();
-const { isDarkThemeFromStore, toggleTheme } = useThemeStore();
 const { showNotify } = useNotify();
 const { isMobile } = useWindowChecker();
 

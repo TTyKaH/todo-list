@@ -14,7 +14,6 @@ export const useThemeStore = defineStore("theme", {
   getters: {
     isDarkThemeFromStore: (state) => {
       return computed(() => state.isDarkTheme);
-      return state.isDarkTheme;
     },
   },
   actions: {

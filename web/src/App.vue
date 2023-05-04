@@ -23,7 +23,7 @@ const getThemeClass = () => {
 const themeClass = ref(getThemeClass());
 
 watch(
-  () => isDarkThemeFromStore,
+  () => isDarkThemeFromStore.value,
   () => (themeClass.value = getThemeClass()),
   { deep: true }
 );
