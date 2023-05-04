@@ -3,23 +3,17 @@ import { defineStore } from "pinia";
 import { computed } from "vue";
 import type { Todo } from "@/types/todo/todo";
 import type { Pagination } from "@/types/ui/pagination";
-import type { ListSettings } from "@/types/ui/listSettings";
-
-interface State {
-  todos: Todo[];
-  activeTodoId: number | null;
-  pagination: Pagination;
-  listSettings: ListSettings;
-}
+import type { TodosStoreState } from "@/types/todo/todosStoreState";
+import { useWindowChecker } from "@/composable/useWindowChecker";
 
 export const useTodosListStore = defineStore("todosList", {
-  state: (): State => {
+  state: (): TodosStoreState => {
     return {
       todos: [],
       activeTodoId: null,
       pagination: {
         page: 1,
-        perPage: 6,
+        perPage: getInitialPerPage(),
         listLength: 0,
       },
       listSettings: {
@@ -35,7 +29,7 @@ export const useTodosListStore = defineStore("todosList", {
     getActiveTodo: (state) => {
       return state.todos.find((todo: Todo) => todo.id === state.activeTodoId);
     },
-    getPagination: (state) => {
+    getPagination: (state): Pagination => {
       return state.pagination;
     },
   },
@@ -74,3 +68,8 @@ export const useTodosListStore = defineStore("todosList", {
     },
   },
 });
+
+const getInitialPerPage = () => {
+  const { isLargeDesktop } = useWindowChecker();
+  return isLargeDesktop.value ? 8 : 6;
+};

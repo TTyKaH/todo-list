@@ -17,7 +17,7 @@
       Per page:
       <select name="" id="" v-model="perPage">
         <option
-          v-for="(item, idx) in PER_PAGE_OPTIONS"
+          v-for="(item, idx) in perPageOptions"
           :key="idx"
           :value="item.value"
         >
@@ -30,17 +30,29 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import type { Ref } from "vue";
 import type { Pagination } from "@/types/ui/pagination";
 import { useTodosListStore } from "@/stores/todos";
 import { useWindowChecker } from "@/composable/useWindowChecker";
-import { PER_PAGE_OPTIONS } from "@/constants/index";
+import { PER_PAGE_OPTIONS, PER_PAGE_OPTIONS_LARGE } from "@/constants/index";
 
-const { getPagination, setPaginationSetting } = useTodosListStore();
-const { isMobile } = useWindowChecker();
+const todosListStore = useTodosListStore()
 
-const pagination: Ref<Pagination> = ref(getPagination);
-const perPage: Ref<number> = ref(pagination.value.perPage);
+const pagination: Pagination = computed(() => todosListStore.getPagination)
+const perPage = computed(() => pagination.value.perPage)
+const setPaginationSetting = todosListStore.setPaginationSetting
+
+const { isMobile, isLargeDesktop } = useWindowChecker();
+
+const perPageOptions = computed(() =>
+  isLargeDesktop.value ? PER_PAGE_OPTIONS_LARGE : PER_PAGE_OPTIONS
+);
+
+watch(
+  () => isLargeDesktop.value,
+  () => {
+    setPaginationSetting("perPage", isLargeDesktop.value ? 8 : 6);
+  }
+);
 
 watch(
   () => pagination.value.page,
