@@ -71,5 +71,5 @@ export const useTodosListStore = defineStore("todosList", {
 
 const getInitialPerPage = () => {
   const { isLargeDesktop } = useWindowChecker();
-  return isLargeDesktop.value ? 8 : 6;
+  return isLargeDesktop.value ? 12 : 6;
 };

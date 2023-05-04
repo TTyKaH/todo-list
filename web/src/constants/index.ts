@@ -57,22 +57,18 @@ export const PER_PAGE_OPTIONS: SelectOption[] = [
 export const PER_PAGE_OPTIONS_LARGE: SelectOption[] = [
   {
     id: 1,
-    value: 8,
-  },
-  {
-    id: 2,
     value: 12,
   },
   {
-    id: 3,
+    id: 2,
     value: 16,
   },
   {
-    id: 4,
+    id: 3,
     value: 20,
   },
   {
-    id: 5,
+    id: 4,
     value: 24,
   },
 ];

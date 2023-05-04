@@ -1,6 +1,6 @@
 <template>
-  <div class="pagination" v-if="isShowPagination">
-    <div class="pagination__list">
+  <div class="pagination">
+    <div class="pagination__list" v-if="isShowPagination">
       <template v-for="(page, idx) in pages" :key="idx">
         <CustomButton
           v-if="page.type === 'button'"
@@ -35,11 +35,16 @@ import { useTodosListStore } from "@/stores/todos";
 import { useWindowChecker } from "@/composable/useWindowChecker";
 import { PER_PAGE_OPTIONS, PER_PAGE_OPTIONS_LARGE } from "@/constants/index";
 
-const todosListStore = useTodosListStore()
+const todosListStore = useTodosListStore();
+const pagination: Pagination = computed(() => todosListStore.getPagination);
 
-const pagination: Pagination = computed(() => todosListStore.getPagination)
-const perPage = computed(() => pagination.value.perPage)
-const setPaginationSetting = todosListStore.setPaginationSetting
+const page = computed(() => pagination.value.page);
+const perPage = computed({
+  get: () => pagination.value.perPage,
+  set: (value) => setPaginationSetting("perPage", value),
+});
+const listLength = computed(() => pagination.value.listLength);
+const setPaginationSetting = todosListStore.setPaginationSetting;
 
 const { isMobile, isLargeDesktop } = useWindowChecker();
 
@@ -50,24 +55,17 @@ const perPageOptions = computed(() =>
 watch(
   () => isLargeDesktop.value,
   () => {
-    setPaginationSetting("perPage", isLargeDesktop.value ? 8 : 6);
+    setPaginationSetting("perPage", isLargeDesktop.value ? 12 : 6);
   }
 );
 
 watch(
-  () => pagination.value.page,
-  () => setPaginationSetting("page", pagination.value.page)
-);
-
-watch(
-  () => perPage.value,
-  () => setPaginationSetting("perPage", perPage.value)
+  () => page.value,
+  () => setPaginationSetting("page", page.value)
 );
 
 const maxPagesBySide = computed(() => (isMobile.value ? 3 : 4));
-const lastPage = computed(() =>
-  Math.ceil(pagination.value.listLength / perPage.value)
-);
+const lastPage = computed(() => Math.ceil(listLength.value / perPage.value));
 
 const generatePageButton = (page: number) => {
   return {
@@ -80,12 +78,12 @@ const pages = computed(() => {
   const preparedPages = [];
 
   // add current page
-  preparedPages.push(generatePageButton(pagination.value.page));
+  preparedPages.push(generatePageButton(page.value));
 
   // add pages before current page
   for (
-    let i = pagination.value.page - 1;
-    i >= pagination.value.page - maxPagesBySide.value && i > 0;
+    let i = page.value - 1;
+    i >= page.value - maxPagesBySide.value && i > 0;
     i--
   ) {
     preparedPages.unshift(generatePageButton(i));
@@ -93,16 +91,16 @@ const pages = computed(() => {
 
   // add pages after current page
   for (
-    let j = pagination.value.page + 1;
-    j < pagination.value.page + maxPagesBySide.value + 1 && j <= lastPage.value;
+    let j = page.value + 1;
+    j < page.value + maxPagesBySide.value + 1 && j <= lastPage.value;
     j++
   ) {
     preparedPages.push(generatePageButton(j));
   }
 
   // add first page with dots
-  if (pagination.value.page - (maxPagesBySide.value + 2) >= 0) {
-    if (pagination.value.page - (maxPagesBySide.value + 2) >= 1) {
+  if (page.value - (maxPagesBySide.value + 2) >= 0) {
+    if (page.value - (maxPagesBySide.value + 2) >= 1) {
       preparedPages.unshift({
         type: "dots",
         value: 0,
@@ -112,8 +110,8 @@ const pages = computed(() => {
   }
 
   // add last page with dots
-  if (pagination.value.page + maxPagesBySide.value < lastPage.value) {
-    if (pagination.value.page + maxPagesBySide.value < lastPage.value - 1) {
+  if (page.value + maxPagesBySide.value < lastPage.value) {
+    if (page.value + maxPagesBySide.value < lastPage.value - 1) {
       preparedPages.push({
         type: "dots",
         value: 0,
