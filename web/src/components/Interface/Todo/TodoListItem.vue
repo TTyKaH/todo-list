@@ -8,16 +8,8 @@
         <h3>{{ todo.title }}</h3>
       </div>
       <div class="actions">
-        <TooltipWrapper
-          v-for="(action, idx) in actions"
-          :key="idx"
-          :tooltip="action.tooltip"
-        >
-          <VueFeather
-            :type="action.icon"
-            class="action"
-            @click="emitAction(action)"
-          />
+        <TooltipWrapper v-for="(action, idx) in actions" :key="idx" :tooltip="action.tooltip">
+          <VueFeather :type="action.icon" class="action" @click="emitAction(action)" />
         </TooltipWrapper>
       </div>
     </div>
@@ -28,12 +20,6 @@
           - {{ task.description }}
         </div>
       </div>
-      <!-- <VueFeather
-        type="chevron-down"
-        size="48"
-        stroke="#f8f8f8"
-      />
-      <div class="hider" /> -->
     </div>
   </div>
 </template>
@@ -135,9 +121,11 @@ const emitAction = (action: todoAction) => {
         &.low {
           background-color: var(--green);
         }
+
         &.middle {
           background-color: var(--yellow);
         }
+
         &.high {
           background-color: var(--red);
         }

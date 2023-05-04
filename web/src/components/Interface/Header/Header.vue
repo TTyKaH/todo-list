@@ -18,10 +18,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from "vue";
+import { ref, watch } from "vue";
 import { useAuthStore } from "@/stores/auth";
-import { useNotify } from "@/composable/useNotify.ts";
-import { useWindowChecker } from "@/composable/useWindowChecker.ts";
+import { useNotify } from "@/composable/useNotify";
+import { useWindowChecker } from "@/composable/useWindowChecker";
 import ThemeToggler from "@/components/Interface/ThemeToggler.vue";
 import BurgerMenu from "@/components/Interface/Header/BurgerMenu.vue";
 

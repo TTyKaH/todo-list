@@ -2,12 +2,8 @@
   <div class="pagination">
     <div class="pagination__list" v-if="isShowPagination">
       <template v-for="(page, idx) in pages" :key="idx">
-        <CustomButton
-          v-if="page.type === 'button'"
-          class="pagination__item"
-          :class="{ pagination__active: page.value === pagination.page }"
-          @click="setCurrentPage(page.value)"
-        >
+        <CustomButton v-if="page.type === 'button'" class="pagination__item"
+          :class="{ pagination__active: page.value === pagination.page }" @click="setCurrentPage(page.value)">
           {{ page.value }}
         </CustomButton>
         <div v-else>...</div>
@@ -16,11 +12,7 @@
     <label class="pagination__page-select">
       Per page:
       <select name="" id="" v-model="perPage">
-        <option
-          v-for="(item, idx) in perPageOptions"
-          :key="idx"
-          :value="item.value"
-        >
+        <option v-for="(item, idx) in perPageOptions" :key="idx" :value="item.value">
           {{ item.value }}
         </option>
       </select>
@@ -29,14 +21,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { computed, watch } from "vue";
+import type { ComputedRef } from "vue";
 import type { Pagination } from "@/types/ui/pagination";
 import { useTodosListStore } from "@/stores/todos";
 import { useWindowChecker } from "@/composable/useWindowChecker";
 import { PER_PAGE_OPTIONS, PER_PAGE_OPTIONS_LARGE } from "@/constants/index";
 
 const todosListStore = useTodosListStore();
-const pagination: Pagination = computed(() => todosListStore.getPagination);
+const pagination: ComputedRef<Pagination> = computed(() => todosListStore.getPagination);
 
 const page = computed(() => pagination.value.page);
 const perPage = computed({

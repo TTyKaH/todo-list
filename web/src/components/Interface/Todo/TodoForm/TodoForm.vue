@@ -4,37 +4,16 @@
     <form class="form">
       <div class="group">
         <CustomInput v-model="todoFormFields.title" label="Title" required />
-        <CustomSelect
-          v-model="todoFormFields.priorityId"
-          :options="PRIORITIES"
-          label="Priority"
-          optionTextKey="value"
-        />
+        <CustomSelect v-model="todoFormFields.priorityId" :options="PRIORITIES" label="Priority" optionTextKey="value" />
       </div>
-      <CustomTextarea
-        v-model="todoFormFields.description"
-        label="Description"
-      />
+      <CustomTextarea v-model="todoFormFields.description" label="Description" />
       <div class="tasks">
         <div class="task-group">
-          <TaskActionsLine
-            :prevTaskId="null"
-            :prevTaskIdx="null"
-            @add-task="handleAddTask"
-          />
+          <TaskActionsLine :prevTaskId="null" :prevTaskIdx="null" @add-task="handleAddTask" />
           <template v-for="(task, idx) in todoFormFields.tasks" :key="idx">
-            <TaskInput
-              v-model="todoFormFields.tasks[idx].description"
-              :taskId="task?.id"
-              :taskIdx="idx"
-              label="Task"
-              @delete="removeTask"
-            />
-            <TaskActionsLine
-              :prevTaskId="task?.id ? task.id : null"
-              :prevTaskIdx="idx"
-              @add-task="handleAddTask"
-            />
+            <TaskInput v-model="todoFormFields.tasks[idx].description" :taskId="task?.id" :taskIdx="idx" label="Task"
+              @delete="removeTask" />
+            <TaskActionsLine :prevTaskId="task?.id ? task.id : null" :prevTaskIdx="idx" @add-task="handleAddTask" />
           </template>
         </div>
       </div>
@@ -46,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeUnmount, watch } from "vue";
+import { ref, computed, onBeforeUnmount } from "vue";
 import lodash from "lodash";
 import type { Ref } from "vue";
 import type { Todo } from "@/types/todo/todo";

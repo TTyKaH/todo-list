@@ -1,33 +1,13 @@
 <template>
   <div class="todos-list">
-    <TodoListItem
-      v-for="(todo, idx) in getTodos"
-      :todo="todo"
-      :key="idx"
-      @need-review-todo="toggleModal"
-      @need-remove-todo="toggleModal"
-      @need-edit-todo="toggleModal"
-    />
-    <ModalWindow
-      :isShow="!!activeModalName.length"
-      :modalType="modalSettings.position"
-      :max-width="modalSettings.maxWidth"
-      :width="modalSettings.width"
-      @close="toggleModal"
-    >
+    <TodoListItem v-for="(todo, idx) in getTodos" :todo="todo" :key="idx" @need-review-todo="toggleModal"
+      @need-remove-todo="toggleModal" @need-edit-todo="toggleModal" />
+    <ModalWindow :isShow="!!activeModalName.length" :modalType="modalSettings.position"
+      :max-width="modalSettings.maxWidth" :width="modalSettings.width" @close="toggleModal">
       <!-- TODO: use component tag -->
-      <TodoForm
-        v-if="activeModalName === 'edit-todo'"
-        @close-modal="toggleModal"
-      />
-      <TodoReview
-        v-if="activeModalName === 'review-todo'"
-        @close-modal="toggleModal"
-      />
-      <TodoRemove
-        v-if="activeModalName === 'remove-todo'"
-        @close-modal="toggleModal"
-      />
+      <TodoForm v-if="activeModalName === 'edit-todo'" @close-modal="toggleModal" />
+      <TodoReview v-if="activeModalName === 'review-todo'" @close-modal="toggleModal" />
+      <TodoRemove v-if="activeModalName === 'remove-todo'" @close-modal="toggleModal" />
     </ModalWindow>
   </div>
 </template>
