@@ -1,9 +1,6 @@
 <template>
   <div class="header">
-    <div class="header__logo">
-      <VueFeather type="book-open" />
-      <span class="header__app-name">Todos List</span>
-    </div>
+    <Logo />
     <div class="header__menu">
       <template v-if="!isMobile">
         <ThemeToggler />
@@ -24,6 +21,7 @@ import { useNotify } from "@/composable/useNotify";
 import { useWindowChecker } from "@/composable/useWindowChecker";
 import ThemeToggler from "@/components/Interface/ThemeToggler.vue";
 import BurgerMenu from "@/components/Interface/Header/BurgerMenu.vue";
+import Logo from "@/components/UI/Logo.vue";
 
 const { logout } = useAuthStore();
 const { showNotify } = useNotify();
@@ -55,10 +53,6 @@ watch(
   @apply flex justify-between items-center py-4 px-2 md:px-4 lg:px-7;
   background-color: var(--bg-second-layer);
   border-bottom: 1px solid var(--border);
-
-  &__logo {
-    @apply flex gap-2 items-center font-semibold;
-  }
 
   &__menu {
     @apply flex gap-4;

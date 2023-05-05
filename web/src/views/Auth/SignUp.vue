@@ -1,12 +1,13 @@
 <template>
   <div class="auth">
     <div class="form">
+      <Logo center/>
       <CustomInput v-model="formValues.username" label="Username" required />
       <CustomInput v-model="formValues.password" label="Password" required />
       <CustomInput v-model="formValues.email" label="Email" required />
       <div class="actions">
-        <CustomButton @click="signUp">Sign-Up</CustomButton>
         <RouterLink to="/auth/sign-in">To Sign-In</RouterLink>
+        <CustomButton @click="signUp">Sign-Up</CustomButton>
       </div>
     </div>
   </div>
@@ -19,6 +20,7 @@ import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
 import { useToggleLoader } from "@/composable/useToggleLoader.js";
 import { useNotify } from "@/composable/useNotify.js";
+import Logo from "@/components/UI/Logo.vue";
 
 const auth = useAuthStore();
 const router = useRouter();

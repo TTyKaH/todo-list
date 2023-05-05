@@ -90,7 +90,7 @@ select {
     background: var(--bg-second-layer);
 
     .actions {
-      @apply flex gap-7 items-center;
+      @apply flex gap-4 justify-end items-center;
       
       a {
         @apply underline;
