@@ -106,7 +106,7 @@ const emitAction = (action: todoAction) => {
   min-height: 200px;
 
   &__header {
-    @apply flex justify-between p-5;
+    @apply flex justify-between py-3 px-2 lg:p-5;
     background: var(--bg-second-layer);
     border-bottom: 3px solid var(--bg-first-layer);
 
@@ -142,7 +142,7 @@ const emitAction = (action: todoAction) => {
   }
 
   &__body {
-    @apply p-5;
+    @apply py-3 px-2 lg:p-5;
 
     h4 {
       @apply mb-2;

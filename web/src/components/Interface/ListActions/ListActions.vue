@@ -7,13 +7,8 @@
       </TooltipWrapper>
     </div>
     <ListSettings />
-    <ModalWindow
-      :isShow="activeModalName === 'create-todo'"
-      modalType="left"
-      maxWidth="500px"
-      width="100%"
-      @close="toggleModal"
-    >
+    <ModalWindow :isShow="activeModalName === 'create-todo'" modalType="left" maxWidth="500px" width="100%"
+      @close="toggleModal">
       <TodoForm @close-modal="toggleModal" />
     </ModalWindow>
   </div>
@@ -34,7 +29,7 @@ function toggleModal(modalName: ModalNames = "") {
 
 <style lang="scss" scoped>
 .list-actions {
-  @apply flex flex-wrap gap-3 items-center p-3 justify-between md:flex-nowrap;
+  @apply flex flex-wrap gap-3 items-center py-3 px-2 justify-between md:flex-nowrap;
   background: var(--bg-second-layer);
 
   &__create {
