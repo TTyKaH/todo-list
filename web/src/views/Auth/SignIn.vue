@@ -4,8 +4,8 @@
       <CustomInput v-model="formValue.username" label="Username" required />
       <CustomInput v-model="formValue.password" label="Password" required />
       <div class="actions">
-        <CustomButton link="/auth/sign-up">To Sign-Up</CustomButton>
         <CustomButton @click="signIn">Sign-In</CustomButton>
+        <RouterLink to="/auth/sign-up">To Sign-Up</RouterLink>
       </div>
     </div>
   </div>

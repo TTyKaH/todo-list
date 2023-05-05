@@ -90,7 +90,11 @@ select {
     background: var(--bg-second-layer);
 
     .actions {
-      @apply flex gap-7;
+      @apply flex gap-7 items-center;
+      
+      a {
+        @apply underline;
+      }
     }
   }
 }
