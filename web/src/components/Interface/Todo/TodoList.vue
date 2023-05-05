@@ -21,7 +21,7 @@ import TodoReview from "@/components/Interface/Todo/TodoReview.vue";
 import TodoRemove from "@/components/Interface/Todo/TodoRemove.vue";
 import TodoForm from "@/components/Interface/Todo/TodoForm/TodoForm.vue";
 
-const { getTodos, loadTodos } = useTodosListStore();
+const { getTodos } = useTodosListStore();
 
 const activeModalName = ref("");
 
@@ -53,8 +53,6 @@ const modalSettings = computed<ModalSettings>(() =>
 const toggleModal = (modalName: string = "") => {
   activeModalName.value = modalName;
 };
-
-loadTodos();
 </script>
 
 <style lang="scss" scoped>

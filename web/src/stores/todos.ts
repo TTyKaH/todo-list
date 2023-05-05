@@ -5,6 +5,7 @@ import type { Todo } from "@/types/todo/todo";
 import type { Pagination } from "@/types/ui/pagination";
 import type { TodosStoreState } from "@/types/todo/todosStoreState";
 import { useWindowChecker } from "@/composable/useWindowChecker";
+import { useToggleLoader } from "@/composable/useToggleLoader.js";
 
 export const useTodosListStore = defineStore("todosList", {
   state: (): TodosStoreState => {
@@ -35,17 +36,33 @@ export const useTodosListStore = defineStore("todosList", {
   },
   actions: {
     // TODO: use loader and notify
-    async loadTodos() {
+    async loadTodos( isNeedShowMore = false) {
+      const { toggleLoader } = useToggleLoader();
+      toggleLoader(true);
+      
       try {
+        // change page if need show more
+        if (isNeedShowMore) {
+          this.pagination.page = this.pagination.page + 1;
+        }
+
         const res = await api.todo.getTodos({
           ...this.pagination,
           ...this.listSettings,
         });
 
-        this.todos = res.todos;
+        if (!isNeedShowMore) {
+          // update list
+          this.todos = res.todos;
+        } else {
+          // add received todos to list
+          this.todos = [...this.todos,...res.todos];
+        }
         this.pagination.listLength = res.pagination.listLength;
       } catch (err) {
         console.error(err);
+      } finally {
+        toggleLoader();
       }
     },
     setActiveTodoId(id: number | null = null) {

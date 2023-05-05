@@ -17,6 +17,7 @@
         </option>
       </select>
     </label>
+    <CustomButton v-if="isShowMoreButton" @click="showMore">Show more</CustomButton>
   </div>
 </template>
 
@@ -29,15 +30,20 @@ import { useWindowChecker } from "@/composable/useWindowChecker";
 import { PER_PAGE_OPTIONS, PER_PAGE_OPTIONS_LARGE } from "@/constants/index";
 
 const todosListStore = useTodosListStore();
+
 const pagination: ComputedRef<Pagination> = computed(() => todosListStore.getPagination);
 
 const page = computed(() => pagination.value.page);
+
 const perPage = computed({
   get: () => pagination.value.perPage,
   set: (value) => setPaginationSetting("perPage", value),
 });
+
 const listLength = computed(() => pagination.value.listLength);
+
 const setPaginationSetting = todosListStore.setPaginationSetting;
+const loadTodos = todosListStore.loadTodos;
 
 const { isMobile, isLargeDesktop } = useWindowChecker();
 
@@ -50,11 +56,6 @@ watch(
   () => {
     setPaginationSetting("perPage", isLargeDesktop.value ? 12 : 6);
   }
-);
-
-watch(
-  () => page.value,
-  () => setPaginationSetting("page", page.value)
 );
 
 const maxPagesBySide = computed(() => (isMobile.value ? 3 : 4));
@@ -121,6 +122,13 @@ const isShowPagination = computed(() => pages.value.length > 1);
 const setCurrentPage = (page: number) => {
   setPaginationSetting("page", page);
 };
+
+// show more part
+const isShowMoreButton = computed(() => page.value + 1 <= lastPage.value)
+
+const showMore = () => {
+  loadTodos(true)
+}
 </script>
 
 <style lang="scss" scoped>
