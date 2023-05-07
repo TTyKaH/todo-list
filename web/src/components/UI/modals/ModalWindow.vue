@@ -8,7 +8,6 @@
         :style="{ 'max-width': props.maxWidth, width: width, height: height }"
       >
         <VueFeather type="x" @click="close" />
-        <!-- :class="{ 'side-modal': isShowRedButton }" -->
         <slot>Modal slot content</slot>
       </div>
     </div>
@@ -17,7 +16,7 @@
 
 <script setup lang="ts">
 // TODO: возможно стоит декомпозировать на два компонента по типу
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import type { Ref } from "vue";
 import { useWindowChecker } from "@/composable/useWindowChecker.ts";
 
@@ -62,9 +61,11 @@ watch(
     if (props.isShow) {
       setTimeout(() => {
         isShowContent.value = true;
+        htmlElement.value.classList.add('overflow-hidden')
       }, 0);
     } else {
       isShowContent.value = false;
+      htmlElement.value.classList.remove('overflow-hidden')
     }
   }
 );
@@ -93,14 +94,16 @@ const modalClasses = computed(() => {
   return classes;
 });
 
-const isShowRedButton = computed(
-  () => !!(props.modalType === "left" && !isMobile.value)
-);
-
 const close = () => {
   content.value?.classList.remove("left-0");
   emit("close");
 };
+
+const htmlElement = ref()
+
+onMounted(() => {
+  htmlElement.value = document.getElementsByTagName("html")[0];
+})
 </script>
 
 <style lang="scss" scoped>
