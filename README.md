@@ -15,7 +15,7 @@ back include:
 In /web folder need install packages:
 
 - npm install
-- 
+
 ### Prepare backend part
 
 - install postgresql v12
