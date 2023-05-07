@@ -3,10 +3,10 @@
 Project has web and api parts. Using Node v19.4
 
 front include:
-- js, vue 3;
+- js, vue 3
 
 back include:
-- Node.js, Express.js, Sequelize, Postgresql;
+- Node.js, Express.js, Sequelize, Postgresql
 
 ## First project deployment
 
@@ -14,14 +14,14 @@ back include:
 
 In /web folder need install packages:
 
-- npm install;
-
+- npm install
+- 
 ### Prepare backend part
 
-- install postgresql v12;
-- start postgresql by command "sudo service postgresql start";
-- create user or use default user;
-- create db;
+- install postgresql v12
+- start postgresql by command "sudo service postgresql start"
+- create user or use default user
+- create db
 - in /api/src/config/db.config.js add db user name, password and db name. It will look like this:
   
   <code>
@@ -40,9 +40,9 @@ In /web folder need install packages:
     }
   </code>
 
-- in /api/src/server.js in corsOptions variable need add url your front-server (by default using url "http://localhost:5173" created by vite);
-- install packages in api folder;
-- run backend server in /api/src by command "node server" or "nodemon server" if nodemon exist; 
+- in /api/src/server.js in corsOptions variable need add url your front-server (by default using url "http://localhost:5173" created by vite)
+- install packages in api folder
+- run backend server in /api/src by command "node server" or "nodemon server" if nodemon exist 
 
 
 # commands for starting project
