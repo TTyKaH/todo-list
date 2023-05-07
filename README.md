@@ -15,7 +15,6 @@ back include:
 In /web folder need install packages:
 
 - npm install;
-- npm run dev;
 
 ### Prepare backend part
 
@@ -47,17 +46,18 @@ In /web folder need install packages:
 
 
 # commands for starting project
-<!-- For running front part after install packages: -->
 
-cd web
-nvm use 19.4
-npm run dev
+## frontend part
 
-<!-- DB part -->
+<ul>
+  <li>cd web</li>
+  <li>npm run dev</li>
+</ul>
 
-sudo service postgresql start
+## backend part
 
-<!-- For running api part after install packages: -->
-
-cd api/src
-node server
+<ul>
+  <li>sudo service postgresql start</li>
+  <li>cd api/src</li>
+  <li>node server</li>
+</ul>
