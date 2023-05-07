@@ -44,5 +44,9 @@ const handleLogout = () => {
       @apply flex gap-4;
     }
   }
+
+  .sidebar {
+    @apply shadow-none;
+  }
 }
 </style>
