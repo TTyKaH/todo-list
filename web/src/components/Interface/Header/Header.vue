@@ -50,9 +50,10 @@ watch(
 
 <style lang="scss" scoped>
 .header {
-  @apply flex justify-between items-center py-4 px-2 md:px-4 lg:px-7;
+  @apply flex z-10 justify-between items-center py-4 px-2 md:px-4 lg:px-7;
   background-color: var(--bg-second-layer);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0px -18px 16px 12px var(--shadow);
 
   &__menu {
     @apply flex gap-4;

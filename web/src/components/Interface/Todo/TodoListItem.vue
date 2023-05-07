@@ -102,6 +102,7 @@ const emitAction = (action: todoAction) => {
   background: var(--bg-second-layer);
   border: 3px solid var(--bg-second-layer);
   border-bottom: 10px solid var(--bg-second-layer);
+  box-shadow: 0px 1px 8px -4px var(--shadow);
   max-height: 200px;
   min-height: 200px;
 

@@ -1,6 +1,6 @@
 <template>
   <div class="todos-list">
-    <TodoListItem v-for="(todo, idx) in getTodos" :todo="todo" :key="idx" @need-review-todo="toggleModal"
+    <TodoListItem v-for="(todo, idx) in todos" :todo="todo" :key="idx" @need-review-todo="toggleModal"
       @need-remove-todo="toggleModal" @need-edit-todo="toggleModal" />
     <ModalWindow :isShow="!!activeModalName.length" :modalType="modalSettings.position"
       :max-width="modalSettings.maxWidth" :width="modalSettings.width" @close="toggleModal">
@@ -21,7 +21,10 @@ import TodoReview from "@/components/Interface/Todo/TodoReview.vue";
 import TodoRemove from "@/components/Interface/Todo/TodoRemove.vue";
 import TodoForm from "@/components/Interface/Todo/TodoForm/TodoForm.vue";
 
-const { getTodos } = useTodosListStore();
+const TodosListStore = useTodosListStore();
+const { loadTodos } = TodosListStore;
+const todos = computed(() => TodosListStore.getTodos)
+const pagination = computed(() => TodosListStore.getPagination)
 
 const activeModalName = ref("");
 
@@ -53,6 +56,10 @@ const modalSettings = computed<ModalSettings>(() =>
 const toggleModal = (modalName: string = "") => {
   activeModalName.value = modalName;
 };
+
+if (!pagination.value.listLength) {
+  loadTodos()
+}
 </script>
 
 <style lang="scss" scoped>

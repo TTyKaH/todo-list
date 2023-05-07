@@ -1,6 +1,8 @@
 import type { Todo } from "@/types/todo/todo";
 import type { Task } from "@/types/todo/task";
 import type { SelectOption } from "@/types/ui/selectOption";
+import type { Pagination } from "@/types/ui/pagination";
+import { getInitialPerPage } from "@/utils/index"
 
 export const TODO_DEFAULT_FORM_VALUE: Todo = {
   title: "",
@@ -34,6 +36,17 @@ export const PRIORITIES: SelectOption[] = [
     value: "hight",
   },
 ];
+
+export const DEFAULT_LIST_SETTINGS = {
+  search: "",
+  priorityId: null,
+};
+
+export const DEFAULT_PAGINATION: Pagination = {
+  page: 1,
+  perPage: getInitialPerPage(),
+  listLength: 0,
+};
 
 export const PER_PAGE_OPTIONS: SelectOption[] = [
   {

@@ -40,6 +40,8 @@ const sidebarMenu: SidebarItem[] = [
 
 <style lang="scss" scoped>
 .sidebar {
+  @apply z-10;
   background-color: var(--bg-second-layer);
+  box-shadow: -19px 27px 16px 12px var(--shadow);
 }
 </style>

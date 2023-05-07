@@ -84,10 +84,11 @@ select {
 .auth {
   @apply grid items-center justify-items-center p-2;
   min-height: 100vh;
-
+  
   .form {
-    @apply grid gap-7 max-w-lg w-full py-5 px-2 md:p-5;
+    @apply grid gap-5 max-w-lg w-full py-5 px-2 md:p-5;
     background: var(--bg-second-layer);
+    box-shadow: 0px 0px 20px -10px var(--shadow);
 
     .actions {
       @apply flex gap-4 justify-end items-center;

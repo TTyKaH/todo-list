@@ -1,10 +1,9 @@
 import { ref, computed, onMounted, onUnmounted } from "vue";
 
 export const useWindowChecker = () => {
-  let windowWidth = ref(0);
+  let windowWidth = ref(window.innerWidth);
 
   const getWindowWidth = () => {
-    // return window.innerWidth;
     windowWidth.value = window.innerWidth;
   };
 
