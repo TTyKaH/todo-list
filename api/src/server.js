@@ -15,7 +15,7 @@ db.sequelize.sync();
 //     initial()
 //   });
 
-var corsOptions = {
+const corsOptions = {
   origin: ["http://localhost:5173", "http://localhost:8081"],
 };
 

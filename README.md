@@ -1,35 +1,63 @@
 # todo list
 
-<!-- Написать гайд для первого разворачивания проекта и гайд - для последующих запусков -->
+Project has web and api parts. Using Node v19.4
 
-<!-- Project has web and api parts with DB on postgresql. -->
+front include:
+- js, vue 3;
 
-<!-- Before starting - install dependencies for web and api parts. -->
-<!-- split terminal and enter next commands -->
+back include:
+- Node.js, Express.js, Sequelize, Postgresql;
 
-cd web
-npm install
+## First project deployment
 
-<!-- then in second terminal -->
+### Prepare front part
 
-cd api/src
-npm install
+In /web folder need install packages:
 
+- npm install;
+- npm run dev;
+
+### Prepare backend part
+
+- install postgresql v12;
+- start postgresql by command "sudo service postgresql start";
+- create user or use default user;
+- create db;
+- in /api/src/config/db.config.js add db user name, password and db name. It will look like this:
+  
+  <code>
+    module.exports = {
+      HOST: "localhost",
+      USER: "user_name",
+      PASSWORD: "password",
+      DB: "db_name",
+      dialect: "postgres",
+      pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      }
+    }
+  </code>
+
+- in /api/src/server.js in corsOptions variable need add url your front-server (by default using url "http://localhost:5173" created by vite);
+- install packages in api folder;
+- run backend server in /api/src by command "node server" or "nodemon server" if nodemon exist; 
+
+
+# commands for starting project
 <!-- For running front part after install packages: -->
 
 cd web
 nvm use 19.4
 npm run dev
 
+<!-- DB part -->
+
+sudo service postgresql start
+
 <!-- For running api part after install packages: -->
 
 cd api/src
 node server
-
-<!-- DB part -->
-<!-- DB starting -->
-
-sudo service postgresql start
-
-<!-- versioning -->
-<!-- Node v 19.4 -->
