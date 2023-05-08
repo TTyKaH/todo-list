@@ -33,11 +33,15 @@
   }
 
   // custom styles for task input
+  .task-label {
+    @apply top-5;
+  }
+
   .input {
-    @apply relative;
+    @apply relative mt-4;
 
     .field {
-      @apply pr-6;
+      @apply pr-6 relative;
 
       text-overflow: ellipsis;
       white-space: nowrap;

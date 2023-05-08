@@ -1,6 +1,6 @@
 <template>
   <div class="custom-field input">
-    <div class="label">
+    <div class="label task-label">
       {{ props.label }}
       <span v-if="required" class="required">*</span>
     </div>
@@ -68,11 +68,3 @@ const removeTask = () => {
   })
 }
 </script>
-
-<style scoped lang="scss">
-.custom-field {
-  .field {
-    @apply relative;
-  }
-}
-</style>
