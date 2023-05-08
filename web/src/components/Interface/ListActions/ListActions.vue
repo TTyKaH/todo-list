@@ -29,7 +29,7 @@ function toggleModal(modalName: ModalNames = "") {
 
 <style lang="scss" scoped>
 .list-actions {
-  @apply flex flex-wrap gap-3 items-center py-3 px-2 justify-between md:flex-nowrap;
+  @apply flex flex-wrap gap-3 items-center py-3 px-2 justify-between md:px-5 md:flex-nowrap;
   background: var(--bg-second-layer);
   box-shadow: 0px 1px 8px -4px var(--shadow);
 

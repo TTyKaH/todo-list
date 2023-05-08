@@ -19,6 +19,7 @@ const props = defineProps<{
 .side-bar__item {
   a {
     @apply flex gap-2 cursor-pointer py-4 px-2 md:px-4 lg:px-7;
+    transition: var(--transition);
 
     &:hover {
       background: var(--btn-bg-hover);

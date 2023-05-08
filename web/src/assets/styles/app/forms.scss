@@ -66,6 +66,7 @@
 }
 
 select {
+  @apply cursor-pointer;
   background-color: var(--btn-bg-primary);
   border: 1px solid var(--border);
 
