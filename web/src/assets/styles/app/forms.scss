@@ -44,6 +44,22 @@
       overflow: hidden;
     }
 
+    .field:focus + .task-actions {
+      .task-actions {
+        &__triangle {
+          box-shadow: 2px -4px 3px -2px var(--shadow-field);
+        }
+
+        &__square {
+          box-shadow: 0px -4px 3px -3px var(--shadow-field);
+        }
+
+        &__wrap {
+          box-shadow: 5px -5px 3px -3px var(--shadow-field);
+        }
+      }
+    }
+
     .task-delete {
       @apply absolute right-2 top-2;
     }
@@ -85,7 +101,7 @@ select {
 .auth {
   @apply grid items-center justify-items-center p-2;
   min-height: 100vh;
-  
+
   .form {
     @apply grid gap-5 max-w-lg w-full py-5 px-2 md:p-5;
     background: var(--bg-second-layer);
@@ -93,7 +109,7 @@ select {
 
     .actions {
       @apply flex gap-4 justify-end items-center;
-      
+
       a {
         @apply underline;
       }

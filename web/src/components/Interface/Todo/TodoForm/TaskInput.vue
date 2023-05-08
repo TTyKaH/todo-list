@@ -2,35 +2,24 @@
   <div class="custom-field input">
     <div class="label">
       {{ props.label }}
-      <span
-        v-if="required"
-        class="required"
-      >*</span>
+      <span v-if="required" class="required">*</span>
     </div>
 
     <div class="input">
-      <input
-        v-model="value"
-        :disabled="disabled"
-        class="field"
-        type="text"
-        placeholder="Empty task will be removed"
-        :class="{ error: props.hasError }"
-      />
+      <input v-model="value" :disabled="disabled" class="field" type="text" placeholder="Empty task will be removed"
+        :class="{ error: props.hasError }" />
       <!-- TODO: что-то не то с поднятием, происходит редирект (пофикшено в слепую) -->
-      <VueFeather
+      <!-- <VueFeather
         type="trash"
         size="18px"
         class="task-delete"
         @click.stop.prevent="removeTask"
-      />
+      /> -->
+      <TaskActionsDropdown />
     </div>
     <div class="bottom-text">
       <slot name="tip"></slot>
-      <div
-        v-if="Object.keys(error).length"
-        class="error-text"
-      >{{ error }}</div>
+      <div v-if="Object.keys(error).length" class="error-text">{{ error }}</div>
     </div>
   </div>
 </template>
@@ -38,6 +27,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { TaskForDeleting } from '@/types/todo/task'
+import TaskActionsDropdown from "@/components/Interface/Todo/TodoForm/TaskActionsDropdown.vue"
 
 const props = withDefaults(
   defineProps<{
@@ -79,4 +69,10 @@ const removeTask = () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped lang="scss">
+.custom-field {
+  .field {
+    @apply relative;
+  }
+}
+</style>

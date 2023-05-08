@@ -9,11 +9,11 @@
       <CustomTextarea v-model="todoFormFields.description" label="Description" />
       <div class="tasks">
         <div class="task-group">
-          <TaskActionsLine :prevTaskId="null" :prevTaskIdx="null" @add-task="handleAddTask" />
+          <!-- <TaskActionsLine :prevTaskId="null" :prevTaskIdx="null" @add-task="handleAddTask" /> -->
           <template v-for="(task, idx) in todoFormFields.tasks" :key="idx">
             <TaskInput v-model="todoFormFields.tasks[idx].description" :taskId="task?.id" :taskIdx="idx" label="Task"
               @delete="removeTask" />
-            <TaskActionsLine :prevTaskId="task?.id ? task.id : null" :prevTaskIdx="idx" @add-task="handleAddTask" />
+            <!-- <TaskActionsLine :prevTaskId="task?.id ? task.id : null" :prevTaskIdx="idx" @add-task="handleAddTask" /> -->
           </template>
         </div>
       </div>
