@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import authService from "@/api/auth/auth.service.ts";
-import { useTodosListStore } from "@/stores/todos"
+import { useTodosListStore } from "@/stores/todos";
 import type { User } from "@/types/user";
 import { getUserFromLocalStore } from "@/utils";
 import router from "@/router/index";
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore("auth", {
     logout() {
       const { clearStore: clearTodosStore } = useTodosListStore();
       clearTodosStore();
-      
+
       authService.logout();
       this.logoutFromState();
       router.replace({ name: "sign-in" });

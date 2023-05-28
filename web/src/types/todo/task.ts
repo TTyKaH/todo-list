@@ -7,7 +7,7 @@ export interface Task {
   updatedAt?: string;
 }
 
-export interface TaskForDeleting {
+export interface TaskForAction {
   id: number | null;
   idx: number;
 }

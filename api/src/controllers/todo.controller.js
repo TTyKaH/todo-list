@@ -39,8 +39,9 @@ exports.create = async (req, res) => {
   let tasks = req.body.tasks
   if (tasks.length) {
     for (let task of tasks) {
+      console.log('===========', task)
       task.todoId = todoId
-      Task.create(task)
+      await Task.create(task)
         .catch(err => {
           res.status(500).send({
             message:

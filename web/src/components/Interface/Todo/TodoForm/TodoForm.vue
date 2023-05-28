@@ -3,19 +3,41 @@
     <h3>{{ formTitle }}</h3>
     <form class="form">
       <div class="group">
-        <CustomInput v-model="todoFormFields.title" label="Title" required />
-        <CustomSelect v-model="todoFormFields.priorityId" :options="PRIORITIES" label="Priority" optionTextKey="value" />
+        <CustomInput
+          v-model="todoFormFields.title"
+          label="Title"
+          required
+        />
+        <CustomSelect
+          v-model="todoFormFields.priorityId"
+          :options="PRIORITIES"
+          label="Priority"
+          optionTextKey="value"
+        />
       </div>
-      <CustomTextarea v-model="todoFormFields.description" label="Description" />
+      <CustomTextarea
+        v-model="todoFormFields.description"
+        label="Description"
+      />
       <div class="tasks">
-        <div class="task-group">
           <!-- <TaskActionsLine :prevTaskId="null" :prevTaskIdx="null" @add-task="handleAddTask" /> -->
-          <template v-for="(task, idx) in todoFormFields.tasks" :key="idx">
-            <TaskInput v-model="todoFormFields.tasks[idx].description" :taskId="task?.id" :taskIdx="idx" label="Task"
-              @delete="removeTask" />
+          <template
+            v-for="(task, idx) in todoFormFields.tasks"
+            :key="idx"
+          >
+            <TaskInput
+              v-model="todoFormFields.tasks[idx].description"
+              :taskId="task?.id"
+              :taskIdx="idx"
+              label="Task"
+              :prevTaskId="task?.id ? task.id : null"
+              :prevTaskIdx="idx"
+              :isCanRemoveTask="isCanRemoveTask"
+              @add-task="handleAddTask"
+              @delete="removeTask"
+            />
             <!-- <TaskActionsLine :prevTaskId="task?.id ? task.id : null" :prevTaskIdx="idx" @add-task="handleAddTask" /> -->
           </template>
-        </div>
       </div>
     </form>
     <div class="form-actions">
@@ -31,7 +53,7 @@ import type { Ref } from "vue";
 import type { Todo } from "@/types/todo/todo";
 import type {
   Task,
-  TaskForDeleting,
+  TaskForAction,
   DataForAddingTaskWithPosition,
 } from "@/types/todo/task";
 import api from "@/api";
@@ -65,6 +87,7 @@ if (activeTodo.value) {
 }
 
 const isEditing = computed<boolean>(() => !!activeTodo.value);
+const isCanRemoveTask = computed<boolean>(() => todoFormFields.value.tasks.length > 1);
 
 const formTitle = computed<string>(() => {
   return isEditing.value ? "Edit todo" : "Create todo";
@@ -104,15 +127,15 @@ const handleAddTask = (data: DataForAddingTaskWithPosition) => {
 };
 
 // remove todo from list and save it id if it exist
-const removeTask = (TaskForDeleting: TaskForDeleting) => {
-  if (TaskForDeleting.id) {
-    taskIdsForDeleting.value.push(TaskForDeleting.id);
+const removeTask = (TaskForAction: TaskForAction) => {
+  if (TaskForAction.id) {
+    taskIdsForDeleting.value.push(TaskForAction.id);
     todoFormFields.value.tasks = todoFormFields.value.tasks.filter(
-      (task) => task?.id !== TaskForDeleting.id
+      (task) => task?.id !== TaskForAction.id
     );
     return;
   }
-  todoFormFields.value.tasks.splice(TaskForDeleting.idx, 1);
+  todoFormFields.value.tasks.splice(TaskForAction.idx, 1);
 };
 
 const prepareTasks = (tasks: Task[]) => {

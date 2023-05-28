@@ -11,6 +11,7 @@ import CustomInput from "@/components/UI/form/CustomInput.vue";
 import ModalWindow from "@/components/UI/modals/ModalWindow.vue";
 import TooltipWrapper from "@/components/UI/TooltipWrapper.vue";
 import CustomButton from "@/components/UI/CustomButton.vue";
+import Dropdown from "@/components/UI/Dropdown.vue";
 
 import "./assets/styles/index.scss";
 
@@ -26,5 +27,6 @@ app.component("CustomInput", CustomInput);
 app.component("ModalWindow", ModalWindow);
 app.component("TooltipWrapper", TooltipWrapper);
 app.component("CustomButton", CustomButton);
+app.component("Dropdown", Dropdown);
 
 app.mount("#app");

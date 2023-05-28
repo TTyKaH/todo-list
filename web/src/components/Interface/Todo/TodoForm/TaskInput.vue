@@ -2,12 +2,21 @@
   <div class="custom-field input">
     <div class="label task-label">
       {{ props.label }}
-      <span v-if="required" class="required">*</span>
+      <span
+        v-if="required"
+        class="required"
+      >*</span>
     </div>
 
     <div class="input">
-      <input v-model="value" :disabled="disabled" class="field" type="text" placeholder="Empty task will be removed"
-        :class="{ error: props.hasError }" />
+      <input
+        v-model="value"
+        :disabled="disabled"
+        class="field"
+        type="text"
+        placeholder="Empty task will be removed"
+        :class="{ error: props.hasError }"
+      />
       <!-- TODO: что-то не то с поднятием, происходит редирект (пофикшено в слепую) -->
       <!-- <VueFeather
         type="trash"
@@ -15,18 +24,21 @@
         class="task-delete"
         @click.stop.prevent="removeTask"
       /> -->
-      <TaskActionsDropdown />
+      <TaskActionsDropdown :isCanRemoveTask="isCanRemoveTask" @add-task="addTask" @complete="completeTask" @remove="removeTask"/>
     </div>
     <div class="bottom-text">
       <slot name="tip"></slot>
-      <div v-if="Object.keys(error).length" class="error-text">{{ error }}</div>
+      <div
+        v-if="Object.keys(error).length"
+        class="error-text"
+      >{{ error }}</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import type { TaskForDeleting } from '@/types/todo/task'
+import type { DataForAddingTaskWithPosition, TaskForAction } from '@/types/todo/task'
 import TaskActionsDropdown from "@/components/Interface/Todo/TodoForm/TaskActionsDropdown.vue"
 
 const props = withDefaults(
@@ -37,8 +49,14 @@ const props = withDefaults(
     disabled?: boolean;
     hasError?: boolean;
     error?: object;
+
     taskId?: number | null;
     taskIdx: number;
+
+    prevTaskId: number | null;
+    prevTaskIdx: number | null;
+
+    isCanRemoveTask: boolean;
   }>(),
   {
     modelValue: "",
@@ -48,18 +66,30 @@ const props = withDefaults(
     hasError: false,
     error: () => ({}),
     taskId: null,
+    isCanRemoveTask: false
   }
 );
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
-  (e: "delete", value: TaskForDeleting): void;
+  (e: "add-task", value: DataForAddingTaskWithPosition): void;
+  (e: "delete", value: TaskForAction): void;
 }>();
 
 const value = computed<string>({
   get: () => props.modelValue,
   set: (value: string) => emit("update:modelValue", value),
 });
+
+const addTask = () => {
+  props.prevTaskId
+    ? emit("add-task", { type: "id", value: props.prevTaskId })
+    : emit("add-task", { type: "idx", value: props.prevTaskIdx });
+};
+
+const completeTask = () => {
+
+}
 
 const removeTask = () => {
   emit('delete', {
