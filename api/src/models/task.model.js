@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     status: {
       type: Sequelize.BOOLEAN
+    },
+    order: {
+      type: Sequelize.INTEGER
     }
   })
 

@@ -139,7 +139,14 @@ const removeTask = (TaskForAction: TaskForAction) => {
 };
 
 const prepareTasks = (tasks: Task[]) => {
-  return tasks.filter((task: Task) => task.description.length);
+  let order = 0
+  const notEmptyOrderedTasks = tasks.filter((task: Task) => task.description.length).map((task: Task) => {
+    task.order = order
+    order = order + 1
+    return task
+  })
+
+  return notEmptyOrderedTasks
 };
 
 const clearForm = () => {

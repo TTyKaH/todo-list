@@ -74,7 +74,7 @@ exports.findAll = async (req, res) => {
     findingSettings.priorityId = req.query.priorityId
   }
 
-  const todos = await Todo.findAll({
+  let todos = await Todo.findAll({
     where: { ...findingSettings },
     include: {
       model: Task,
@@ -86,9 +86,14 @@ exports.findAll = async (req, res) => {
     });
   });
 
+  todos.forEach((todo) => {
+    todo.tasks = todo.tasks.sort((task, nextTask) => task.order - nextTask.order)
+  })
+
+
   // pagination part
   const pagination = {}
-  pagination.listLength = todos.length
+  pagination.listLength = todos?.length ? todos.length : 0
 
   const page = req.query.page
   const perPage = req.query.perPage
@@ -160,7 +165,8 @@ exports.update = async (req, res) => {
       await Task.create({
         description: task.description,
         status: task.status,
-        todoId: id
+        todoId: id,
+        order: task.order
       })
         .catch((err) => {
           res.status(500).send({
