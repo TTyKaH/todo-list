@@ -223,7 +223,7 @@ onBeforeUnmount(() => {
     }
 
     .tasks {
-      @apply relative grid gap-3;
+      @apply relative grid;
     }
   }
 }
