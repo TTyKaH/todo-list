@@ -4,9 +4,12 @@
     <form class="form">
       <div class="group">
         <CustomInput
-          v-model="todoFormFields.title"
+          v-model="v$.title.$model"
+          :hasError="v$.title.$error"
+          :errorMessage="v$.title.$errors?.[0]?.$message"
           label="Title"
           required
+          @blur="v$.username.$touch()"
         />
         <CustomSelect
           v-model="todoFormFields.priorityId"
@@ -20,24 +23,23 @@
         label="Description"
       />
       <div class="tasks">
-          <!-- <TaskActionsLine :prevTaskId="null" :prevTaskIdx="null" @add-task="handleAddTask" /> -->
-          <template
-            v-for="(task, idx) in todoFormFields.tasks"
-            :key="idx"
-          >
-            <TaskInput
-              v-model="todoFormFields.tasks[idx].description"
-              :taskId="task?.id"
-              :taskIdx="idx"
-              label="Task"
-              :prevTaskId="task?.id ? task.id : null"
-              :prevTaskIdx="idx"
-              :isCanRemoveTask="isCanRemoveTask"
-              @add-task="handleAddTask"
-              @delete="removeTask"
-            />
-            <!-- <TaskActionsLine :prevTaskId="task?.id ? task.id : null" :prevTaskIdx="idx" @add-task="handleAddTask" /> -->
-          </template>
+        <!-- <TaskActionsLine :prevTaskId="null" :prevTaskIdx="null" @add-task="handleAddTask" /> -->
+        <template
+          v-for="(task, idx) in todoFormFields.tasks"
+          :key="idx"
+        >
+          <TaskInput
+            v-model="todoFormFields.tasks[idx].description"
+            :taskId="task?.id"
+            :taskIdx="idx"
+            label="Task"
+            :prevTaskId="task?.id ? task.id : null"
+            :prevTaskIdx="idx"
+            :isCanRemoveTask="isCanRemoveTask"
+            @add-task="handleAddTask"
+            @delete="removeTask"
+          />
+        </template>
       </div>
     </form>
     <div class="form-actions">
@@ -65,8 +67,9 @@ import {
   TASK_FIELDS,
   PRIORITIES,
 } from "@/constants/index";
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength, maxLength, helpers, alphaNum, email } from '@vuelidate/validators'
 import TaskInput from "@/components/Interface/Todo/TodoForm/TaskInput.vue";
-import TaskActionsLine from "@/components/Interface/Todo/TodoForm/TaskActionsLine.vue";
 
 const emit = defineEmits<{
   (e: "close-modal"): void;
@@ -92,6 +95,12 @@ const isCanRemoveTask = computed<boolean>(() => todoFormFields.value.tasks.lengt
 const formTitle = computed<string>(() => {
   return isEditing.value ? "Edit todo" : "Create todo";
 });
+
+const rules = {
+  title: { required },
+}
+
+const v$ = useVuelidate(rules, todoFormFields)
 
 // add task to specific position of tasks list
 const handleAddTask = (data: DataForAddingTaskWithPosition) => {
@@ -155,6 +164,9 @@ const clearForm = () => {
 
 // save todo in db
 const saveTodo = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) return
+  
   toggleLoader(true);
 
   if (taskIdsForDeleting.value.length) {

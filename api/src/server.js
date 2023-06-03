@@ -16,7 +16,7 @@ db.sequelize.sync();
 //   });
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:8081"],
+  origin: ["http://localhost:5173", "http://localhost:8081", "https://ee6e-46-147-116-220.ngrok-free.app"],
 };
 
 app.use(cors(corsOptions));

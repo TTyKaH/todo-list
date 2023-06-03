@@ -1,30 +1,47 @@
 <template>
-  <div class="custom-field input" :class="{ simple: isSimple }">
-    <div class="label" v-if="!isSimple">
-      {{ props.label }}
-      <span v-if="required" class="required">*</span>
+  <div
+    class="custom-field input"
+    :class="{ simple: isSimple }"
+  >
+
+    <div class="custom-field__wrap">
+      <div
+        class="label"
+        v-if="!isSimple"
+      >
+        {{ label }}
+        <span
+          v-if="required"
+          class="required"
+        >*</span>
+      </div>
+
+      <input
+        v-model="value"
+        :disabled="disabled"
+        class="field"
+        :type="type"
+        :placeholder="placeholder"
+        :class="{ error: hasError }"
+        @blur="$emit('blur')"
+      />
+
+      <div class="bottom-text">
+        <slot name="after" />
+        <div class="error-text">{{ errorMessage }}</div>
+      </div>
     </div>
 
-    <input
-      v-model="value"
-      :disabled="disabled"
-      class="field"
-      type="text"
-      :placeholder="placeholder"
-      :class="{ error: props.hasError }"
-    />
-    <div class="custom-field__after">
-      <slot name="after" />
-    </div>
-    <div class="bottom-text">
-      <slot name="tip"></slot>
-      <div v-if="Object.keys(error).length" class="error-text">{{ error }}</div>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
+
+const emit = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+  (e: "blur"): void;
+}>();
 
 const props = withDefaults(
   defineProps<{
@@ -35,7 +52,8 @@ const props = withDefaults(
     required?: boolean;
     disabled?: boolean;
     hasError?: boolean;
-    error?: object;
+    errorMessage?: string;
+    type?: string
   }>(),
   {
     modelValue: "",
@@ -44,13 +62,11 @@ const props = withDefaults(
     required: false,
     disabled: false,
     hasError: false,
-    error: () => ({}),
+    errorMessage: '',
+    type: 'text'
   }
 );
 
-const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
-}>();
 
 const value = computed<string>({
   get: () => props.modelValue,

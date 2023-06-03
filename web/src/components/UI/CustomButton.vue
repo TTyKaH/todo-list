@@ -1,11 +1,19 @@
 <template>
-  <button :class="{ icon: isIcon }">
+  <button
+    class="custom-button"
+    :class="{ icon: isIcon }"
+    :disabled="isDisabled"
+  >
     <template v-if="!link.length">
-      <div class="custom-button">
+      <div class="custom-button__content">
         <slot></slot>
       </div>
     </template>
-    <RouterLink v-else :to="link" class="custom-button">
+    <RouterLink
+      v-else
+      :to="link"
+      class="custom-button__content"
+    >
       <slot></slot>
     </RouterLink>
   </button>
@@ -21,24 +29,38 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  isDisabled: {
+    type: Boolean,
+    default: false
+  }
 });
 </script>
 
 <style lang="scss" scoped>
 .custom-button {
-  @apply py-2 px-5 rounded;
-  background: var(--btn-bg-primary);
-  transition: var(--transition);
-  border: 2px solid var(--border);
 
-  &.icon {
-    @apply p-1;
-
-    max-height: 30px;
+  &:disabled {
+    .custom-button__content {
+      background: var(--btn-bg-disabled);
+      opacity: .8;
+    }
   }
 
-  &:hover {
-    background: var(--btn-bg-primary-hover);
+  &__content {
+    @apply py-2 px-5 rounded;
+    background: var(--btn-bg-primary);
+    transition: var(--transition);
+    border: 2px solid var(--border);
+
+    &.icon {
+      @apply p-1;
+
+      max-height: 30px;
+    }
+
+    &:hover {
+      background: var(--btn-bg-primary-hover);
+    }
   }
 }
 </style>
