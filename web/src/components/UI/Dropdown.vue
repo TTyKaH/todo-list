@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown">
+  <div class="dropdown" v-click-outside="handleClickOutside">
     <div
       class="dropdown__button"
       @click="toggleDropdown"
@@ -17,11 +17,16 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { clickOutside as vClickOutside } from '@/directives/click-outside';
 
 const isShowDropdown = ref(false)
 
 const toggleDropdown = () => {
   isShowDropdown.value = !isShowDropdown.value
+}
+
+const handleClickOutside = () => {
+  if (isShowDropdown.value) isShowDropdown.value = false
 }
 
 defineExpose({
