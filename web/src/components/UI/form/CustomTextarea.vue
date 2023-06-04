@@ -29,7 +29,7 @@ const props = withDefaults(
     disabled?: boolean;
     hasError?: boolean;
     error?: object;
-    hideMargin: boolean;
+    hideMargin?: boolean;
   }>(),
   {
     label: "",

@@ -58,7 +58,7 @@ const props = withDefaults(
     // При инициализации делать активным первое значение,
     // если в качестве modelValue получен null
     isSelectFirstItemIfNull?: boolean;
-    hideMargin: boolean;
+    hideMargin?: boolean;
   }>(),
   {
     options: () => [],

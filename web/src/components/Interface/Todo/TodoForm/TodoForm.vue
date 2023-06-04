@@ -68,7 +68,7 @@ import {
   PRIORITIES,
 } from "@/constants/index";
 import { useVuelidate } from '@vuelidate/core'
-import { required, minLength, maxLength, helpers, alphaNum, email } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import TaskInput from "@/components/Interface/Todo/TodoForm/TaskInput.vue";
 
 const emit = defineEmits<{
@@ -87,6 +87,12 @@ const taskFields: Task = { ...TASK_FIELDS };
 
 if (activeTodo.value) {
   todoFormFields.value = lodash.cloneDeep(activeTodo.value);
+  if (!todoFormFields.value.tasks.length) {
+    todoFormFields.value.tasks.push({
+      description: '',
+      status: false,
+    })
+  }
 }
 
 const isEditing = computed<boolean>(() => !!activeTodo.value);
@@ -219,12 +225,16 @@ onBeforeUnmount(() => {
     @apply grid gap-2;
 
     .group {
-      @apply grid gap-5 md:grid-cols-2;
+      @apply grid gap-x-5 gap-y-1 md:grid-cols-2;
     }
 
     .tasks {
       @apply relative grid;
     }
+  }
+
+  .form-actions {
+    @apply flex justify-end;
   }
 }
 </style>

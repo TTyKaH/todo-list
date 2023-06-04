@@ -16,7 +16,7 @@ import Pagination from "@/components/Interface/Pagination/Pagination.vue";
 
 <style lang="scss" scoped>
 .list {
-  @apply flex flex-col justify-between gap-10 w-full;
+  @apply flex flex-col justify-between gap-10 h-full;
 
   &__actions-and-list {
     @apply flex flex-col gap-5 lg:gap-8;

@@ -55,7 +55,7 @@ const props = withDefaults(
     hasError?: boolean;
     errorMessage?: string;
     type?: string;
-    hideMargin: boolean;
+    hideMargin?: boolean;
   }>(),
   {
     modelValue: "",

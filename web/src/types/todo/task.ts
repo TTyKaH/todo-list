@@ -3,7 +3,7 @@ export interface Task {
   todoId?: number;
   status: boolean;
   description: string;
-  order: number;
+  order?: number;
   createdAt?: string;
   updatedAt?: string;
 }
