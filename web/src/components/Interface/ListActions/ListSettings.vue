@@ -6,11 +6,13 @@
       label="Priority"
       placeholder="Search by priority"
       optionTextKey="value"
+      hideMargin
     />
     <CustomInput
       v-model="search"
       label="Search"
       placeholder="Search by title or description"
+      hideMargin
     >
       <template v-slot:after>
         <VueFeather

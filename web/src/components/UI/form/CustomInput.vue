@@ -23,6 +23,7 @@
         :type="type"
         :placeholder="placeholder"
         :class="{ error: hasError }"
+        :style="{'margin-bottom': hideMargin ? 0 : 'none'}"
         @blur="$emit('blur')"
       />
 
@@ -53,7 +54,8 @@ const props = withDefaults(
     disabled?: boolean;
     hasError?: boolean;
     errorMessage?: string;
-    type?: string
+    type?: string;
+    hideMargin: boolean;
   }>(),
   {
     modelValue: "",
@@ -63,7 +65,8 @@ const props = withDefaults(
     disabled: false,
     hasError: false,
     errorMessage: '',
-    type: 'text'
+    type: 'text',
+    hideMargin: false
   }
 );
 

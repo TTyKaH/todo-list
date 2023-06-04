@@ -9,6 +9,7 @@
       :disabled="disabled"
       class="field"
       :class="{ error: props.hasError }"
+      :style="{ 'margin-bottom': hideMargin ? 0 : 'none' }"
     />
     <div class="bottom-text">
       <slot name="tip"></slot>
@@ -28,6 +29,7 @@ const props = withDefaults(
     disabled?: boolean;
     hasError?: boolean;
     error?: object;
+    hideMargin: boolean;
   }>(),
   {
     label: "",
@@ -35,6 +37,7 @@ const props = withDefaults(
     disabled: false,
     hasError: false,
     error: () => ({}),
+    hideMargin: false
   }
 );
 

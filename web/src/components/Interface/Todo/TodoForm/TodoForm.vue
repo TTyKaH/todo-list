@@ -216,7 +216,7 @@ onBeforeUnmount(() => {
   }
 
   .form {
-    @apply grid gap-5;
+    @apply grid gap-2;
 
     .group {
       @apply grid gap-5 md:grid-cols-2;

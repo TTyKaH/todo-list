@@ -12,6 +12,7 @@
       v-model="innerValue"
       :disabled="disabled"
       class="field"
+      :style="{ 'margin-bottom': hideMargin ? 0 : 'none' }"
     >
       <option
         v-for="(option, idx) in options"
@@ -57,6 +58,7 @@ const props = withDefaults(
     // При инициализации делать активным первое значение,
     // если в качестве modelValue получен null
     isSelectFirstItemIfNull?: boolean;
+    hideMargin: boolean;
   }>(),
   {
     options: () => [],
@@ -68,6 +70,7 @@ const props = withDefaults(
     optionTextKey: "text",
     optionValueKey: "id",
     isSelectFirstItemIfNull: true,
+    hideMargin: false
   }
 );
 
