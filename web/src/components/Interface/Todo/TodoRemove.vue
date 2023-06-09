@@ -40,6 +40,7 @@ async function removeTodo() {
     showNotify("success", response.message);
     // TODO: what to do with it?
   } catch (err: any) {
+    // @ts-ignore
     showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();

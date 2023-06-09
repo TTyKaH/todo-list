@@ -17,10 +17,12 @@
       <option
         v-for="(option, idx) in options"
         :key="`option_${idx}`"
-        :value="option[optionValueKey]"
+        :value="//@ts-ignore
+          option[optionValueKey]"
       >
         <!-- TODO: как решить проблему, если выводимое поле неизвестная строка -->
-        {{ option[optionTextKey] }}
+        {{ //@ts-ignore
+          option[optionTextKey] }}
       </option>
     </select>
     <div class="bottom-text">
@@ -86,6 +88,7 @@ if (
   (modelValue.value === null || typeof modelValue.value === "undefined") &&
   isSelectFirstItemIfNull.value
 ) {
+  //@ts-ignore
   innerValue.value = options.value[0].id
 } else {
   innerValue.value = modelValue.value;

@@ -1,16 +1,22 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
   "compilerOptions": {
     // TODO: зачем эти опции, особенно вторая опция???
     "isolatedModules": true,
     "preserveValueImports": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "allowJs": true
   },
-
   "references": [
     {
       "path": "./tsconfig.config.json"

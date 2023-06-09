@@ -1,8 +1,11 @@
 <template>
-  <VueFeather :type="themeIconType" @click="toggleTheme" />
+  <VueFeather
+    :type="themeIconType"
+    @click="toggleTheme"
+  />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { useThemeStore } from "@/stores/theme";
 
@@ -13,5 +16,4 @@ const themeIconType = computed(() =>
 );
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

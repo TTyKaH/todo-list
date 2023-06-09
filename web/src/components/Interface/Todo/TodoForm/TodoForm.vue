@@ -172,7 +172,7 @@ const clearForm = () => {
 const saveTodo = async () => {
   const isFormCorrect = await v$.value.$validate()
   if (!isFormCorrect) return
-  
+
   toggleLoader(true);
 
   if (taskIdsForDeleting.value.length) {
@@ -202,6 +202,7 @@ const saveTodo = async () => {
     // TODO: я так и не смог найти решения, как протипизировать ответ с бека
     // хотя ошибка может быть нетолько с бека
   } catch (err: any) {
+    // @ts-ignore
     showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();

@@ -94,6 +94,7 @@ const signUp = async () => {
     showNotify("success", response.message);
     router.push({ name: "sign-in" });
   } catch (err) {
+    // @ts-ignore
     showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();

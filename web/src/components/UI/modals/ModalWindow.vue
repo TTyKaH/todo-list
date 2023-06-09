@@ -18,7 +18,7 @@
 // TODO: возможно стоит декомпозировать на два компонента по типу
 import { ref, computed, watch, onMounted } from "vue";
 import type { Ref } from "vue";
-import { useWindowChecker } from "@/composable/useWindowChecker.ts";
+import { useWindowChecker } from "@/composable/useWindowChecker";
 
 const { isMobile } = useWindowChecker();
 

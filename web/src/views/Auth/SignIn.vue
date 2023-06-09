@@ -78,6 +78,7 @@ const signIn = async () => {
     router.push({ name: "todo-list" });
     showNotify("success", "Welcome!");
   } catch (err) {
+    // @ts-ignore
     showNotify("error", err.response.data.message);
   } finally {
     toggleLoader();

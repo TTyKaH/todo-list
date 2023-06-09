@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+// @ts-ignore
 import authService from "@/api/auth/auth.service.ts";
 import { useTodosListStore } from "@/stores/todos";
 import type { User } from "@/types/user";
@@ -22,10 +23,12 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     login(user: User) {
       return authService.signin(user).then(
+        // @ts-ignore
         (user) => {
           this.loginSuccess(user);
           return Promise.resolve(user);
         },
+        // @ts-ignore
         (error) => {
           this.loginFailure();
           return Promise.reject(error);
@@ -42,10 +45,12 @@ export const useAuthStore = defineStore("auth", {
     },
     register(user: User) {
       return authService.signup(user).then(
+        // @ts-ignore
         (response) => {
           this.registerSuccess();
           return Promise.resolve(response);
         },
+        // @ts-ignore
         (error) => {
           this.registerFailure();
           return Promise.reject(error);

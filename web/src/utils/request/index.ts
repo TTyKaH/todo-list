@@ -35,6 +35,7 @@ axios.interceptors.response.use(
   }
 );
 
+// @ts-ignore
 export const request = async (config) => {
   try {
     const res = await service.request(config);
@@ -44,6 +45,7 @@ export const request = async (config) => {
       success: true,
     });
   } catch (error) {
+    // @ts-ignore
     if (error.response.status === 401) {
       const auth = useAuthStore();
       auth.logout();

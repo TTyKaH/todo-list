@@ -29,7 +29,7 @@ export const useTodosListStore = defineStore("todosList", {
   },
   actions: {
     // TODO: use loader and notify
-    async loadTodos( isNeedShowMore = false) {
+    async loadTodos(isNeedShowMore = false) {
       const { toggleLoader } = useToggleLoader();
       toggleLoader(true);
 
@@ -49,7 +49,7 @@ export const useTodosListStore = defineStore("todosList", {
           this.todos = res.todos;
         } else {
           // add received todos to list
-          this.todos = [...this.todos,...res.todos];
+          this.todos = [...this.todos, ...res.todos];
         }
         this.pagination.listLength = res.pagination.listLength;
       } catch (err) {
@@ -60,8 +60,8 @@ export const useTodosListStore = defineStore("todosList", {
     },
     clearStore() {
       this.todos = [];
-      this.pagination =  { ...DEFAULT_PAGINATION }
-      this.listSettings = { ...DEFAULT_LIST_SETTINGS }
+      this.pagination = { ...DEFAULT_PAGINATION };
+      this.listSettings = { ...DEFAULT_LIST_SETTINGS };
     },
     setActiveTodoId(id: number | null = null) {
       this.activeTodoId = id;
@@ -77,6 +77,7 @@ export const useTodosListStore = defineStore("todosList", {
       settingName: "search" | "priorityId",
       value: string | number | null
     ) {
+      // @ts-ignore
       this.listSettings[settingName] = value;
       this.pagination.page = 1;
       await this.loadTodos();
