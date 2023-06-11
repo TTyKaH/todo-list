@@ -19,7 +19,7 @@ exports.create = async (req, res) => {
     title: req.body.title,
     description: req.body.description,
     priorityId: req.body.priorityId,
-    userId: req.headers.user_id
+    userId: req.userId
   };
 
   let todoId = null
@@ -60,7 +60,8 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
   console.log('======== ======== req', req.userId)
   const findingSettings = {
-    userId: req.headers.user_id,
+    // userId: req.headers.user_id,
+    userId: req.userId,
     [Op.or]: {
       title: {
         [Op.like]: `%${req.query.search}%`
