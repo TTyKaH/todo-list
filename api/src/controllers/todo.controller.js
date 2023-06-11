@@ -58,7 +58,7 @@ exports.create = async (req, res) => {
 
 // Retrieve all Todos from the database.
 exports.findAll = async (req, res) => {
-  console.log('======== ======== req', req)
+  console.log('======== ======== req', req.userId)
   const findingSettings = {
     userId: req.headers.user_id,
     [Op.or]: {
