@@ -86,9 +86,11 @@ exports.findAll = async (req, res) => {
     });
   });
 
-  todos.forEach((todo) => {
-    todo.tasks = todo.tasks.sort((task, nextTask) => task.order - nextTask.order)
-  })
+  if (todos.length) {
+    todos.forEach((todo) => {
+      todo.tasks = todo.tasks.sort((task, nextTask) => task.order - nextTask.order)
+    })
+  }
 
 
   // pagination part
