@@ -86,7 +86,7 @@ exports.findAll = async (req, res) => {
     });
   });
 
-  if (todos.length) {
+  if (todos?.length) {
     todos.forEach((todo) => {
       todo.tasks = todo.tasks.sort((task, nextTask) => task.order - nextTask.order)
     })
