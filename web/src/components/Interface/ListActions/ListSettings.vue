@@ -14,7 +14,7 @@
       placeholder="Search by title or description"
       hideMargin
     >
-      <template v-slot:after>
+      <template v-slot:icon>
         <VueFeather
           v-if="isShowClearButton"
           type="x"
@@ -30,6 +30,7 @@
 import { ref, watch, computed } from "vue";
 import { PRIORITIES } from "@/constants/index";
 import { useTodosListStore } from "@/stores/todos";
+import lodash from "lodash";
 
 const { setListSetting } = useTodosListStore();
 
@@ -47,7 +48,7 @@ const priorityId = ref(null);
 const isShowClearButton = computed(() => !!search.value.length);
 watch(
   () => search.value,
-  () => setListSetting("search", search.value)
+  () => lodash.debounce(setListSetting("search", search.value), 500)
 );
 
 watch(

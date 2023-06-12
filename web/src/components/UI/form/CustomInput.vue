@@ -31,6 +31,9 @@
         <slot name="after" />
         <div class="error-text">{{ errorMessage }}</div>
       </div>
+      <div class="icon">
+        <slot name="icon" />
+      </div>
     </div>
 
   </div>

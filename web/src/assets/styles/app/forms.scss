@@ -87,6 +87,12 @@
       color: var(--error);
     }
   }
+
+  .icon {
+    @apply absolute;
+    top: calc(50%);
+    right: 0;
+  }
 }
 
 select {
