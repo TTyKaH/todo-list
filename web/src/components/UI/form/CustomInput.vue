@@ -23,13 +23,16 @@
         :type="type"
         :placeholder="placeholder"
         :class="{ error: hasError }"
-        :style="{'margin-bottom': hideMargin ? 0 : 'none'}"
+        :style="{ 'margin-bottom': hideMargin ? 0 : 'none' }"
         @blur="$emit('blur')"
       />
 
       <div class="bottom-text">
         <slot name="after" />
         <div class="error-text">{{ errorMessage }}</div>
+      </div>
+      <div class="icon">
+        <slot name="icon" />
       </div>
     </div>
 
